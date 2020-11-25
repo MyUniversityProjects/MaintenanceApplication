@@ -11,21 +11,29 @@ final public class Navigator extends JFrame {
     private final JPanel cards = new JPanel(cl);
     private int index = 0;
     
-    public Navigator() {
-        setTitle("Smart Maintenance App");
+    public Navigator(String title, ScreenBuilder homeBuilder) {
+        setTitle(title);
         setContentPane(cards);
-        reset();
+        goHome();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setSize(800, 600);
         setLocationRelativeTo(null);
     }
     
-    public void push(ScreenBuilder sb) {}
+    public Screen push(ScreenBuilder sb) {
+        return null;
+    }
     
-    public void replace() {}
+    public Screen replace(ScreenBuilder sb) {
+        return null;
+    }
     
-    public void pop() {}
+    public Screen pop() {
+        return null;
+    }
     
-    public void reset() {}
+    public Screen goHome() {
+        return null;
+    }
 }
