@@ -20,11 +20,11 @@ final public class Navigator extends JFrame {
      */
     public Navigator(String title, ScreenBuilder homeBuilder) {
         setTitle(title);
+        setResizable(false);
         setContentPane(cards);
         push(homeBuilder);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
-        setSize(800, 600);
         setLocationRelativeTo(null);
     }
     
@@ -38,6 +38,9 @@ final public class Navigator extends JFrame {
         cards.add(screen);
         cl.next(cards);
         index++;
+        
+        updateFrameSize(screen);
+        
         return screen;
     }
     
@@ -58,6 +61,8 @@ final public class Navigator extends JFrame {
         cards.add(screen);
         cl.last(cards);
         
+        updateFrameSize(screen);
+        
         return removed; // return the saved (deleted) screen
     }
     
@@ -73,6 +78,9 @@ final public class Navigator extends JFrame {
         Screen removed = (Screen)cards.getComponent(index);
         cards.remove(index);
         index--;
+        
+        updateFrameSize((Screen)cards.getComponent(index));
+        
         return removed;
     }
     
@@ -88,6 +96,18 @@ final public class Navigator extends JFrame {
         for (int i=index; i > 0; i--)
             cards.remove(i);
         index = 0;
-        return (Screen)cards.getComponent(0);
+        
+        Screen homeScreen = (Screen)cards.getComponent(0);
+        updateFrameSize(homeScreen);
+        return homeScreen;
+    }
+    
+    /**
+     * Set the frame size equal to the screen preferred size
+     * @param scr used the get the new size
+     */
+    private void updateFrameSize(Screen scr) {
+        setSize(scr.getPreferredSize());
+        setLocationRelativeTo(null);
     }
 }
