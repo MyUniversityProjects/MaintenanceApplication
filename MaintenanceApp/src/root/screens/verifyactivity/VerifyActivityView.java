@@ -1,7 +1,7 @@
 package root.screens.verifyactivity;
 
 import java.awt.event.ActionListener;
-import root.Navigator;
+import root.Navigable;
 import root.Screen;
 
 
@@ -13,7 +13,7 @@ public class VerifyActivityView extends Screen {
      * @param nav
      * @param model
      */
-    public VerifyActivityView(Navigator nav, VerifyActivityModel model) {
+    public VerifyActivityView(Navigable nav, VerifyActivityModel model) {
         super(nav);
         this.model = model;
         initComponents();
@@ -28,8 +28,6 @@ public class VerifyActivityView extends Screen {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        backBtn = new javax.swing.JButton();
-        homeBtn = new javax.swing.JButton();
         titleLabel = new javax.swing.JLabel();
         idLabel = new javax.swing.JLabel();
         idValueLabel = new javax.swing.JLabel();
@@ -47,10 +45,8 @@ public class VerifyActivityView extends Screen {
         weekLabel = new javax.swing.JLabel();
         weekValueLabel = new javax.swing.JLabel();
         descLabel = new javax.swing.JLabel();
-        forwardBtn = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         descTextArea = new javax.swing.JTextArea();
-        smpBtn = new javax.swing.JButton();
         smpLabel1 = new javax.swing.JLabel();
         smpLabel2 = new javax.swing.JLabel();
 
@@ -143,6 +139,7 @@ public class VerifyActivityView extends Screen {
         jScrollPane4.setViewportView(descTextArea);
 
         smpBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/download-solid.png"))); // NOI18N
+        smpBtn.setEnabled(false);
 
         smpLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         smpLabel1.setForeground(new java.awt.Color(51, 51, 51));
@@ -284,11 +281,11 @@ public class VerifyActivityView extends Screen {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel areaLabel;
     private javax.swing.JLabel areaValueLabel;
-    private javax.swing.JButton backBtn;
+    protected final javax.swing.JButton backBtn = new javax.swing.JButton();
     private javax.swing.JLabel descLabel;
     private javax.swing.JTextArea descTextArea;
-    private javax.swing.JButton forwardBtn;
-    private javax.swing.JButton homeBtn;
+    protected final javax.swing.JButton forwardBtn = new javax.swing.JButton();
+    protected final javax.swing.JButton homeBtn = new javax.swing.JButton();
     private javax.swing.JLabel idLabel;
     private javax.swing.JLabel idValueLabel;
     private javax.swing.JScrollPane jScrollPane1;
@@ -297,7 +294,7 @@ public class VerifyActivityView extends Screen {
     private javax.swing.JLabel noteLabel;
     private javax.swing.JTextArea noteTextArea;
     private javax.swing.JList<String> skillList;
-    private javax.swing.JButton smpBtn;
+    protected final javax.swing.JButton smpBtn = new javax.swing.JButton();
     private javax.swing.JLabel smpLabel1;
     private javax.swing.JLabel smpLabel2;
     private javax.swing.JLabel timeLabel;

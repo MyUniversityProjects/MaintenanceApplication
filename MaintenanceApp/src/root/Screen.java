@@ -3,13 +3,13 @@ package root;
 import javax.swing.JPanel;
 
 abstract public class Screen extends JPanel {
-    final Navigator nav;
+    final Navigable nav;
     
-    public Screen(Navigator nav) {
+    public Screen(Navigable nav) {
         this.nav = nav;
     }
 
-    public Navigator getNav() {
+    public Navigable getNav() {
         return nav;
     }
 }

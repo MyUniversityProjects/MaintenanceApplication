@@ -11,6 +11,7 @@ import java.util.Map;
 import org.junit.*;
 import static org.junit.Assert.*;
 import root.Navigator;
+import root.Navigable;
 import root.Screen;
 import root.screenbuilders.ScreenBuilder;
 
@@ -21,7 +22,7 @@ public class ActivityControllerTest {
         ActivityViewStub view;
         
         @Override
-        public void buildView(Navigator nav) {
+        public void buildView(Navigable nav) {
             view = new ActivityViewStub(nav);
         }
 
@@ -33,7 +34,7 @@ public class ActivityControllerTest {
 
     private class ActivityViewStub extends ActivityView {
 
-        public ActivityViewStub(Navigator nav) {
+        public ActivityViewStub(Navigable nav) {
             super(nav);
         }
     }

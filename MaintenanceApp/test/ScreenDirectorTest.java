@@ -2,7 +2,7 @@ import java.util.LinkedList;
 import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import root.Navigator;
+import root.Navigable;
 import root.Screen;
 import root.screenbuilders.ScreenBuilder;
 import root.screenbuilders.ScreenDirector;
@@ -14,7 +14,7 @@ public class ScreenDirectorTest {
         private final List<String> opList = new LinkedList<>();
 
         @Override
-        public void buildView(Navigator nav) {
+        public void buildView(Navigable nav) {
             opList.add("view");
         }
 
@@ -45,7 +45,7 @@ public class ScreenDirectorTest {
         private boolean buildViewCalled = false;
 
         @Override
-        public void buildView(Navigator nav) {
+        public void buildView(Navigable nav) {
             buildViewCalled = true;
             view = new ScreenStub(nav);
         }
@@ -65,7 +65,7 @@ public class ScreenDirectorTest {
     }
     
     private class ScreenStub extends Screen {
-        public ScreenStub(Navigator nav) {
+        public ScreenStub(Navigable nav) {
             super(nav);
         }
     }

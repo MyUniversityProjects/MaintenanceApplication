@@ -1,6 +1,6 @@
 package root.screenbuilders;
 
-import root.Navigator;
+import root.Navigable;
 import root.Screen;
 import root.screens.verifyactivity.VerifyActivityController;
 import root.screens.verifyactivity.VerifyActivityModel;
@@ -27,7 +27,7 @@ public class VerifyActivityBuilder extends ScreenBuilder {
     }
     
     @Override
-    public void buildView(Navigator nav) {
+    public void buildView(Navigable nav) {
         view = new VerifyActivityView(nav, model);
     }
 

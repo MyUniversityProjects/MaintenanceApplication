@@ -1,6 +1,6 @@
 package root.screenbuilders;
 
-import root.Navigator;
+import root.Navigable;
 import root.Screen;
 import root.screens.createactivity.ActivityController;
 import root.screens.createactivity.ActivityModel;
@@ -14,7 +14,7 @@ public class CreateActivityBuilder extends ScreenBuilder{
     
 
     @Override
-    public void buildView(Navigator nav) {
+    public void buildView(Navigable nav) {
         view = new ActivityView(nav);   
     }
     
