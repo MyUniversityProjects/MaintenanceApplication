@@ -9,6 +9,7 @@ import root.screenbuilders.ScreenBuilder;
 
 public class NavigatorTest {
     private class ScreenStubBuilder extends ScreenBuilder {
+        private ScreenStub view;
         private final String name;
 
         public ScreenStubBuilder(String name) {
@@ -18,6 +19,11 @@ public class NavigatorTest {
         @Override
         public void buildView(Navigator nav) {
             view = new ScreenStub(nav, name);
+        }
+
+        @Override
+        public Screen getScreen() {
+            return view;
         }
     }
     

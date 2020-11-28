@@ -79,7 +79,8 @@ final public class Navigator extends JFrame {
         cards.remove(index);
         index--;
         
-        updateFrameSize((Screen)cards.getComponent(index));
+        if (index >= 0)
+            updateFrameSize((Screen)cards.getComponent(index));
         
         return removed;
     }

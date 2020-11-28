@@ -33,17 +33,21 @@ public class ScreenDirectorTest {
             opList.toArray(operations);
             return operations;
         }
+
+        @Override
+        public Screen getScreen() {
+            return null;
+        }
     }
     
     private class SimpleBuilderStub extends ScreenBuilder {
-        private Screen buildedView;
+        private Screen view;
         private boolean buildViewCalled = false;
 
         @Override
         public void buildView(Navigator nav) {
             buildViewCalled = true;
-            buildedView = new ScreenStub(nav);
-            view = buildedView;
+            view = new ScreenStub(nav);
         }
 
         public boolean isBuildViewCalled() {
@@ -51,7 +55,12 @@ public class ScreenDirectorTest {
         }
 
         public Screen getBuildedView() {
-            return buildedView;
+            return view;
+        }
+
+        @Override
+        public Screen getScreen() {
+            return view;
         }
     }
     
