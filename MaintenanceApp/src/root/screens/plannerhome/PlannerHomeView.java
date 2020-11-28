@@ -3,6 +3,7 @@
 import root.Navigable;
 import root.Screen;
 import root.screenbuilders.CreateActivityBuilder;
+import root.screenbuilders.ListScheduledActivitiesByWeekBuilder;
 import root.screenbuilders.ManageActivityBuilder;
 
 

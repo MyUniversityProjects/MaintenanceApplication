@@ -5,7 +5,7 @@ import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import root.Navigator;
+import root.Navigable;
 import root.Screen;
 
 public class ListScheduledActivitiesByWeekView extends Screen implements PropertyChangeListener {
@@ -15,7 +15,7 @@ public class ListScheduledActivitiesByWeekView extends Screen implements Propert
      * @param nav navigator used to switch between screens
      * @param model The view needs a reference to the model
      */
-    public ListScheduledActivitiesByWeekView(Navigator nav,ListScheduledActivitiesByWeekModel model) {
+    public ListScheduledActivitiesByWeekView(Navigable nav,ListScheduledActivitiesByWeekModel model) {
         super(nav);
         initComponents();
         this.model = model;
