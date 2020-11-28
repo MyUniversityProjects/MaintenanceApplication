@@ -1,12 +1,14 @@
 package root.screenbuilders;
 
 import root.Navigator;
+import root.Screen;
 import root.screens.verifyactivity.VerifyActivityController;
 import root.screens.verifyactivity.VerifyActivityModel;
 import root.screens.verifyactivity.VerifyActivityView;
 
 public class VerifyActivityBuilder extends ScreenBuilder {
     private final int id;
+    private VerifyActivityView view;
     private VerifyActivityModel model;
     private VerifyActivityController controller;
 
@@ -16,7 +18,7 @@ public class VerifyActivityBuilder extends ScreenBuilder {
 
     @Override
     public void buildController() {
-        controller = new VerifyActivityController(model, (VerifyActivityView)view);
+        controller = new VerifyActivityController(model, view);
     }
 
     @Override
@@ -27,5 +29,10 @@ public class VerifyActivityBuilder extends ScreenBuilder {
     @Override
     public void buildView(Navigator nav) {
         view = new VerifyActivityView(nav, model);
+    }
+
+    @Override
+    public Screen getScreen() {
+        return view;
     }
 }

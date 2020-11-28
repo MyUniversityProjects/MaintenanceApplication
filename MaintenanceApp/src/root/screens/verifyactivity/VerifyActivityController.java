@@ -12,24 +12,28 @@ public class VerifyActivityController {
         this.view = view;
         
         view.addForwardBtnListener(new ForwardBtnListener());
-        view.addForwardBtnListener(new SmpBtnListener());
-        view.addForwardBtnListener(new BackBtnListener());
-        view.addForwardBtnListener(new HomeBtnListener());
+        view.addSmpBtnListener(new SmpBtnListener());
+        view.addBackBtnListener(new BackBtnListener());
+        view.addHomeBtnListener(new HomeBtnListener());
     }
     
     private class ForwardBtnListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent event) {}
     }
     
     private class SmpBtnListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent event) {}
     }
     
     private class BackBtnListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent event) {}
     }
     
     private class HomeBtnListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent event) {}
     }
 }
