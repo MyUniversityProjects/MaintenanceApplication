@@ -2,6 +2,8 @@ package root.screens.listscheduledactivitiesbyweek;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import root.screenbuilders.ListScheduledActivitiesByWeekBuilder;
+import root.screenbuilders.VerifyActivityBuilder;
 
 public class ListScheduledActivitiesByWeekController {
     // Need a reference to both the model and the view
@@ -29,8 +31,8 @@ public class ListScheduledActivitiesByWeekController {
         @Override
         public void actionPerformed(ActionEvent event) {
             int index = view.getSelectedScheduledActivityIndex();
-            String id =  model.getSelectedActivity(index);
-            System.out.print(id);
+            int id =  model.getSelectedActivity(index);
+            view.getNav().push(new VerifyActivityBuilder(id));
         }
     }
     

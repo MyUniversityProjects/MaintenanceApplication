@@ -116,7 +116,7 @@ public class PlannerHomeView extends Screen {
          *When the button is pressed the ListScheduledActivitiesByWeekView will
          *be viewed
          */
-        this.getNav().push(new ListScheduledActivitiesByWeekBuilder());
+        super.getNav().push(new ListScheduledActivitiesByWeekBuilder());
     }//GEN-LAST:event_selectActivityBtnActionPerformed
 
     private void manageActivitiesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageActivitiesBtnActionPerformed

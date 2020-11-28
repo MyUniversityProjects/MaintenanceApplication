@@ -113,8 +113,8 @@ public class ListScheduledActivitiesByWeekModel implements Serializable {
         return ScheduledActivitiesTableModel;
     }
     
-    public String getSelectedActivity(int index){
-        return  (String) this.ScheduledActivitiesTableModel.getValueAt(index, 0);
+    public int getSelectedActivity(int index){
+        return  Integer.parseInt((String) this.ScheduledActivitiesTableModel.getValueAt(index, 0)) ;
     }
     private Integer[] numWeekIntegerArray() {
         int[] a = new int[52];
