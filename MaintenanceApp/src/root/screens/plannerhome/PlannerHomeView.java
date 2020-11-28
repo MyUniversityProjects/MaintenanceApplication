@@ -1,8 +1,9 @@
  package root.screens.plannerhome;
 
-import root.Navigator;
+import root.Navigable;
 import root.Screen;
-import root.screenbuilders.ListScheduledActivitiesByWeekBuilder;
+import root.screenbuilders.CreateActivityBuilder;
+import root.screenbuilders.ManageActivityBuilder;
 
 
 public class PlannerHomeView extends Screen {
@@ -11,7 +12,7 @@ public class PlannerHomeView extends Screen {
      * Creates new form PlannerHomeView
      * @param nav navigator used to switch between screens
      */
-    public PlannerHomeView(Navigator nav) {
+    public PlannerHomeView(Navigable nav) {
         super(nav);
         initComponents();
     }
@@ -106,7 +107,7 @@ public class PlannerHomeView extends Screen {
     }// </editor-fold>//GEN-END:initComponents
 
     private void planActivityBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planActivityBtnActionPerformed
-        // TODO add your handling code here:
+        super.getNav().push(new CreateActivityBuilder());
     }//GEN-LAST:event_planActivityBtnActionPerformed
 
     private void selectActivityBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectActivityBtnActionPerformed
@@ -118,7 +119,7 @@ public class PlannerHomeView extends Screen {
     }//GEN-LAST:event_selectActivityBtnActionPerformed
 
     private void manageActivitiesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageActivitiesBtnActionPerformed
-        // TODO add your handling code here:
+        super.getNav().push(new ManageActivityBuilder());
     }//GEN-LAST:event_manageActivitiesBtnActionPerformed
 
     private void assignedTicketsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignedTicketsBtnActionPerformed
