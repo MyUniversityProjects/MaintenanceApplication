@@ -1,6 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import root.Navigable;
 import root.Navigator;
 import root.Screen;
 import root.exceptions.EmptyNavigatorException;
@@ -9,6 +10,7 @@ import root.screenbuilders.ScreenBuilder;
 
 public class NavigatorTest {
     private class ScreenStubBuilder extends ScreenBuilder {
+        private ScreenStub view;
         private final String name;
 
         public ScreenStubBuilder(String name) {
@@ -16,15 +18,20 @@ public class NavigatorTest {
         }
         
         @Override
-        public void buildView(Navigator nav) {
+        public void buildView(Navigable nav) {
             view = new ScreenStub(nav, name);
+        }
+
+        @Override
+        public Screen getScreen() {
+            return view;
         }
     }
     
     private class ScreenStub extends Screen {
         public final String name;
         
-        public ScreenStub(Navigator nav, String name) {
+        public ScreenStub(Navigable nav, String name) {
             super(nav);
             this.name = name;
         }

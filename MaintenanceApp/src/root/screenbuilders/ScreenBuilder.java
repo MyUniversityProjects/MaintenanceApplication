@@ -1,17 +1,12 @@
 package root.screenbuilders;
 
-import root.Navigator;
+import root.Navigable;
 import root.Screen;
 
 abstract public class ScreenBuilder {
-    protected Screen view;
-    
     public void buildModel() {}
-    public abstract void buildView(Navigator nav);
+    public abstract void buildView(Navigable nav);
     public void buildController() {}
     
-    public Screen getScreen() {
-        return view;
-    }
-    
+    public abstract Screen getScreen();
 }
