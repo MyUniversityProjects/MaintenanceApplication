@@ -2,12 +2,12 @@ package root.screens.createactivity;
 
 
 import java.awt.event.ActionListener;
-import root.Navigator;
+import root.Navigable;
 import root.Screen;
 
 public class ActivityView extends Screen {
 
-    public ActivityView(Navigator nav) {
+    public ActivityView(Navigable nav) {
         super(nav);
         initComponents();
     }
