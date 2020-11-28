@@ -1,17 +1,21 @@
 package root.screens.verifyactivity;
 
+import java.awt.event.ActionListener;
 import root.Navigator;
 import root.Screen;
 
 
 public class VerifyActivityView extends Screen {
-
+    final VerifyActivityModel model;
+    
     /**
      * Creates new form VerifyActivityView
      * @param nav
+     * @param model
      */
-    public VerifyActivityView(Navigator nav) {
+    public VerifyActivityView(Navigator nav, VerifyActivityModel model) {
         super(nav);
+        this.model = model;
         initComponents();
     }
 
@@ -43,7 +47,7 @@ public class VerifyActivityView extends Screen {
         weekLabel = new javax.swing.JLabel();
         weekValueLabel = new javax.swing.JLabel();
         descLabel = new javax.swing.JLabel();
-        forewardBtn = new javax.swing.JButton();
+        forwardBtn = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         descTextArea = new javax.swing.JTextArea();
         smpBtn = new javax.swing.JButton();
@@ -123,8 +127,8 @@ public class VerifyActivityView extends Screen {
         descLabel.setForeground(new java.awt.Color(102, 102, 102));
         descLabel.setText("Intervention description");
 
-        forewardBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        forewardBtn.setText("FOREWARD");
+        forwardBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        forwardBtn.setText("FORWARD");
 
         jScrollPane4.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -199,10 +203,10 @@ public class VerifyActivityView extends Screen {
                                 .addComponent(smpBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(22, 22, 22)))))
                 .addGap(27, 27, 27))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(201, 201, 201)
-                .addComponent(forewardBtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(forwardBtn)
+                .addGap(203, 203, 203))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,11 +260,26 @@ public class VerifyActivityView extends Screen {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane4)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(forewardBtn)
+                .addComponent(forwardBtn)
                 .addGap(28, 28, 28))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    public void addBackBtnListener(ActionListener al) {
+        backBtn.addActionListener(al);
+    }
+    
+    public void addHomeBtnListener(ActionListener al) {
+        homeBtn.addActionListener(al);
+    }
+    
+    public void addForwardBtnListener(ActionListener al) {
+        forwardBtn.addActionListener(al);
+    }
+    
+    public void addSmpBtnListener(ActionListener al) {
+        smpBtn.addActionListener(al);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel areaLabel;
@@ -268,7 +287,7 @@ public class VerifyActivityView extends Screen {
     private javax.swing.JButton backBtn;
     private javax.swing.JLabel descLabel;
     private javax.swing.JTextArea descTextArea;
-    private javax.swing.JButton forewardBtn;
+    private javax.swing.JButton forwardBtn;
     private javax.swing.JButton homeBtn;
     private javax.swing.JLabel idLabel;
     private javax.swing.JLabel idValueLabel;
