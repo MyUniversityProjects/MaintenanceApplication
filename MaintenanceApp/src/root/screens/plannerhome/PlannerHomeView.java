@@ -1,6 +1,6 @@
  package root.screens.plannerhome;
 
-import root.Navigator;
+import root.Navigable;
 import root.Screen;
 
 
@@ -10,7 +10,7 @@ public class PlannerHomeView extends Screen {
      * Creates new form PlannerHomeView
      * @param nav navigator used to switch between screens
      */
-    public PlannerHomeView(Navigator nav) {
+    public PlannerHomeView(Navigable nav) {
         super(nav);
         initComponents();
     }

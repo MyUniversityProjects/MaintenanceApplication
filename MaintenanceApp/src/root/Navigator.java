@@ -8,7 +8,7 @@ import root.screenbuilders.ScreenBuilder;
 import root.screenbuilders.ScreenDirector;
 
 
-final public class Navigator extends JFrame {
+final public class Navigator extends JFrame implements Navigable {
     private final CardLayout cl = new CardLayout();
     private final JPanel cards = new JPanel(cl);
     private int index = -1;
