@@ -2,7 +2,7 @@ package root.screens.manageactivity;
 
 import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
-import root.Navigator;
+import root.Navigable;
 import root.Screen;
 
 /*
@@ -16,7 +16,7 @@ public class ManageActivityView extends Screen {
     /**
      * Creates new form MantainanceActivityView
      */
-    public ManageActivityView(Navigator nav) {
+    public ManageActivityView(Navigable nav) {
         super(nav);
         initComponents();
     }

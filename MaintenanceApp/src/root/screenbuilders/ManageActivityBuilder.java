@@ -1,7 +1,7 @@
 
 package root.screenbuilders;
 
-import root.Navigator;
+import root.Navigable;
 import root.Screen;
 import root.screens.manageactivity.ManageActivityController;
 import root.screens.manageactivity.ManageActivityModel;
@@ -14,7 +14,7 @@ public class ManageActivityBuilder extends ScreenBuilder{
     private ManageActivityModel model;
 
     @Override
-    public void buildView(Navigator nav) {
+    public void buildView(Navigable nav) {
         view = new ManageActivityView(nav);
     }
     
