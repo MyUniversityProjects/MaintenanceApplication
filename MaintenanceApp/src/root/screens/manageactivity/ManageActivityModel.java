@@ -18,8 +18,6 @@ import root.Settings;
  */
 public class ManageActivityModel {
     private Connection conn;
-    private String error;
-    private int errorCode;
 
     public ManageActivityModel() {
         try {
@@ -56,12 +54,9 @@ public class ManageActivityModel {
                         rs.getString("workspace_notes"), rs.getString("type_activity"));
                     activities.add(activity);
                 }
-            }else {
-                System.out.println("rs è null");
             }
         } catch(SQLException ex){
-            error = ex.getMessage();
-            errorCode = ex.getErrorCode();                        
+            System.out.println(ex.getMessage());                
         }
         
         return activities;

@@ -32,32 +32,21 @@ public class ManageActivityView extends Screen {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        select_btn = new javax.swing.JButton();
-        back_btn = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        activities_table_model = new DefaultTableModel();
-        activities_table = new javax.swing.JTable(activities_table_model);
-        selectd_id_label = new javax.swing.JLabel();
+        manageActivityTitleLabel = new javax.swing.JLabel();
+        selectBtn = new javax.swing.JButton();
+        backBtn = new javax.swing.JButton();
+        activitiesTableScroll = new javax.swing.JScrollPane();
+        activitiesTable = new javax.swing.JTable(new DefaultTableModel());
+        selectIdLabel = new javax.swing.JLabel();
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("MAINTENANCE ACTIVITY");
+        manageActivityTitleLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        manageActivityTitleLabel.setText("MANAGE ACTIVITY");
 
-        select_btn.setText("Select");
-        select_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                select_btnActionPerformed(evt);
-            }
-        });
+        selectBtn.setText("Select");
 
-        back_btn.setText("back");
-        back_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                back_btnActionPerformed(evt);
-            }
-        });
+        backBtn.setText("back");
 
-        activities_table.setModel(new javax.swing.table.DefaultTableModel(
+        activitiesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -80,7 +69,7 @@ public class ManageActivityView extends Screen {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(activities_table);
+        activitiesTableScroll.setViewportView(activitiesTable);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -89,15 +78,15 @@ public class ManageActivityView extends Screen {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 818, Short.MAX_VALUE)
-                    .addComponent(select_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(activitiesTableScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 818, Short.MAX_VALUE)
+                    .addComponent(selectBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(back_btn)
+                                .addComponent(backBtn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel1))
-                            .addComponent(selectd_id_label))
+                                .addComponent(manageActivityTitleLabel))
+                            .addComponent(selectIdLabel))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -106,14 +95,14 @@ public class ManageActivityView extends Screen {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(back_btn))
+                    .addComponent(manageActivityTitleLabel)
+                    .addComponent(backBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(activitiesTableScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(selectd_id_label)
+                .addComponent(selectIdLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                .addComponent(select_btn)
+                .addComponent(selectBtn)
                 .addGap(27, 27, 27))
         );
 
@@ -135,41 +124,32 @@ public class ManageActivityView extends Screen {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void select_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_select_btnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_select_btnActionPerformed
-
-    private void back_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_btnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_back_btnActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private DefaultTableModel activities_table_model;
-    private javax.swing.JTable activities_table;
-    private javax.swing.JButton back_btn;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTable activitiesTable;
+    private javax.swing.JScrollPane activitiesTableScroll;
+    private javax.swing.JButton backBtn;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JButton select_btn;
-    private javax.swing.JLabel selectd_id_label;
+    private javax.swing.JLabel manageActivityTitleLabel;
+    private javax.swing.JButton selectBtn;
+    private javax.swing.JLabel selectIdLabel;
     // End of variables declaration//GEN-END:variables
 
     public javax.swing.JTable getActivitiesTable(){
-        return activities_table;
+        return activitiesTable;
     }
     
     public javax.swing.JLabel getSelectedIdLabel(){
-        return selectd_id_label;
+        return selectIdLabel;
     }
     
-    void addSelectButtonListener(ActionListener al){
-        select_btn.addActionListener(al);
+    public void addSelectButtonListener(ActionListener al){
+        selectBtn.addActionListener(al);
     }
     
-    void addBackButtonListener(ActionListener al){
-        back_btn.addActionListener(al);
+    public void addBackButtonListener(ActionListener al){
+        backBtn.addActionListener(al);
     }
     
 }
