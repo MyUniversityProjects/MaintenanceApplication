@@ -20,29 +20,24 @@ public class ActivityController {
         this.model = model;
         this.view = view;
 
-        view.addCreateButtonListener(new createBtnActionListener());
+        view.addCreateButtonListener((e) -> {
+            Map<String, String> inputMap = getInputs();
+            if (createCheckout(inputMap)) {
+                Activity act = createActivity(inputMap);
+                if (!model.create(act) && model.getErrorCode() == 0){                    
+                    view.getMsgLabel().setForeground(Color.red);
+                    view.getMsgLabel().setText("Id già presente");
+                } else {
+                    view.getMsgLabel().setForeground(Color.green);
+                    view.getMsgLabel().setText("Activity entered successfully");
+                }
+            } else {
+                view.getMsgLabel().setForeground(Color.red);
+                view.getMsgLabel().setText(checkoutError);
+            }
+        });
         
         view.addBackButtonListener((e)-> {view.getNav().pop();});
-    }
-    
-    private class createBtnActionListener implements ActionListener{
-        @Override
-        public void actionPerformed(ActionEvent e) {
-                Map<String, String> inputMap = getInputs();
-                if (createCheckout(inputMap)) {
-                    Activity act = createActivity(inputMap);
-                    if (!model.create(act) && model.getErrorCode() == 0){                    
-                        view.getMsgLabel().setForeground(Color.red);
-                        view.getMsgLabel().setText("Id già presente");
-                    } else {
-                        view.getMsgLabel().setForeground(Color.green);
-                        view.getMsgLabel().setText("Activity entered successfully");
-                    }
-                } else {
-                    view.getMsgLabel().setForeground(Color.red);
-                    view.getMsgLabel().setText(checkoutError);
-                }
-            }
     }
 
     private Map<String, String> getInputs() {

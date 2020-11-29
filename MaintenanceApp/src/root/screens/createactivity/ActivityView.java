@@ -18,174 +18,114 @@ public class ActivityView extends Screen {
 
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea3 = new javax.swing.JTextArea();
-        jLabel4 = new javax.swing.JLabel();
         interruptible_input_group = new javax.swing.ButtonGroup();
         type_input_group = new javax.swing.ButtonGroup();
         jScrollPane6 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
-        type_input_unscheduled = new javax.swing.JRadioButton();
-        jLabel6 = new javax.swing.JLabel();
-        jScrollPane9 = new javax.swing.JScrollPane();
-        description_input = new javax.swing.JTextArea();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        id_input = new javax.swing.JTextArea();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        type_input_scheduled = new javax.swing.JRadioButton();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        create_btn = new javax.swing.JButton();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        estimated_time_input = new javax.swing.JTextArea();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        area_input = new javax.swing.JTextArea();
-        jLabel13 = new javax.swing.JLabel();
-        interruptible_input_no = new javax.swing.JRadioButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        branch_office_input = new javax.swing.JTextArea();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        week_input = new javax.swing.JTextArea();
-        jLabel14 = new javax.swing.JLabel();
-        back_btn = new javax.swing.JButton();
-        jScrollPane10 = new javax.swing.JScrollPane();
-        notes_input = new javax.swing.JTextArea();
-        interruptible_input_yes = new javax.swing.JRadioButton();
-        jLabel10 = new javax.swing.JLabel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        typology_input = new javax.swing.JTextArea();
+        typeUnscheduledInput = new javax.swing.JRadioButton();
+        typologyLabel = new javax.swing.JLabel();
+        descriptionScrollInput = new javax.swing.JScrollPane();
+        descriptionInput = new javax.swing.JTextArea();
+        interruptibleLabel = new javax.swing.JLabel();
+        BranchOfficeLabel = new javax.swing.JLabel();
+        typeInputScheduled = new javax.swing.JRadioButton();
+        areaLabel = new javax.swing.JLabel();
+        mandatoryLabel = new javax.swing.JLabel();
+        createActivityTitleLabel = new javax.swing.JLabel();
+        idLabel = new javax.swing.JLabel();
+        createBtn = new javax.swing.JButton();
+        notesLabel = new javax.swing.JLabel();
+        weekLabel = new javax.swing.JLabel();
+        typeLabel = new javax.swing.JLabel();
+        interruptibleNoInput = new javax.swing.JRadioButton();
+        estimatedTimeLabel = new javax.swing.JLabel();
+        backBtn = new javax.swing.JButton();
+        notesScrollInput = new javax.swing.JScrollPane();
+        notesInput = new javax.swing.JTextArea();
+        interruptibleYesInput = new javax.swing.JRadioButton();
+        descriptionLabel = new javax.swing.JLabel();
         msg_label = new javax.swing.JLabel();
+        typeExtraWorkInput = new javax.swing.JRadioButton();
+        idInput = new javax.swing.JTextField();
+        branchOfficeInput = new javax.swing.JTextField();
+        areaInput = new javax.swing.JTextField();
+        typologyInput = new javax.swing.JTextField();
+        estimatedTimeInput = new javax.swing.JTextField();
+        weekInput = new javax.swing.JTextField();
 
         jTextArea3.setColumns(20);
         jTextArea3.setRows(1);
         jScrollPane3.setViewportView(jTextArea3);
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setText("branch office");
 
         setAutoscrolls(true);
         setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
 
         jPanel1.setAutoscrolls(true);
 
-        type_input_group.add(type_input_unscheduled);
-        type_input_unscheduled.setText("Unscheduled");
-        type_input_unscheduled.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                type_input_unscheduledActionPerformed(evt);
-            }
-        });
+        type_input_group.add(typeUnscheduledInput);
+        typeUnscheduledInput.setText("Unscheduled");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setText("Typology *");
+        typologyLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        typologyLabel.setText("Typology *");
 
-        description_input.setColumns(20);
-        description_input.setRows(5);
-        jScrollPane9.setViewportView(description_input);
+        descriptionInput.setColumns(20);
+        descriptionInput.setRows(5);
+        descriptionScrollInput.setViewportView(descriptionInput);
 
-        id_input.setColumns(20);
-        id_input.setRows(1);
-        jScrollPane1.setViewportView(id_input);
+        interruptibleLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        interruptibleLabel.setText("Interruptible *");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel8.setText("Interruptible *");
+        BranchOfficeLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        BranchOfficeLabel.setText("Branch office *");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Branch office *");
+        type_input_group.add(typeInputScheduled);
+        typeInputScheduled.setSelected(true);
+        typeInputScheduled.setText("Scheduled");
 
-        type_input_group.add(type_input_scheduled);
-        type_input_scheduled.setSelected(true);
-        type_input_scheduled.setText("Scheduled");
-        type_input_scheduled.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                type_input_scheduledActionPerformed(evt);
-            }
-        });
+        areaLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        areaLabel.setText("Area *");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setText("Area *");
+        mandatoryLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        mandatoryLabel.setText("Fields with the symbol * are required");
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel12.setText("Fields with the symbol * are required");
+        createActivityTitleLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        createActivityTitleLabel.setText("CREATE ACTIVITY");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("CREATE ACTIVITY");
+        idLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        idLabel.setText("ID *");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("ID *");
+        createBtn.setText("Create");
 
-        create_btn.setText("Create");
-        create_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                create_btnActionPerformed(evt);
-            }
-        });
+        notesLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        notesLabel.setText("Workspace notes");
 
-        estimated_time_input.setColumns(20);
-        estimated_time_input.setRows(1);
-        jScrollPane7.setViewportView(estimated_time_input);
+        weekLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        weekLabel.setText("Week [1, 52] *");
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel11.setText("Workspace notes");
+        typeLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        typeLabel.setText("Type *");
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel9.setText("Week [1, 52] *");
+        interruptible_input_group.add(interruptibleNoInput);
+        interruptibleNoInput.setText("No");
 
-        area_input.setColumns(20);
-        area_input.setRows(1);
-        jScrollPane4.setViewportView(area_input);
+        estimatedTimeLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        estimatedTimeLabel.setText("Estimated intervantion time (minutes) *");
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel13.setText("Type *");
+        backBtn.setText("back");
 
-        interruptible_input_group.add(interruptible_input_no);
-        interruptible_input_no.setText("No");
-        interruptible_input_no.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                interruptible_input_noActionPerformed(evt);
-            }
-        });
+        notesInput.setColumns(20);
+        notesInput.setRows(5);
+        notesScrollInput.setViewportView(notesInput);
 
-        branch_office_input.setColumns(20);
-        branch_office_input.setRows(1);
-        jScrollPane2.setViewportView(branch_office_input);
+        interruptible_input_group.add(interruptibleYesInput);
+        interruptibleYesInput.setSelected(true);
+        interruptibleYesInput.setText("Yes");
 
-        week_input.setColumns(20);
-        week_input.setRows(1);
-        jScrollPane8.setViewportView(week_input);
+        descriptionLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        descriptionLabel.setText("Description *");
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel14.setText("Estimated intervantion time (minutes) *");
-
-        back_btn.setText("back");
-        back_btn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                back_btnActionPerformed(evt);
-            }
-        });
-
-        notes_input.setColumns(20);
-        notes_input.setRows(5);
-        jScrollPane10.setViewportView(notes_input);
-
-        interruptible_input_group.add(interruptible_input_yes);
-        interruptible_input_yes.setSelected(true);
-        interruptible_input_yes.setText("Yes");
-        interruptible_input_yes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                interruptible_input_yesActionPerformed(evt);
-            }
-        });
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel10.setText("Description *");
-
-        typology_input.setColumns(20);
-        typology_input.setRows(1);
-        jScrollPane5.setViewportView(typology_input);
+        type_input_group.add(typeExtraWorkInput);
+        typeExtraWorkInput.setText("Extra work");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -195,109 +135,107 @@ public class ActivityView extends Screen {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(back_btn)
+                        .addComponent(backBtn)
                         .addGap(88, 88, 88)
-                        .addComponent(jLabel1)
+                        .addComponent(createActivityTitleLabel)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(49, 49, 49)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(areaInput)
+                            .addComponent(createBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(descriptionScrollInput, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(notesScrollInput, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(idInput)
+                            .addComponent(branchOfficeInput)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel14))
-                                .addGap(0, 346, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(create_btn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jScrollPane8)
-                                    .addComponent(jScrollPane2)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jScrollPane9, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jScrollPane10, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(descriptionLabel)
+                                    .addComponent(notesLabel)
+                                    .addComponent(areaLabel)
+                                    .addComponent(typologyLabel)
+                                    .addComponent(estimatedTimeLabel)
+                                    .addComponent(weekLabel)
+                                    .addComponent(BranchOfficeLabel)
+                                    .addComponent(typeLabel)
+                                    .addComponent(idLabel)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel9)
-                                            .addComponent(jLabel3)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(type_input_scheduled)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(type_input_unscheduled))
-                                            .addComponent(jLabel13)
-                                            .addComponent(jLabel2)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(interruptible_input_yes)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(interruptible_input_no))
-                                            .addComponent(jLabel8)
-                                            .addComponent(jLabel12)
-                                            .addComponent(msg_label))
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(42, 42, 42))))))
+                                        .addComponent(interruptibleYesInput)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(interruptibleNoInput))
+                                    .addComponent(interruptibleLabel)
+                                    .addComponent(mandatoryLabel)
+                                    .addComponent(msg_label)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(typeInputScheduled)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(typeUnscheduledInput)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(typeExtraWorkInput)))
+                                .addGap(0, 194, Short.MAX_VALUE))
+                            .addComponent(typologyInput)
+                            .addComponent(estimatedTimeInput)
+                            .addComponent(weekInput))
+                        .addGap(42, 42, 42))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(back_btn)
-                    .addComponent(jLabel1))
+                    .addComponent(backBtn)
+                    .addComponent(createActivityTitleLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(idLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(idInput, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addComponent(BranchOfficeLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(branchOfficeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
+                .addComponent(areaLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(areaInput, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
+                .addComponent(typologyLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(typologyInput, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel14)
+                .addComponent(estimatedTimeLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(estimatedTimeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9)
+                .addComponent(weekLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(weekInput, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
+                .addComponent(descriptionLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(descriptionScrollInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel11)
+                .addComponent(notesLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(notesScrollInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel13)
+                .addComponent(typeLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(type_input_scheduled)
-                    .addComponent(type_input_unscheduled))
+                    .addComponent(typeInputScheduled)
+                    .addComponent(typeUnscheduledInput)
+                    .addComponent(typeExtraWorkInput))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8)
+                .addComponent(interruptibleLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(interruptible_input_yes)
-                    .addComponent(interruptible_input_no))
+                    .addComponent(interruptibleYesInput)
+                    .addComponent(interruptibleNoInput))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel12)
+                .addComponent(mandatoryLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(msg_label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                .addComponent(create_btn)
+                .addComponent(createBtn)
                 .addGap(54, 54, 54))
         );
 
@@ -315,119 +253,89 @@ public class ActivityView extends Screen {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void interruptible_input_noActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_interruptible_input_noActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_interruptible_input_noActionPerformed
-
-    private void create_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_create_btnActionPerformed
-        
-    }//GEN-LAST:event_create_btnActionPerformed
-
-    private void interruptible_input_yesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_interruptible_input_yesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_interruptible_input_yesActionPerformed
-
-    private void type_input_scheduledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_type_input_scheduledActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_type_input_scheduledActionPerformed
-
-    private void type_input_unscheduledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_type_input_unscheduledActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_type_input_unscheduledActionPerformed
-
-    private void back_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_btnActionPerformed
-        //super.getNav().pop();
-    }//GEN-LAST:event_back_btnActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea area_input;
-    private javax.swing.JButton back_btn;
-    private javax.swing.JTextArea branch_office_input;
-    private javax.swing.JButton create_btn;
-    private javax.swing.JTextArea description_input;
-    private javax.swing.JTextArea estimated_time_input;
-    private javax.swing.JTextArea id_input;
+    private javax.swing.JLabel BranchOfficeLabel;
+    private javax.swing.JTextField areaInput;
+    private javax.swing.JLabel areaLabel;
+    private javax.swing.JButton backBtn;
+    private javax.swing.JTextField branchOfficeInput;
+    private javax.swing.JLabel createActivityTitleLabel;
+    private javax.swing.JButton createBtn;
+    private javax.swing.JTextArea descriptionInput;
+    private javax.swing.JLabel descriptionLabel;
+    private javax.swing.JScrollPane descriptionScrollInput;
+    private javax.swing.JTextField estimatedTimeInput;
+    private javax.swing.JLabel estimatedTimeLabel;
+    private javax.swing.JTextField idInput;
+    private javax.swing.JLabel idLabel;
+    private javax.swing.JLabel interruptibleLabel;
+    private javax.swing.JRadioButton interruptibleNoInput;
+    private javax.swing.JRadioButton interruptibleYesInput;
     private javax.swing.ButtonGroup interruptible_input_group;
-    private javax.swing.JRadioButton interruptible_input_no;
-    private javax.swing.JRadioButton interruptible_input_yes;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane10;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTextArea jTextArea3;
+    private javax.swing.JLabel mandatoryLabel;
     private javax.swing.JLabel msg_label;
-    private javax.swing.JTextArea notes_input;
+    private javax.swing.JTextArea notesInput;
+    private javax.swing.JLabel notesLabel;
+    private javax.swing.JScrollPane notesScrollInput;
+    private javax.swing.JRadioButton typeExtraWorkInput;
+    private javax.swing.JRadioButton typeInputScheduled;
+    private javax.swing.JLabel typeLabel;
+    private javax.swing.JRadioButton typeUnscheduledInput;
     private javax.swing.ButtonGroup type_input_group;
-    private javax.swing.JRadioButton type_input_scheduled;
-    private javax.swing.JRadioButton type_input_unscheduled;
-    private javax.swing.JTextArea typology_input;
-    private javax.swing.JTextArea week_input;
+    private javax.swing.JTextField typologyInput;
+    private javax.swing.JLabel typologyLabel;
+    private javax.swing.JTextField weekInput;
+    private javax.swing.JLabel weekLabel;
     // End of variables declaration//GEN-END:variables
 
     
     // Input Getter
     public String getId(){
-        return id_input.getText();
+        return idInput.getText();
     }
     
     public String getBranchOffice(){
-        return branch_office_input.getText();
+        return branchOfficeInput.getText();
     }
     
     public String getArea(){
-        return area_input.getText();
+        return areaInput.getText();
     }
     
     public String getEstimatedTime(){
-        return estimated_time_input.getText();
+        return estimatedTimeInput.getText();
     }
     
     public String getInterruptible(){
-        interruptible_input_no.setActionCommand("false");
-        interruptible_input_yes.setActionCommand("true");
+        interruptibleNoInput.setActionCommand("false");
+        interruptibleYesInput.setActionCommand("true");
         return interruptible_input_group.getSelection().getActionCommand();
     }
     
     public String getTypology(){
-        return typology_input.getText();
+        return typologyInput.getText();
     }
     
     public String getWeek(){
-        return week_input.getText();
+        return weekInput.getText();
     }
     
     public String getNotes(){
-        return notes_input.getText();
+        return notesInput.getText();
     }
     
     public String getDescription(){
-        return description_input.getText();
+        return descriptionInput.getText();
     }
     
     public String getType(){
-        type_input_scheduled.setActionCommand("scheduled");
-        type_input_unscheduled.setActionCommand("unscheduled");
+        typeInputScheduled.setActionCommand("scheduled");
+        typeUnscheduledInput.setActionCommand("unscheduled");
         return type_input_group.getSelection().getActionCommand();
     }
     
@@ -436,10 +344,10 @@ public class ActivityView extends Screen {
     }
 
     void addCreateButtonListener(ActionListener al) {
-        create_btn.addActionListener(al);
+        createBtn.addActionListener(al);
     }
     
     void addBackButtonListener(ActionListener al){
-        back_btn.addActionListener(al);
+        backBtn.addActionListener(al);
     }
 }

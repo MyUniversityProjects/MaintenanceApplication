@@ -3,6 +3,7 @@
 import root.Navigable;
 import root.Screen;
 import root.screenbuilders.CreateActivityBuilder;
+import root.screenbuilders.ListScheduledActivitiesByWeekBuilder;
 import root.screenbuilders.ManageActivityBuilder;
 
 
@@ -111,7 +112,11 @@ public class PlannerHomeView extends Screen {
     }//GEN-LAST:event_planActivityBtnActionPerformed
 
     private void selectActivityBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectActivityBtnActionPerformed
-        // TODO add your handling code here:
+        /*
+         *When the button is pressed the ListScheduledActivitiesByWeekView will
+         *be viewed
+         */
+        super.getNav().push(new ListScheduledActivitiesByWeekBuilder());
     }//GEN-LAST:event_selectActivityBtnActionPerformed
 
     private void manageActivitiesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageActivitiesBtnActionPerformed
