@@ -18,8 +18,8 @@ public class ActivityView extends Screen {
 
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea3 = new javax.swing.JTextArea();
-        interruptible_input_group = new javax.swing.ButtonGroup();
-        type_input_group = new javax.swing.ButtonGroup();
+        interruptibleGroupInput = new javax.swing.ButtonGroup();
+        typeGroupInput = new javax.swing.ButtonGroup();
         jScrollPane6 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         typeUnscheduledInput = new javax.swing.JRadioButton();
@@ -52,6 +52,9 @@ public class ActivityView extends Screen {
         typologyInput = new javax.swing.JTextField();
         estimatedTimeInput = new javax.swing.JTextField();
         weekInput = new javax.swing.JTextField();
+        materialsLabel = new javax.swing.JLabel();
+        notesScrollInput1 = new javax.swing.JScrollPane();
+        materialsInput = new javax.swing.JTextArea();
 
         jTextArea3.setColumns(20);
         jTextArea3.setRows(1);
@@ -62,7 +65,7 @@ public class ActivityView extends Screen {
 
         jPanel1.setAutoscrolls(true);
 
-        type_input_group.add(typeUnscheduledInput);
+        typeGroupInput.add(typeUnscheduledInput);
         typeUnscheduledInput.setText("Unscheduled");
 
         typologyLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -78,7 +81,7 @@ public class ActivityView extends Screen {
         BranchOfficeLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         BranchOfficeLabel.setText("Branch office *");
 
-        type_input_group.add(typeInputScheduled);
+        typeGroupInput.add(typeInputScheduled);
         typeInputScheduled.setSelected(true);
         typeInputScheduled.setText("Scheduled");
 
@@ -105,7 +108,7 @@ public class ActivityView extends Screen {
         typeLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         typeLabel.setText("Type *");
 
-        interruptible_input_group.add(interruptibleNoInput);
+        interruptibleGroupInput.add(interruptibleNoInput);
         interruptibleNoInput.setText("No");
 
         estimatedTimeLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -117,15 +120,22 @@ public class ActivityView extends Screen {
         notesInput.setRows(5);
         notesScrollInput.setViewportView(notesInput);
 
-        interruptible_input_group.add(interruptibleYesInput);
+        interruptibleGroupInput.add(interruptibleYesInput);
         interruptibleYesInput.setSelected(true);
         interruptibleYesInput.setText("Yes");
 
         descriptionLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         descriptionLabel.setText("Description *");
 
-        type_input_group.add(typeExtraWorkInput);
+        typeGroupInput.add(typeExtraWorkInput);
         typeExtraWorkInput.setText("Extra work");
+
+        materialsLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        materialsLabel.setText("Materials");
+
+        materialsInput.setColumns(20);
+        materialsInput.setRows(5);
+        notesScrollInput1.setViewportView(materialsInput);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -148,6 +158,10 @@ public class ActivityView extends Screen {
                             .addComponent(notesScrollInput, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(idInput)
                             .addComponent(branchOfficeInput)
+                            .addComponent(typologyInput)
+                            .addComponent(estimatedTimeInput)
+                            .addComponent(weekInput)
+                            .addComponent(notesScrollInput1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(descriptionLabel)
@@ -171,11 +185,9 @@ public class ActivityView extends Screen {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(typeUnscheduledInput)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(typeExtraWorkInput)))
-                                .addGap(0, 194, Short.MAX_VALUE))
-                            .addComponent(typologyInput)
-                            .addComponent(estimatedTimeInput)
-                            .addComponent(weekInput))
+                                        .addComponent(typeExtraWorkInput))
+                                    .addComponent(materialsLabel))
+                                .addGap(0, 200, Short.MAX_VALUE)))
                         .addGap(42, 42, 42))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -217,7 +229,13 @@ public class ActivityView extends Screen {
                 .addComponent(notesLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(notesScrollInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(materialsLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(notesScrollInput1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(msg_label)
+                .addGap(31, 31, 31)
                 .addComponent(typeLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -232,9 +250,7 @@ public class ActivityView extends Screen {
                     .addComponent(interruptibleNoInput))
                 .addGap(18, 18, 18)
                 .addComponent(mandatoryLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(msg_label)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
                 .addComponent(createBtn)
                 .addGap(54, 54, 54))
         );
@@ -269,24 +285,27 @@ public class ActivityView extends Screen {
     private javax.swing.JLabel estimatedTimeLabel;
     private javax.swing.JTextField idInput;
     private javax.swing.JLabel idLabel;
+    private javax.swing.ButtonGroup interruptibleGroupInput;
     private javax.swing.JLabel interruptibleLabel;
     private javax.swing.JRadioButton interruptibleNoInput;
     private javax.swing.JRadioButton interruptibleYesInput;
-    private javax.swing.ButtonGroup interruptible_input_group;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JLabel mandatoryLabel;
+    private javax.swing.JTextArea materialsInput;
+    private javax.swing.JLabel materialsLabel;
     private javax.swing.JLabel msg_label;
     private javax.swing.JTextArea notesInput;
     private javax.swing.JLabel notesLabel;
     private javax.swing.JScrollPane notesScrollInput;
+    private javax.swing.JScrollPane notesScrollInput1;
     private javax.swing.JRadioButton typeExtraWorkInput;
+    private javax.swing.ButtonGroup typeGroupInput;
     private javax.swing.JRadioButton typeInputScheduled;
     private javax.swing.JLabel typeLabel;
     private javax.swing.JRadioButton typeUnscheduledInput;
-    private javax.swing.ButtonGroup type_input_group;
     private javax.swing.JTextField typologyInput;
     private javax.swing.JLabel typologyLabel;
     private javax.swing.JTextField weekInput;
@@ -314,7 +333,7 @@ public class ActivityView extends Screen {
     public String getInterruptible(){
         interruptibleNoInput.setActionCommand("false");
         interruptibleYesInput.setActionCommand("true");
-        return interruptible_input_group.getSelection().getActionCommand();
+        return interruptibleGroupInput.getSelection().getActionCommand();
     }
     
     public String getTypology(){
@@ -334,9 +353,10 @@ public class ActivityView extends Screen {
     }
     
     public String getType(){
-        typeInputScheduled.setActionCommand("scheduled");
-        typeUnscheduledInput.setActionCommand("unscheduled");
-        return type_input_group.getSelection().getActionCommand();
+        typeInputScheduled.setActionCommand("PLANNED");
+        typeUnscheduledInput.setActionCommand("UNPLANNED");
+        typeExtraWorkInput.setActionCommand("EXTRA");
+        return typeGroupInput.getSelection().getActionCommand();
     }
     
     public javax.swing.JLabel getMsgLabel(){
