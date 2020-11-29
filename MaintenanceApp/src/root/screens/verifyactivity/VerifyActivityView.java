@@ -1,5 +1,6 @@
 package root.screens.verifyactivity;
 
+import java.awt.EventQueue;
 import java.awt.event.ActionListener;
 import root.Navigable;
 import root.Screen;
@@ -15,8 +16,14 @@ public class VerifyActivityView extends Screen {
      */
     public VerifyActivityView(Navigable nav, VerifyActivityModel model) {
         super(nav);
-        this.model = model;
+        this.model = model == null ? new VerifyActivityModel(0, "", "", "", "", 0, false, 0, "", null) : model;
         initComponents();
+        if (model == null) {
+            EventQueue.invokeLater(() -> {
+                super.showErrorMsg("Activity not found", "Unable to fetch activity");
+                nav.goHome();
+            });
+        }
     }
 
     /**
@@ -28,27 +35,27 @@ public class VerifyActivityView extends Screen {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        titleLabel = new javax.swing.JLabel();
-        idLabel = new javax.swing.JLabel();
+        javax.swing.JLabel titleLabel = new javax.swing.JLabel();
+        javax.swing.JLabel idLabel = new javax.swing.JLabel();
         idValueLabel = new javax.swing.JLabel();
-        noteLabel = new javax.swing.JLabel();
+        javax.swing.JLabel noteLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         noteTextArea = new javax.swing.JTextArea();
-        areaLabel = new javax.swing.JLabel();
+        javax.swing.JLabel areaLabel = new javax.swing.JLabel();
         areaValueLabel = new javax.swing.JLabel();
-        typologyLabel = new javax.swing.JLabel();
+        javax.swing.JLabel typologyLabel = new javax.swing.JLabel();
         typologyValueLabel = new javax.swing.JLabel();
-        timeLabel = new javax.swing.JLabel();
+        javax.swing.JLabel timeLabel = new javax.swing.JLabel();
         timeValueLabel = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         skillList = new javax.swing.JList<>();
-        weekLabel = new javax.swing.JLabel();
+        javax.swing.JLabel weekLabel = new javax.swing.JLabel();
         weekValueLabel = new javax.swing.JLabel();
-        descLabel = new javax.swing.JLabel();
+        javax.swing.JLabel descLabel = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         descTextArea = new javax.swing.JTextArea();
-        smpLabel1 = new javax.swing.JLabel();
-        smpLabel2 = new javax.swing.JLabel();
+        javax.swing.JLabel smpLabel1 = new javax.swing.JLabel();
+        javax.swing.JLabel smpLabel2 = new javax.swing.JLabel();
 
         backBtn.setText("back");
 
@@ -62,7 +69,7 @@ public class VerifyActivityView extends Screen {
         idLabel.setText("ID");
 
         idValueLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        idValueLabel.setText("AAAABBBBCCCCDDDD");
+        idValueLabel.setText("" + model.getId());
 
         noteLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         noteLabel.setForeground(new java.awt.Color(102, 102, 102));
@@ -75,7 +82,7 @@ public class VerifyActivityView extends Screen {
         noteTextArea.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         noteTextArea.setLineWrap(true);
         noteTextArea.setRows(5);
-        noteTextArea.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius metus sit amet nisi volutpat mattis. Nulla gravida purus in velit feugiat eleifend. Donec finibus at lorem accumsan cursus. Vestibulum posuere, tellus id posuere iaculis, justo massa ullamcorper sem, in semper elit nunc et dolor.");
+        noteTextArea.setText(model.getNotes());
         noteTextArea.setWrapStyleWord(true);
         jScrollPane1.setViewportView(noteTextArea);
 
@@ -84,21 +91,21 @@ public class VerifyActivityView extends Screen {
         areaLabel.setText("Area");
 
         areaValueLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        areaValueLabel.setText("Ufficio");
+        areaValueLabel.setText(model.getArea());
 
         typologyLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         typologyLabel.setForeground(new java.awt.Color(102, 102, 102));
         typologyLabel.setText("Typology");
 
         typologyValueLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        typologyValueLabel.setText("Hydraulic");
+        typologyValueLabel.setText(model.getTypology());
 
         timeLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         timeLabel.setForeground(new java.awt.Color(102, 102, 102));
         timeLabel.setText("Estimated intevetion time");
 
         timeValueLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        timeValueLabel.setText("2h30m");
+        timeValueLabel.setText(model.getTime() + "m");
 
         jScrollPane2.setBorder(null);
         jScrollPane2.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true), "Skills needed", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(102, 102, 102))); // NOI18N
@@ -106,10 +113,11 @@ public class VerifyActivityView extends Screen {
         skillList.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.background"));
         skillList.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         skillList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "    • Skill 1", "    • Skill 2", "    • Skill 3", "    • Skill 4", "    • Skill 5", "    • Skill 6", "    • Skill 7", "    • Skill 8", "    • Skill 9", "    • Skill 10" };
+            String[] strings = { "    • Skill list not implemented yet" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        skillList.setEnabled(false);
         jScrollPane2.setViewportView(skillList);
 
         weekLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -117,7 +125,7 @@ public class VerifyActivityView extends Screen {
         weekLabel.setText("Week number");
 
         weekValueLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        weekValueLabel.setText("23");
+        weekValueLabel.setText("" + model.getWeek());
 
         descLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         descLabel.setForeground(new java.awt.Color(102, 102, 102));
@@ -134,7 +142,7 @@ public class VerifyActivityView extends Screen {
         descTextArea.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         descTextArea.setLineWrap(true);
         descTextArea.setRows(5);
-        descTextArea.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam varius metus sit amet nisi volutpat mattis. Nulla gravida purus in velit feugiat eleifend. Donec finibus at lorem accumsan cursus. Vestibulum posuere, tellus id posuere iaculis, justo massa ullamcorper sem, in semper elit nunc et dolor.");
+        descTextArea.setText(model.getDescription());
         descTextArea.setWrapStyleWord(true);
         jScrollPane4.setViewportView(descTextArea);
 
@@ -171,25 +179,28 @@ public class VerifyActivityView extends Screen {
                             .addComponent(descLabel)
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(idValueLabel)
                                     .addComponent(idLabel)
                                     .addComponent(areaLabel)
-                                    .addComponent(areaValueLabel)
                                     .addComponent(typologyLabel)
-                                    .addComponent(weekLabel)
-                                    .addComponent(weekValueLabel))
-                                .addGap(136, 136, 136))
+                                    .addComponent(weekLabel))
+                                .addGap(177, 177, 177))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(typologyValueLabel)
-                                    .addComponent(timeLabel))
-                                .addGap(109, 109, 109))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(typologyValueLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(areaValueLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(weekValueLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(idValueLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(50, 50, 50))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(timeValueLabel)
-                                .addGap(218, 218, 218)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(timeLabel)
+                                        .addGap(59, 59, 59))
+                                    .addComponent(timeValueLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
@@ -231,22 +242,19 @@ public class VerifyActivityView extends Screen {
                         .addComponent(typologyLabel))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addComponent(typologyValueLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(typologyValueLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(smpLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(smpLabel2))
+                    .addComponent(smpBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(timeLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(timeValueLabel))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(smpLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(smpLabel2))
-                            .addComponent(smpBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(6, 6, 6)))
-                .addGap(35, 35, 35)
+                        .addComponent(timeValueLabel)))
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(noteLabel)
@@ -256,7 +264,7 @@ public class VerifyActivityView extends Screen {
                         .addComponent(descLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane4)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addComponent(forwardBtn)
                 .addGap(28, 28, 28))
         );
@@ -277,32 +285,26 @@ public class VerifyActivityView extends Screen {
     public void addSmpBtnListener(ActionListener al) {
         smpBtn.addActionListener(al);
     }
+    
+    public String getTextAreaNotes() {
+        return noteTextArea.getText();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel areaLabel;
     private javax.swing.JLabel areaValueLabel;
     protected final javax.swing.JButton backBtn = new javax.swing.JButton();
-    private javax.swing.JLabel descLabel;
     private javax.swing.JTextArea descTextArea;
     protected final javax.swing.JButton forwardBtn = new javax.swing.JButton();
     protected final javax.swing.JButton homeBtn = new javax.swing.JButton();
-    private javax.swing.JLabel idLabel;
     private javax.swing.JLabel idValueLabel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JLabel noteLabel;
     private javax.swing.JTextArea noteTextArea;
     private javax.swing.JList<String> skillList;
     protected final javax.swing.JButton smpBtn = new javax.swing.JButton();
-    private javax.swing.JLabel smpLabel1;
-    private javax.swing.JLabel smpLabel2;
-    private javax.swing.JLabel timeLabel;
     private javax.swing.JLabel timeValueLabel;
-    private javax.swing.JLabel titleLabel;
-    private javax.swing.JLabel typologyLabel;
     private javax.swing.JLabel typologyValueLabel;
-    private javax.swing.JLabel weekLabel;
     private javax.swing.JLabel weekValueLabel;
     // End of variables declaration//GEN-END:variables
 }

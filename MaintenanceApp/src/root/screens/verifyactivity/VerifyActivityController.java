@@ -1,11 +1,14 @@
 package root.screens.verifyactivity;
 
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import root.exceptions.NotFoundException;
 
 public class VerifyActivityController {
-    private VerifyActivityModel model;
-    private VerifyActivityView view;
+    private final VerifyActivityModel model;
+    private final VerifyActivityView view;
 
     public VerifyActivityController(VerifyActivityModel model, VerifyActivityView view) {
         this.model = model;
@@ -19,7 +22,17 @@ public class VerifyActivityController {
     
     private class ForwardBtnListener implements ActionListener {
         @Override
-        public void actionPerformed(ActionEvent event) {}
+        public void actionPerformed(ActionEvent event) {
+            model.setNotes(view.getTextAreaNotes());
+            try {
+                model.forward();
+            } catch (SQLException | NotFoundException ex) {
+                EventQueue.invokeLater(() -> {
+                    view.showErrorMsg("Unable to forward", ex.getMessage());
+                    view.getNav().goHome();
+                });
+            }
+        }
     }
     
     private class SmpBtnListener implements ActionListener {
@@ -29,11 +42,15 @@ public class VerifyActivityController {
     
     private class BackBtnListener implements ActionListener {
         @Override
-        public void actionPerformed(ActionEvent event) {}
+        public void actionPerformed(ActionEvent event) {
+            view.getNav().pop();
+        }
     }
     
     private class HomeBtnListener implements ActionListener {
         @Override
-        public void actionPerformed(ActionEvent event) {}
+        public void actionPerformed(ActionEvent event) {
+            view.getNav().goHome();
+        }
     }
 }

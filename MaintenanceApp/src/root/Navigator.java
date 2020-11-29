@@ -1,6 +1,7 @@
 package root;
 
 import java.awt.CardLayout;
+import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import root.exceptions.EmptyNavigatorException;
@@ -33,6 +34,7 @@ final public class Navigator extends JFrame implements Navigable {
      * @param sb builder used to create and show the new screen
      * @return the new screen
      */
+    @Override
     public Screen push(ScreenBuilder sb) {
         Screen screen = ScreenDirector.build(sb, this);
         cards.add(screen);
@@ -50,6 +52,7 @@ final public class Navigator extends JFrame implements Navigable {
      * @return the replaced screen
      * @throws EmptyNavigatorException
      */
+    @Override
     public Screen replace(ScreenBuilder sb) {
         if (index < 0)
             throw new EmptyNavigatorException();
@@ -71,6 +74,7 @@ final public class Navigator extends JFrame implements Navigable {
      * @return the removed screen
      * @throws EmptyNavigatorException
      */
+    @Override
     public Screen pop() {
         if (index < 0)
             throw new EmptyNavigatorException();
@@ -90,6 +94,7 @@ final public class Navigator extends JFrame implements Navigable {
      * @return the home screen (first screen)
      * @throws EmptyNavigatorException
      */
+    @Override
     public Screen goHome() {
         if (index < 0)
             throw new EmptyNavigatorException();
@@ -108,7 +113,9 @@ final public class Navigator extends JFrame implements Navigable {
      * @param scr used the get the new size
      */
     private void updateFrameSize(Screen scr) {
-        setSize(scr.getPreferredSize());
-        setLocationRelativeTo(null);
+        EventQueue.invokeLater(() -> {
+            setSize(scr.getPreferredSize());
+            setLocationRelativeTo(null);
+        });
     }
 }

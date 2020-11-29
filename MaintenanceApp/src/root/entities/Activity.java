@@ -14,10 +14,6 @@ public class Activity {
     
     
     public enum ActivityType {PLANNED, UNPLANNED, EXTRA};
-    
-    public Activity(int id) {
-        // TODO: fetch data from database
-    }
 
     public Activity(int id, String area, String branchOffice, String typology, String description, int time, boolean interruptible, int week, String notes, ActivityType type) {
         this.id = id;
@@ -110,5 +106,14 @@ public class Activity {
 
     public void setType(ActivityType type) {
         this.type = type;
+    }
+    
+    public static ActivityType convertRawType(String type) {
+        switch (type) {
+            case "P": return ActivityType.PLANNED;
+            case "EWO": return ActivityType.UNPLANNED;
+            case "EXTRA": return ActivityType.EXTRA;
+            default: return null;
+        }
     }
 }
