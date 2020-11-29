@@ -1,7 +1,9 @@
 package root.screenbuilders;
 
+import java.sql.SQLException;
 import root.Navigable;
 import root.Screen;
+import root.exceptions.NotFoundException;
 import root.screens.verifyactivity.VerifyActivityController;
 import root.screens.verifyactivity.VerifyActivityModel;
 import root.screens.verifyactivity.VerifyActivityView;
@@ -23,7 +25,11 @@ public class VerifyActivityBuilder extends ScreenBuilder {
 
     @Override
     public void buildModel() {
-        model = new VerifyActivityModel(id);
+        try {
+            model = VerifyActivityModel.fromDatabase(id);
+        } catch (SQLException | NotFoundException ex) {
+            model = null;
+        }
     }
     
     @Override
