@@ -47,15 +47,15 @@ public class ActivityModel {
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1, activity.getId());
-            stmt.setString(2,activity.getBranch_office());
+            stmt.setString(2,activity.getBranchOffice());
             stmt.setString(3, activity.getArea());
             stmt.setString(4, activity.getTypology());
             stmt.setString(5, activity.getDescription());
-            stmt.setInt(6, activity.getEstimated_time());
+            stmt.setInt(6, activity.getEstimatedTime());
             stmt.setBoolean(7, activity.isInterruptible());
             stmt.setInt(8, activity.getWeek());
-            stmt.setString(9, activity.getWorkspace_notes());
-            stmt.setString(10, activity.getType_activity());
+            stmt.setString(9, activity.getWorkspaceNotes());
+            stmt.setString(10, activity.getTypeActivity());
 
             stmt.executeUpdate();   
             return true;

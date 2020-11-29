@@ -66,20 +66,20 @@ public class ActivityController {
         System.out.println(inputMap.keySet());
         
         if ( !inputMap.keySet().containsAll(keyList)) {
-            checkoutError = "Errore: The required fields have not been entered";
+            checkoutError = "Error: The required fields have not been entered";
             return false;
         }
         
         for (Map.Entry<String, String> entry : inputMap.entrySet()) {
             if (entry.getKey().equals("id") || entry.getKey().equals("estimated_time") || entry.getKey().equals("week")) {
                 if (!isInteger(entry.getValue())) {
-                    checkoutError = "Errore: The fields id, estimated_time and week must be an integer";
+                    checkoutError = "Error: The fields id, estimated_time and week must be an integer";
                     return false;
                 }
             }
             if (!entry.getKey().equals("notes")) {
                 if (entry.getValue().length() <= 0) {
-                    checkoutError = "Errore: The required fields can not be empty";
+                    checkoutError = "Error: The required fields can not be empty";
                     return false;
                 }
             }

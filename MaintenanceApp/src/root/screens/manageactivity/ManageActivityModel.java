@@ -4,6 +4,7 @@ package root.screens.manageactivity;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -60,6 +61,21 @@ public class ManageActivityModel {
         }
         
         return activities;
+    }
+    
+    public boolean delete(int id){
+        String query = "DELETE FROM appactivity WHERE id = ?";
+        
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, id);
+
+            stmt.executeUpdate();   
+            return true;
+        } catch(SQLException ex){
+            System.out.println(ex.getMessage());
+            return false;      
+        }        
     }
     
     
