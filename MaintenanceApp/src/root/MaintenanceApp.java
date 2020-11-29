@@ -3,6 +3,7 @@ package root;
 import java.awt.EventQueue;
 import root.screenbuilders.PlannerHomeBuilder;
 import root.screenbuilders.ScreenBuilder;
+import root.screenbuilders.VerifyActivityBuilder;
 
 public class MaintenanceApp {
     public static void main(String[] args) {
@@ -15,6 +16,7 @@ public class MaintenanceApp {
         
         EventQueue.invokeLater(() -> {
             ScreenBuilder b = new PlannerHomeBuilder();
+            b = new VerifyActivityBuilder(2);
             new Navigator("Smart Maintenance App", b).setVisible(true);
         });
     }
