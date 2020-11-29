@@ -2,7 +2,6 @@ package root.screens.listscheduledactivitiesbyweek;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import root.screenbuilders.ListScheduledActivitiesByWeekBuilder;
 import root.screenbuilders.VerifyActivityBuilder;
 
 public class ListScheduledActivitiesByWeekController {
