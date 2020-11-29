@@ -1,10 +1,7 @@
 package root.screens.createactivity;
 
 
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import root.Activity;
+import root.entities.Activity;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -25,14 +22,14 @@ public class ActivityController {
             if (createCheckout(inputMap)) {
                 Activity act = createActivity(inputMap);
                 if (!model.create(act) && model.getErrorCode() == 0){                    
-                    view.getMsgLabel().setForeground(Color.red);
+                    view.getMsgLabel().setForeground(java.awt.Color.red);
                     view.getMsgLabel().setText("Id già presente");
                 } else {
-                    view.getMsgLabel().setForeground(Color.green);
+                    view.getMsgLabel().setForeground(java.awt.Color.green);
                     view.getMsgLabel().setText("Activity entered successfully");
                 }
             } else {
-                view.getMsgLabel().setForeground(Color.red);
+                view.getMsgLabel().setForeground(java.awt.Color.red);
                 view.getMsgLabel().setText(checkoutError);
             }
         });
@@ -61,9 +58,7 @@ public class ActivityController {
         
         List<String> keyList = Arrays.asList("id", "branch_office", "area",
             "estimated_time", "interruptible", "typology", "week",
-            "description", "type");
-        
-        System.out.println(inputMap.keySet());
+            "description", "type");       
         
         if ( !inputMap.keySet().containsAll(keyList)) {
             checkoutError = "Error: The required fields have not been entered";
@@ -93,12 +88,11 @@ public class ActivityController {
         int id = Integer.parseInt(inputMap.get("id"));
         int estimated_time = Integer.parseInt(inputMap.get("estimated_time"));
         int week = Integer.parseInt(inputMap.get("week"));
-        
-        return new Activity(id, inputMap.get("branch_office"),
-            inputMap.get("area"), inputMap.get("typology"),
+        return new Activity(id,inputMap.get("area"),
+            inputMap.get("branch_office"), inputMap.get("typology"),
             inputMap.get("description"), estimated_time, interruptible,
             week, inputMap.get("workspace_notes"),
-            inputMap.get("type_activity"));
+            Activity.ActivityType.valueOf(inputMap.get("type")));
     }
 
     private boolean isInteger(String str) {
