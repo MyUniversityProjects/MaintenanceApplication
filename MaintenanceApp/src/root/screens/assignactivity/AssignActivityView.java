@@ -5,6 +5,7 @@
  */
 package root.screens.assignactivity;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -242,8 +245,21 @@ public class AssignActivityView extends Screen {
         LocalTime start = LocalTime.of(hourStart, minuteStart);
         LocalTime end = start.plusMinutes(timeActivity);
         
-        System.out.println("Start = "+ start);
-        System.out.println("End = "+ end);
+        try {
+            int x = controller.assignActivity(day, start, end);
+            if (x > 0) {
+                jLabelError.setText("Assignment carry out with success");
+                jLabelError.setBackground(Color.green);
+                jLabelError.setVisible(true);
+                setTable();
+            } else {
+                jLabelError.setText("Assignment failed");
+                jLabelError.setBackground(Color.red);
+                jLabelError.setVisible(true);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AssignActivityView.class.getName()).log(Level.SEVERE, null, ex);
+        }
                     
             
         

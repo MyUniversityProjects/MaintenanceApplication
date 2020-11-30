@@ -6,6 +6,7 @@
 package root.screens.assignactivity;
 
 import java.sql.SQLException;
+import java.time.LocalTime;
 
 /**
  *
@@ -43,9 +44,7 @@ public class AssignActivityController {
         return model.getDayAvaibility(cf, week, day);
     }
     
-    public int assignActivity(int day, int start_time, int end_time) throws SQLException {
-        return model.insertAssign(cf, activityID, day, start_time, end_time);
-        
-                                              
+    public int assignActivity(int day, LocalTime start_time, LocalTime end_time) throws SQLException {
+        return model.insertAssign(cf, activityID, day, start_time, end_time);                                          
     }
 }
