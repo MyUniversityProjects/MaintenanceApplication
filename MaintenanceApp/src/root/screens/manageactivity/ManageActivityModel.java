@@ -20,11 +20,6 @@ public class ManageActivityModel {
     private Connection conn = null;
 
     public ManageActivityModel() {
-        try {
-            conn = getConnection();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
     }
     
     /**
@@ -34,6 +29,14 @@ public class ManageActivityModel {
      */
     
     public List<Activity> getActivities(){
+        
+        if (conn == null){
+            try {
+            conn = getConnection();
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
         List<Activity> activities = new LinkedList<>();
         
         String query = "SELECT * FROM appactivity";
@@ -73,6 +76,14 @@ public class ManageActivityModel {
      */
     
     public boolean delete(int id){
+        
+        if(conn == null){
+            try {
+            conn = getConnection();
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
         String query = "DELETE FROM appactivity WHERE id = ?";
         
         try {
