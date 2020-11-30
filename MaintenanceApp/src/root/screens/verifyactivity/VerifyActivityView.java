@@ -19,9 +19,9 @@ public class VerifyActivityView extends Screen {
     final DefaultListModel<String> materialsModel = new DefaultListModel<>();
     
     /**
-     * Creates new form VerifyActivityView
-     * @param nav
-     * @param model
+     * Creates new form VerifyActivityView according to the activity type and data
+     * @param nav navigator used to switch between screens
+     * @param model used to show the activity informations
      */
     public VerifyActivityView(Navigable nav, VerifyActivityModel model) {
         super(nav);
@@ -448,7 +448,7 @@ public class VerifyActivityView extends Screen {
     public void addSmpBtnListener(ActionListener al) {
         smpBtn.addActionListener(al);
     }
-    /// 
+    
     public void addSkillAddBtnListener(ActionListener al) {
         addSkillBtn.addActionListener(al);
     }
@@ -461,25 +461,45 @@ public class VerifyActivityView extends Screen {
         remMaterialBtn.addActionListener(al);
     }
     
+    /**
+     * Add skill name to the UI list model for the skills
+     * @param name the name of the skill
+     */
     public void addSkill(String name) {
         skillsModel.addElement(PREFIX + name);
         skillsSelect.removeItem(name);
     }
     
+    /**
+     * Add material name to the UI list model for the materials
+     * @param name the name of the material
+     */
     public void addMaterial(String name) {
         materialsModel.addElement(PREFIX + name);
     }
     
+    /**
+     * Remove material name to the UI list model for the materials
+     * @param name the name of the material
+     */
     public void removeMaterial(String name) {
         materialsModel.removeElement(PREFIX + name);
     }
     
+    /**
+     * Clear the material name text input and returns the deleted value
+     * @return user input
+     */
     public String popMaterialInputValue() {
         String val = materialInput.getText().trim();
         materialInput.setText("");
         return val;
     }
     
+    /**
+     * Return the selected skill in the compo box
+     * @return name of the selected skill
+     */
     public String getSelectedSkill() {
         return (String)skillsSelect.getSelectedItem();
     }
@@ -492,10 +512,19 @@ public class VerifyActivityView extends Screen {
         return convertModel(skillsModel);
     }
     
+    /**
+     * Returns the current value of the estimated time text input
+     * @return estimated time value
+     */
     public String getTimeValue() {
         return timeTextField.getText();
     }
     
+    /**
+     * Used to get an array of String of the elements in the model
+     * @param m the model used to get the array of String
+     * @return 
+     */
     private static String[] convertModel(DefaultListModel<String> m) {
         int size = m.getSize();
         String[] arr = new String[size];
@@ -505,11 +534,19 @@ public class VerifyActivityView extends Screen {
         
         return arr;
     }
-    ///
+    
+    /**
+     * Return the current text of the TextArea of the notes
+     * @return text
+     */
     public String getTextAreaNotes() {
         return noteTextArea.getText();
     }
     
+    /**
+     * Return the current text of the TextArea of the notes
+     * @return text
+     */
     public String getTextAreaDescription() {
         return descTextArea.getText();
     }
