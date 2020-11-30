@@ -48,7 +48,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jScrollPane6" alignment="0" max="32767" attributes="0"/>
+          <Component id="jScrollPane6" alignment="0" pref="980" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -66,52 +66,6 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="areaInput" alignment="0" max="32767" attributes="0"/>
-                          <Component id="modifyBtn" alignment="0" max="32767" attributes="0"/>
-                          <Component id="descriptionScrollInput" alignment="1" max="32767" attributes="0"/>
-                          <Component id="notesScrollInput" alignment="1" max="32767" attributes="0"/>
-                          <Component id="idInput" alignment="0" max="32767" attributes="0"/>
-                          <Component id="branchOfficeInput" alignment="0" max="32767" attributes="0"/>
-                          <Component id="typologyInput" alignment="0" max="32767" attributes="0"/>
-                          <Component id="estimatedTimeInput" alignment="0" max="32767" attributes="0"/>
-                          <Component id="weekInput" alignment="0" max="32767" attributes="0"/>
-                          <Component id="notesScrollInput1" alignment="1" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="descriptionLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="notesLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="areaLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="typologyLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="estimatedTimeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="weekLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="BranchOfficeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="typeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="idLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="interruptibleYesInput" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="interruptibleNoInput" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="interruptibleLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="mandatoryLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="msg_label" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="typeInputScheduled" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="typeUnscheduledInput" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="typeExtraWorkInput" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="materialsLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="0" pref="200" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="42" pref="42" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       <Component id="backBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
@@ -119,6 +73,57 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="homeBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="typeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="interruptibleYesInput" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="interruptibleNoInput" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="mandatoryLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="254" max="-2" attributes="0"/>
+                                      <Component id="msg_label" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="descriptionLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="areaLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="typologyLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="estimatedTimeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="weekLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="BranchOfficeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="idLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="idInput" alignment="0" min="-2" pref="473" max="-2" attributes="0"/>
+                                  <Component id="branchOfficeInput" alignment="0" min="-2" pref="473" max="-2" attributes="0"/>
+                                  <Component id="areaInput" alignment="0" min="-2" pref="473" max="-2" attributes="0"/>
+                                  <Component id="typologyInput" alignment="0" min="-2" pref="473" max="-2" attributes="0"/>
+                                  <Component id="estimatedTimeInput" alignment="0" min="-2" pref="473" max="-2" attributes="0"/>
+                                  <Component id="weekInput" alignment="0" min="-2" pref="473" max="-2" attributes="0"/>
+                                  <Component id="descriptionScrollInput" alignment="0" min="-2" pref="473" max="-2" attributes="0"/>
+                                  <Component id="notesScrollInput" alignment="0" min="-2" pref="473" max="-2" attributes="0"/>
+                                  <Component id="notesScrollInput1" alignment="0" min="-2" pref="473" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace pref="42" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="interruptibleLabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="materialsLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="notesLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="modifyBtn" alignment="0" pref="473" max="32767" attributes="0"/>
+                                      <Component id="typeInput" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -167,47 +172,41 @@
                       <Component id="materialsLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="notesScrollInput1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                      <Component id="msg_label" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="typeLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="typeInputScheduled" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="typeUnscheduledInput" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="typeExtraWorkInput" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="typeLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                      <Component id="typeInput" min="-2" pref="33" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="interruptibleLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="interruptibleYesInput" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="interruptibleNoInput" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+                              <Component id="msg_label" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="interruptibleYesInput" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="interruptibleNoInput" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="mandatoryLabel" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="mandatoryLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="83" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="modifyBtn" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                      <EmptySpace pref="270" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JRadioButton" name="typeUnscheduledInput">
-              <Properties>
-                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="typeGroupInput"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Unscheduled"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JLabel" name="typologyLabel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="14" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Typology *"/>
+                <Property name="text" type="java.lang.String" value="Typology "/>
               </Properties>
             </Component>
             <Container class="javax.swing.JScrollPane" name="descriptionScrollInput">
@@ -230,7 +229,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="14" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Interruptible *"/>
+                <Property name="text" type="java.lang.String" value="Interruptible "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="BranchOfficeLabel">
@@ -238,27 +237,15 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="14" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Branch office *"/>
+                <Property name="text" type="java.lang.String" value="Branch office "/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="typeInputScheduled">
-              <Properties>
-                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="typeGroupInput"/>
-                </Property>
-                <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="Scheduled"/>
-              </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="ActivityView_inturruprible_input_yes"/>
-              </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="areaLabel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="14" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Area *"/>
+                <Property name="text" type="java.lang.String" value="Area "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="mandatoryLabel">
@@ -266,7 +253,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Fields with the symbol * are required"/>
+                <Property name="text" type="java.lang.String" value="Fields with the symbol * cannot be edited"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="createActivityTitleLabel">
@@ -298,7 +285,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="14" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Workspace notes"/>
+                <Property name="text" type="java.lang.String" value="Workspace notes [Optional]"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="weekLabel">
@@ -307,14 +294,6 @@
                   <Font name="Tahoma" size="14" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Week [1, 52] *"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="typeLabel">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="14" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Type *"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JRadioButton" name="interruptibleNoInput">
@@ -330,7 +309,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="14" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Estimated intervantion time (minutes) *"/>
+                <Property name="text" type="java.lang.String" value="Estimated intervantion time (minutes) "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="backBtn">
@@ -370,18 +349,10 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="14" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Description *"/>
+                <Property name="text" type="java.lang.String" value="Description "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="msg_label">
-            </Component>
-            <Component class="javax.swing.JRadioButton" name="typeExtraWorkInput">
-              <Properties>
-                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-                  <ComponentRef name="typeGroupInput"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Extra work"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="idInput">
             </Component>
@@ -422,6 +393,16 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="home"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="typeLabel">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="14" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Type*"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="typeInput">
             </Component>
           </SubComponents>
         </Container>

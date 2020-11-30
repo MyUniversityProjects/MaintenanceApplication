@@ -5,7 +5,6 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,7 +13,7 @@ import java.util.Objects;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
-import root.Settings;
+import root.Database;
 
 public class ListScheduledActivitiesByWeekModel implements Serializable {
     // Used when notifying listeners so they know what has changed
@@ -69,7 +68,7 @@ public class ListScheduledActivitiesByWeekModel implements Serializable {
     public String[][] getCurrentNumWeekScheduledActivities() throws SQLException{
         try {
             String[][] currentNumWeekScheduledActivitiesMatrix = null;    
-            Connection conn = DriverManager.getConnection(Settings.DBMS_URL,Settings.USER,Settings.PWD);
+            Connection conn = Database.getConnection();
             Statement stmQuery = conn.createStatement();
             String queryCount = "select count(*) as num from appactivity WHERE week = " + currentNumWeek +"AND type_activity = 'PLANNED'";
             ResultSet rst = stmQuery.executeQuery(queryCount);

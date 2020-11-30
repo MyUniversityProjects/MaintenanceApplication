@@ -10,7 +10,6 @@ import root.exceptions.NotFoundException;
 
 
 public class ModifySelectedActivityModel extends Activity {
-    ModifySelectedActivityModel model;
     public ModifySelectedActivityModel(int id, String area, String branchOffice, String typology, String description, int time, boolean interruptible, int week, String notes, ActivityType type) {
         super(id, area, branchOffice, typology, description, time, interruptible, week, notes, type);
     }

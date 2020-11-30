@@ -4,6 +4,8 @@ package root.screens.manageactivity;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import root.Activity;
+import root.screenbuilders.ModifySelectedActivityBuilder;
+import root.screenbuilders.VerifyActivityBuilder;
 
 /**
  *
@@ -52,13 +54,8 @@ public class ManageActivityController {
             int row = tb.getSelectedRow();
             if (row == -1){
                 view.getSelectedIdLabel().setText("No activities selected");
-            } else {                
-                if (model.delete((int) tb.getValueAt(row, 0))){
-                    view.getSelectedIdLabel().setText("Deleted selected activity");
-                    activitiesTableModel.removeRow(row);                    
-                } else {
-                    view.getSelectedIdLabel().setText("Error while deleting");
-                }
+            } else {                           
+                view.getNav().push(new ModifySelectedActivityBuilder((int) tb.getValueAt(row, 0)));
             }
         });
         
