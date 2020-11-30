@@ -69,7 +69,7 @@ public class AssignActivityModel {
             s += rst.getString("area") + " - ";
             s += rst.getString("typology") + " - ";
             s += rst.getString("estimated_time") + "'";
-            //System.out.println(s);
+            
             return s;
         } catch(Exception e){
         System.out.println("ERRORRE stringActivity");}
@@ -110,8 +110,11 @@ public class AssignActivityModel {
                 if (avaibilityDay[i] <= durata) {
                     int d = durata;
                     d -= avaibilityDay[i];
+                    avaibilityDay[i] = 0;
                     avaibilityDay[i+1] -= d;
-                }
+                    
+                } 
+                else
                 avaibilityDay[i] -= durata;
                     
                 
@@ -123,23 +126,23 @@ public class AssignActivityModel {
         return avaibilityDay;
     }
     
-    public int insertAssign(String cf, int activityID, int day, int start_time, int end_time) throws SQLException {
+    public int insertAssign(String cf, int activityID, int day, LocalTime start_time, LocalTime end_time) throws SQLException {
         try {
             String query = "INSERT INTO public.assignment(day,start_time,end_time,maintainer,activity)"
-                + "VALUES ("+ Integer.toString(day) +","
-                + Integer.toString(start_time) + ","
-                + Integer.toString(end_time) + ","
-                + Integer.toString(start_time) + ","
-                + cf + ","
+                + "VALUES ("+ Integer.toString(day) +",'"
+                + start_time.toString() + "','"
+                + end_time.toString() + "','"
+                + cf + "',"
                 + Integer.toString(activityID) + ")";
             stm = conn.createStatement();
             return stm.executeUpdate(query);
             
             
         } catch(Exception e){
-        System.out.println("ERRORE insertAssign");}
+        
         
         return 0;
+        }
     }
     
 }
