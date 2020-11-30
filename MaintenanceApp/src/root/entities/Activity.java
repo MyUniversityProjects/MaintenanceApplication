@@ -116,4 +116,9 @@ public class Activity {
             default: return null;
         }
     }
+
+    @Override
+    public String toString() {
+        return "Activity{" + "id=" + id + ", area=" + area + ", branchOffice=" + branchOffice + ", typology=" + typology + ", description=" + description + ", time=" + time + ", interruptible=" + interruptible + ", week=" + week + ", notes=" + notes + ", type=" + type + '}';
+    }
 }

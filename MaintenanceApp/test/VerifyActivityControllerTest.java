@@ -13,14 +13,26 @@ import stubs.NavigatorStub;
 public class VerifyActivityControllerTest {
     
     private class ViewStub extends VerifyActivityView {
+        String timeValue = "10";
         JButton smp = new JButton();
         JButton forward = new JButton();
         JButton back = new JButton();
         JButton home = new JButton();
+        JButton addMaterial = new JButton();
+        JButton addSkill = new JButton();
+        JButton removeMaterial = new JButton();
+        // counters of register calls
         int forwardListenerCount = 0;
         int smpListenerCount = 0;
         int backListenerCount = 0;
         int homeListenerCount = 0;
+        int addMaterialListenerCount = 0;
+        int addSkillListenerCount = 0;
+        int removeMaterialListenerCount = 0;
+        // counters of some action on the view
+        int removeMaterialCallCount = 0;
+        int addMaterialCallCount = 0;
+        int addSkillCallCount = 0;
         
         public ViewStub(Navigable nav, ModelStub model) {
             super(nav, model);
@@ -48,6 +60,54 @@ public class VerifyActivityControllerTest {
         public void addBackBtnListener(ActionListener al) {
             back.addActionListener(al);
             backListenerCount++;
+        }
+
+        @Override
+        public void addMaterialRemoveBtnListener(ActionListener al) {
+            removeMaterial.addActionListener(al);
+            removeMaterialListenerCount++;
+        }
+
+        @Override
+        public void addMaterialAddBtnListener(ActionListener al) {
+            addMaterial.addActionListener(al);
+            addMaterialListenerCount++;
+        }
+
+        @Override
+        public void addSkillAddBtnListener(ActionListener al) {
+            addSkill.addActionListener(al);
+            addSkillListenerCount++;
+        }
+        
+        @Override
+        public String getTimeValue() {
+            return timeValue;
+        }
+        
+        @Override
+        public String popMaterialInputValue() {
+            return "material";
+        }
+
+        @Override
+        public String getSelectedSkill() {
+            return "skill";
+        }
+
+        @Override
+        public void removeMaterial(String name) {
+            removeMaterialCallCount++;
+        }
+
+        @Override
+        public void addMaterial(String name) {
+            addMaterialCallCount++;
+        }
+
+        @Override
+        public void addSkill(String name) {
+            addSkillCallCount++;
         }
     }
     
@@ -83,6 +143,9 @@ public class VerifyActivityControllerTest {
         assertEquals(1, view.smpListenerCount);
         assertEquals(1, view.backListenerCount);
         assertEquals(1, view.homeListenerCount);
+        assertEquals(1, view.addSkillListenerCount);
+        assertEquals(1, view.addMaterialListenerCount);
+        assertEquals(1, view.removeMaterialListenerCount);
     }
     
     @Test
@@ -101,5 +164,57 @@ public class VerifyActivityControllerTest {
     public void testHomeListenerAction() {
         view.home.doClick();
         assertEquals(1, nav.getHomeCallCount());
+    }
+    
+    @Test
+    public void testAddMaterialListenerAction() {
+        view.addMaterial.doClick();
+        assertEquals(1, view.addMaterialCallCount);
+    }
+    
+    @Test
+    public void testRemoveMaterialListenerAction() {
+        view.removeMaterial.doClick();
+        assertEquals(1, view.removeMaterialCallCount);
+    }
+    
+    @Test
+    public void testAddSkillListenerAction() {
+        view.addSkill.doClick();
+        assertEquals(1, view.addSkillCallCount);
+    }
+    
+    @Test
+    public void testIsValidTimeInputNegative() {
+        view.timeValue = "-10";
+        assertFalse(controller.isTimeInputValid());
+    }
+    
+    @Test
+    public void testIsValidTimeInputPositive() {
+        view.timeValue = "10";
+        assertTrue(controller.isTimeInputValid());
+    }
+    
+    @Test
+    public void testIsValidTimeInputBoundaries() {
+        view.timeValue = "0";
+        assertFalse(controller.isTimeInputValid());
+        view.timeValue = "1";
+        assertTrue(controller.isTimeInputValid());
+    }
+    
+    @Test
+    public void testIsValidTimeInputNaN() {
+        view.timeValue = "paro";
+        assertFalse(controller.isTimeInputValid());
+    }
+    
+    @Test
+    public void testIsValidTimeInputNaNBoundaries() {
+        view.timeValue = "10a";
+        assertFalse(controller.isTimeInputValid());
+        view.timeValue = "t140";
+        assertFalse(controller.isTimeInputValid());
     }
 }
