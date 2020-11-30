@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package story_p7;
+package root.screens.assignactivity;
 
 import java.sql.SQLException;
 
