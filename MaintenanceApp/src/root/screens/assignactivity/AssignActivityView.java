@@ -15,12 +15,14 @@ import java.time.LocalTime;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import root.Navigable;
+import root.Screen;
 
 /**
  *
  * @author lex99
  */
-public class AssignActivityView extends javax.swing.JPanel {
+public class AssignActivityView extends Screen {
     private  AssignActivityController controller;
     private int activityID;
     private int day;
@@ -35,13 +37,14 @@ public class AssignActivityView extends javax.swing.JPanel {
     /**
      * Creates new form AssignActivityView
      */
-    public AssignActivityView(int activityID, int day, String cf) throws SQLException {
+    public AssignActivityView(Navigable nav, int activityID, int day, String cf) throws SQLException {
+        super(nav);
         initComponents();
         this.activityID = activityID;
         this.day = day;
         this.cf = cf;
         
-        controller = new AssignActivityController(activityID, cf, week, day);
+        controller = new AssignActivityController(activityID, cf, day);
         week = controller.weekActivity();
         timeActivity = controller.estimatedTimeActivity();
         jLabelError.setVisible(false);
@@ -67,7 +70,7 @@ public class AssignActivityView extends javax.swing.JPanel {
     }
     
     private void setTable() throws SQLException {
-        int[] avaibility = controller.dayAvaibility();
+        int[] avaibility = controller.dayAvaibility(week);
         String nameMaintainer = controller.nameMaintainer();
         tableModel.setValueAt(nameMaintainer, 0, 0);
         for(int i=0; i<nCols-2; i++)
