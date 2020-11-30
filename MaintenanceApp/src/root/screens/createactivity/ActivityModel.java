@@ -14,11 +14,6 @@ public class ActivityModel {
     private int errorCode;
 
     public ActivityModel() {
-        try {
-            conn = getConnection();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
     }
     
     public String getError(){
@@ -29,8 +24,20 @@ public class ActivityModel {
     public int getErrorCode(){
         return errorCode;
     }
-
+    /**
+     * get an Activity an insert it in the database
+     * 
+     * @param activity
+     * @return 
+     */
     public boolean create(Activity activity){
+        if (conn == null){
+            try {
+            conn = getConnection();
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
         String query = "INSERT INTO appactivity "+
             "(id, branch_office, area, typology, description,"+
             "estimated_time, interruptible, week, workspace_notes,"+

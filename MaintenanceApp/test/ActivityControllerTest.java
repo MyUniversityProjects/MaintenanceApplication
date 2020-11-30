@@ -33,10 +33,10 @@ public class ActivityControllerTest {
     }
 
     private class ActivityViewStub extends ActivityView {
-
+             
         public ActivityViewStub(Navigable nav) {
-            super(nav);
-        }
+            super(nav);            
+        }              
     }
 
     private class ActivityModelStub extends ActivityModel {
@@ -109,5 +109,5 @@ public class ActivityControllerTest {
 
         assertFalse(ac.createCheckout(inputTest));
     }
-
+    
 }

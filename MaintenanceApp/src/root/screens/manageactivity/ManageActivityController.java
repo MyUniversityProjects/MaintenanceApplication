@@ -31,9 +31,11 @@ public class ManageActivityController {
                 view.getSelectedIdLabel().setText(tb.getValueAt(row, 0).toString());
             }
         });
-        
+             
         view.addBackButtonListener((e)-> view.getNav().pop());
         
+        // call the function that delete from the database the activiy and
+        // delete the row in the table
         view.addDeleteSelectedButtonListener((e) ->{
             javax.swing.JTable tb = view.getActivitiesTable();
             int row = tb.getSelectedRow();
@@ -61,6 +63,7 @@ public class ManageActivityController {
         
         List<Activity> activities = model.getActivities();       
         
+        // add the activities in the table
         activities.forEach((activity) -> {
             activitiesTableModel.addRow(new Object[] {activity.getId(),
             activity.getBranchOffice(), activity.getArea(),

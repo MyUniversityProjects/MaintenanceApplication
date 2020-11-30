@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package story_p7;
+package root.screens.assignactivity;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -27,9 +27,9 @@ public class AssignActivityModel {
     }
     
     public Connection getConnection() throws SQLException {
-        String url = "jdbc:postgresql://ec2-46-137-124-19.eu-west-1.compute.amazonaws.com:5432/d5qf11bpj4ug0e";
-        String user = "iekjwlviubdoza";
-        String pwd = "4b7ae6fe88334715c35cdabf0aa73c90d9102dd1f89a240cc164971a1c63e4ca";
+        String url = "jdbc:postgresql://ec2-54-170-100-209.eu-west-1.compute.amazonaws.com:5432/dequdpq0n89gn3";
+        String user = "fpttaduzjtshag";
+        String pwd = "dbf8afb3321a3a9907fc6c4e351deb0895d8a01f62e4f3441cea8d5c28fb9321";
     
         return DriverManager.getConnection(url, user, pwd);
     }
@@ -69,7 +69,7 @@ public class AssignActivityModel {
             s += rst.getString("area") + " - ";
             s += rst.getString("typology") + " - ";
             s += rst.getString("estimated_time") + "'";
-            //System.out.println(s);
+            
             return s;
         } catch(Exception e){
         System.out.println("ERRORRE stringActivity");}
@@ -110,8 +110,11 @@ public class AssignActivityModel {
                 if (avaibilityDay[i] <= durata) {
                     int d = durata;
                     d -= avaibilityDay[i];
+                    avaibilityDay[i] = 0;
                     avaibilityDay[i+1] -= d;
-                }
+                    
+                } 
+                else
                 avaibilityDay[i] -= durata;
                     
                 
@@ -123,23 +126,23 @@ public class AssignActivityModel {
         return avaibilityDay;
     }
     
-    public int insertAssign(String cf, int activityID, int day, int start_time, int end_time) throws SQLException {
+    public int insertAssign(String cf, int activityID, int day, LocalTime start_time, LocalTime end_time) throws SQLException {
         try {
             String query = "INSERT INTO public.assignment(day,start_time,end_time,maintainer,activity)"
-                + "VALUES ("+ Integer.toString(day) +","
-                + Integer.toString(start_time) + ","
-                + Integer.toString(end_time) + ","
-                + Integer.toString(start_time) + ","
-                + cf + ","
+                + "VALUES ("+ Integer.toString(day) +",'"
+                + start_time.toString() + "','"
+                + end_time.toString() + "','"
+                + cf + "',"
                 + Integer.toString(activityID) + ")";
             stm = conn.createStatement();
             return stm.executeUpdate(query);
             
             
         } catch(Exception e){
-        System.out.println("ERRORE insertAssign");}
+        
         
         return 0;
+        }
     }
     
 }

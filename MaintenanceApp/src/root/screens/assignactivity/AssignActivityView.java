@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package story_p7;
+package root.screens.assignactivity;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,15 +13,19 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import root.Navigable;
+import root.Screen;
 
 /**
  *
  * @author lex99
  */
-public class AssignActivityView extends javax.swing.JPanel {
+public class AssignActivityView extends Screen {
     private  AssignActivityController controller;
     private int activityID;
     private int day;
@@ -35,13 +40,14 @@ public class AssignActivityView extends javax.swing.JPanel {
     /**
      * Creates new form AssignActivityView
      */
-    public AssignActivityView(int activityID, int day, String cf) throws SQLException {
+    public AssignActivityView(Navigable nav, int activityID, int day, String cf) throws SQLException {
+        super(nav);
         initComponents();
         this.activityID = activityID;
         this.day = day;
         this.cf = cf;
         
-        controller = new AssignActivityController(activityID, cf, week, day);
+        controller = new AssignActivityController(activityID, cf, day);
         week = controller.weekActivity();
         timeActivity = controller.estimatedTimeActivity();
         jLabelError.setVisible(false);
@@ -67,7 +73,7 @@ public class AssignActivityView extends javax.swing.JPanel {
     }
     
     private void setTable() throws SQLException {
-        int[] avaibility = controller.dayAvaibility();
+        int[] avaibility = controller.dayAvaibility(week);
         String nameMaintainer = controller.nameMaintainer();
         tableModel.setValueAt(nameMaintainer, 0, 0);
         for(int i=0; i<nCols-2; i++)
@@ -239,8 +245,21 @@ public class AssignActivityView extends javax.swing.JPanel {
         LocalTime start = LocalTime.of(hourStart, minuteStart);
         LocalTime end = start.plusMinutes(timeActivity);
         
-        System.out.println("Start = "+ start);
-        System.out.println("End = "+ end);
+        try {
+            int x = controller.assignActivity(day, start, end);
+            if (x > 0) {
+                jLabelError.setText("Assignment carry out with success");
+                jLabelError.setBackground(Color.green);
+                jLabelError.setVisible(true);
+                setTable();
+            } else {
+                jLabelError.setText("Assignment failed");
+                jLabelError.setBackground(Color.red);
+                jLabelError.setVisible(true);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AssignActivityView.class.getName()).log(Level.SEVERE, null, ex);
+        }
                     
             
         
