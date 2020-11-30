@@ -3,32 +3,27 @@ package root.screens.manageactivity;
 
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 import root.Activity;
-import root.Settings;
+import static root.Database.getConnection;
 
 /**
  *
  * @author giand
  */
 public class ManageActivityModel {
-    private Connection conn;
+    private Connection conn = null;
 
     public ManageActivityModel() {
         try {
-            Class.forName("org.postgresql.Driver");
-            this.conn = DriverManager.getConnection(
-                    Settings.DBMS_URL,
-                    Settings.USER,
-                    Settings.PWD
-            );
-        } catch (SQLException | ClassNotFoundException ex) {
-            System.out.println("Exception: " + ex.getMessage());
+            conn = getConnection();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
     }
     
@@ -60,6 +55,21 @@ public class ManageActivityModel {
         }
         
         return activities;
+    }
+    
+    public boolean delete(int id){
+        String query = "DELETE FROM appactivity WHERE id = ?";
+        
+        try {
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setInt(1, id);
+
+            stmt.executeUpdate();   
+            return true;
+        } catch(SQLException ex){
+            System.out.println(ex.getMessage());
+            return false;      
+        }        
     }
     
     
