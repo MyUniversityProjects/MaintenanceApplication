@@ -105,7 +105,6 @@
                                           </Group>
                                           <Component id="interruptibleLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="mandatoryLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="msg_label" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="typeInputScheduled" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -168,9 +167,7 @@
                       <Component id="materialsLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="notesScrollInput1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                      <Component id="msg_label" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
                       <Component id="typeLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -370,8 +367,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Description *"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="msg_label">
             </Component>
             <Component class="javax.swing.JRadioButton" name="typeExtraWorkInput">
               <Properties>

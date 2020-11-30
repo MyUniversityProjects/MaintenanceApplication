@@ -27,6 +27,12 @@ public class ManageActivityModel {
         }
     }
     
+    /**
+     * Take from the database the activities
+     * 
+     * @return a list of Activities
+     */
+    
     public List<Activity> getActivities(){
         List<Activity> activities = new LinkedList<>();
         
@@ -56,6 +62,15 @@ public class ManageActivityModel {
         
         return activities;
     }
+    
+    /**
+     * 
+     * Delete from the database tha activity that have 
+     * id equal to the passed param
+     * 
+     * @param id
+     * @return 
+     */
     
     public boolean delete(int id){
         String query = "DELETE FROM appactivity WHERE id = ?";

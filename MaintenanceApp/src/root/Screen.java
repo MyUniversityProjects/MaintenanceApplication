@@ -17,4 +17,8 @@ abstract public class Screen extends JPanel {
     public void showErrorMsg(String title, String msg) {
         JOptionPane.showMessageDialog(this, msg, title, JOptionPane.ERROR_MESSAGE);
     }
+    
+    public void showMsg(String title, String msg) {
+        JOptionPane.showMessageDialog(this, msg, title, JOptionPane.INFORMATION_MESSAGE);
+    }
 }

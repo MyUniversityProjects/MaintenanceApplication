@@ -22,21 +22,23 @@ public class ActivityController {
             if (createCheckout(inputMap)) {
                 Activity act = createActivity(inputMap);
                 if (!model.create(act) && model.getErrorCode() == 0){                    
-                    view.getMsgLabel().setForeground(java.awt.Color.red);
-                    view.getMsgLabel().setText("Id già presente");
+                    view.showErrorMsg("Id error", "The id is already present");
                 } else {
-                    view.getMsgLabel().setForeground(java.awt.Color.green);
-                    view.getMsgLabel().setText("Activity entered successfully");
+                    view.showMsg("Success", "Activity entered successfully");
                 }
             } else {
-                view.getMsgLabel().setForeground(java.awt.Color.red);
-                view.getMsgLabel().setText(checkoutError);
+                view.showErrorMsg("Input error", checkoutError);
             }
         });
         
         view.addBackButtonListener((e)-> {view.getNav().pop();});
     }
 
+    /**
+     * Take the input field from the view and
+     * added them in a map, and return the map.
+    */
+    
     private Map<String, String> getInputs() {
         Map<String, String> inputMap = new HashMap<>();
 
@@ -53,7 +55,16 @@ public class ActivityController {
 
         return inputMap;
     }
-
+    
+    /**
+     * Do the check below:
+     *  1 - check that all fields are present
+     *  2 - check that integer fields have an integer value
+     *  3 - check that the required fields are not empty
+     * 
+     * @param inputMap
+     * @return if the checks are passed
+     */
     public boolean createCheckout(Map<String, String> inputMap) {
         
         List<String> keyList = Arrays.asList("id", "branch_office", "area",
@@ -82,6 +93,13 @@ public class ActivityController {
         return true;
     }
     
+    /**
+     * From an map of input create an Activity and return it
+     * 
+     * @param inputMap
+     * @return Activity
+     */
+    
     public Activity createActivity(Map<String, String> inputMap){       
         
         boolean interruptible = Boolean.parseBoolean(inputMap.get("interruptible"));
@@ -95,6 +113,13 @@ public class ActivityController {
             Activity.ActivityType.valueOf(inputMap.get("type")));
     }
 
+    /**
+     * check if a String has an integer value
+     * 
+     * @param str
+     * @return 
+     */
+    
     private boolean isInteger(String str) {
         try {
             Integer.parseInt(str);

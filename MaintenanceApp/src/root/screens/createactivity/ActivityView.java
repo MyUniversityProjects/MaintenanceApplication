@@ -44,7 +44,6 @@ public class ActivityView extends Screen {
         notesInput = new javax.swing.JTextArea();
         interruptibleYesInput = new javax.swing.JRadioButton();
         descriptionLabel = new javax.swing.JLabel();
-        msg_label = new javax.swing.JLabel();
         typeExtraWorkInput = new javax.swing.JRadioButton();
         idInput = new javax.swing.JTextField();
         branchOfficeInput = new javax.swing.JTextField();
@@ -179,7 +178,6 @@ public class ActivityView extends Screen {
                                         .addComponent(interruptibleNoInput))
                                     .addComponent(interruptibleLabel)
                                     .addComponent(mandatoryLabel)
-                                    .addComponent(msg_label)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(typeInputScheduled)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -233,9 +231,7 @@ public class ActivityView extends Screen {
                 .addComponent(materialsLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(notesScrollInput1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(msg_label)
-                .addGap(31, 31, 31)
+                .addGap(67, 67, 67)
                 .addComponent(typeLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -296,7 +292,6 @@ public class ActivityView extends Screen {
     private javax.swing.JLabel mandatoryLabel;
     private javax.swing.JTextArea materialsInput;
     private javax.swing.JLabel materialsLabel;
-    private javax.swing.JLabel msg_label;
     private javax.swing.JTextArea notesInput;
     private javax.swing.JLabel notesLabel;
     private javax.swing.JScrollPane notesScrollInput;
@@ -312,6 +307,11 @@ public class ActivityView extends Screen {
     private javax.swing.JLabel weekLabel;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * The input of materials is added only as a mock because the 
+     * implementation of System Administrator part that manage the materials
+     * in the system has not yet implemented.
+    */
     
     // Input Getter
     public String getId(){
@@ -357,11 +357,7 @@ public class ActivityView extends Screen {
         typeUnscheduledInput.setActionCommand("UNPLANNED");
         typeExtraWorkInput.setActionCommand("EXTRA");
         return typeGroupInput.getSelection().getActionCommand();
-    }
-    
-    public javax.swing.JLabel getMsgLabel(){
-        return msg_label;
-    }
+    }    
 
     void addCreateButtonListener(ActionListener al) {
         createBtn.addActionListener(al);

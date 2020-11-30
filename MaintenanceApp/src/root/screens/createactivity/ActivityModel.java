@@ -29,7 +29,12 @@ public class ActivityModel {
     public int getErrorCode(){
         return errorCode;
     }
-
+    /**
+     * get an Activity an insert it in the database
+     * 
+     * @param activity
+     * @return 
+     */
     public boolean create(Activity activity){
         String query = "INSERT INTO appactivity "+
             "(id, branch_office, area, typology, description,"+
