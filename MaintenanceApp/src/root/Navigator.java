@@ -9,6 +9,10 @@ import root.screenbuilders.ScreenBuilder;
 import root.screenbuilders.ScreenDirector;
 
 
+/**
+ * A FFrame that allow navigation between screens with basic operations.
+ * When a screen change occur, the frame adjust it's size to the new screen.
+ */
 final public class Navigator extends JFrame implements Navigable {
     private final CardLayout cl = new CardLayout();
     private final JPanel cards = new JPanel(cl);
@@ -90,7 +94,7 @@ final public class Navigator extends JFrame implements Navigable {
     }
     
     /**
-     * removes all screens except the first one (home) to show it.
+     * Removes all screens except the first one (home) to show it.
      * @return the home screen (first screen)
      * @throws EmptyNavigatorException
      */
