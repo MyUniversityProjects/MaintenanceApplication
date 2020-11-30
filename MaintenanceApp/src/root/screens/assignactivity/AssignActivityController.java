@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package story_p7;
+package root.screens.assignactivity;
 
 import java.sql.SQLException;
 
@@ -14,14 +14,12 @@ import java.sql.SQLException;
 public class AssignActivityController {
     private int activityID;
     private String cf;
-    private String week;
     private int day;
     private AssignActivityModel model;
       
-    public AssignActivityController(int activityID, String cf, String week, int day) throws SQLException {
+    public AssignActivityController(int activityID, String cf, int day) throws SQLException {
         this.activityID = activityID;
         this.cf = cf;
-        this.week = week;
         this.day = day;
         model = new AssignActivityModel();
     }
@@ -41,7 +39,7 @@ public class AssignActivityController {
         return model.getNameMaintainer(cf);
     }
     
-    public int[] dayAvaibility() throws SQLException {
+    public int[] dayAvaibility(String week) throws SQLException {
         return model.getDayAvaibility(cf, week, day);
     }
     
