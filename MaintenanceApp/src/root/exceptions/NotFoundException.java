@@ -3,14 +3,14 @@ package root.exceptions;
 public class NotFoundException extends Exception {
 
     /**
-     * Creates a new instance of <code>NotFoundException</code> without detail
+     * Creates a new instance of NotFoundException without detail
      * message.
      */
     public NotFoundException() {
     }
 
     /**
-     * Constructs an instance of <code>NotFoundException</code> with the
+     * Constructs an instance of NotFoundException with the
      * specified detail message.
      *
      * @param msg the detail message.

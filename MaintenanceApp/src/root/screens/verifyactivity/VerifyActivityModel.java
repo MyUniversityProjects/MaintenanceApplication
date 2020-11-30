@@ -15,6 +15,14 @@ public class VerifyActivityModel extends Activity {
         super(id, area, branchOffice, typology, description, time, interruptible, week, notes, type);
     }
     
+    /**
+     * Create and return an instance of VerifyActivityModel by fetching the
+     * data of the activity, from the database
+     * @param id activity identifier
+     * @return and instance of VerifyActivityModel
+     * @throws SQLException
+     * @throws NotFoundException 
+     */
     public static VerifyActivityModel fromDatabase(int id) throws SQLException, NotFoundException {
         String query = "SELECT id, area, branch_office, typology, description, estimated_time, interruptible, week, workspace_notes, type_activity, verified FROM AppActivity WHERE id=?";
         try (Connection conn = Database.getConnection()) {
@@ -38,12 +46,27 @@ public class VerifyActivityModel extends Activity {
         }
     }
     
+    /**
+     * Verify and update the activity.
+     * @throws SQLException
+     * @throws NotFoundException 
+     */
     public void forward() throws SQLException, NotFoundException {
-        String query = "UPDATE AppActivity SET workspace_notes=?, verified=TRUE WHERE id=?";
         try (Connection conn = Database.getConnection()) {
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setString(1, getNotes());
-            stmt.setInt(2, getId());
+            PreparedStatement stmt;
+            if (getType() == ActivityType.PLANNED) {
+                String query = "UPDATE AppActivity SET workspace_notes=?, verified=TRUE WHERE id=?";
+                stmt = conn.prepareStatement(query);
+                stmt.setString(1, getNotes());
+                stmt.setInt(2, getId());
+            } else {
+                String query = "UPDATE AppActivity SET description=?, estimated_time=?, verified=TRUE WHERE id=?";
+                stmt = conn.prepareStatement(query);
+                stmt.setString(1, getDescription());
+                stmt.setInt(2, getTime());
+                stmt.setInt(3, getId());
+            }
+            
             int res = stmt.executeUpdate();
             if (res == 0) throw new NotFoundException("Activity not found");
         }
