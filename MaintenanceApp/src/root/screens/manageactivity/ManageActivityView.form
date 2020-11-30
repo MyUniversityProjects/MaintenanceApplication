@@ -48,6 +48,8 @@
                           <Component id="selectBtn" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="modifySelectedBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="deleteSelectedBtn" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
@@ -59,7 +61,7 @@
                                       <Component id="manageActivityTitleLabel" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="336" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -78,8 +80,11 @@
                       <Component id="activitiesTableScroll" min="-2" pref="402" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="selectIdLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="deleteSelectedBtn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="37" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="deleteSelectedBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="modifySelectedBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="selectBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
@@ -180,6 +185,11 @@
             <Component class="javax.swing.JButton" name="deleteSelectedBtn">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Delete Selected"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="modifySelectedBtn">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Modify Selected"/>
               </Properties>
             </Component>
           </SubComponents>

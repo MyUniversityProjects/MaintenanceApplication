@@ -47,6 +47,21 @@ public class ManageActivityController {
             }
         });
         
+        view.addModifySelectedButtonListener((e) ->{
+            javax.swing.JTable tb = view.getActivitiesTable();
+            int row = tb.getSelectedRow();
+            if (row == -1){
+                view.getSelectedIdLabel().setText("No activities selected");
+            } else {                
+                if (model.delete((int) tb.getValueAt(row, 0))){
+                    view.getSelectedIdLabel().setText("Deleted selected activity");
+                    activitiesTableModel.removeRow(row);                    
+                } else {
+                    view.getSelectedIdLabel().setText("Error while deleting");
+                }
+            }
+        });
+        
         List<Activity> activities = model.getActivities();       
         
         activities.forEach((activity) -> {
