@@ -8,9 +8,9 @@ import java.sql.SQLException;
  * Utility class that provides utility methods to access a remote database
  */
 public class Database {
-    public static final String DBMS_URL = "jdbc:postgresql://ec2-46-137-124-19.eu-west-1.compute.amazonaws.com:5432/d5qf11bpj4ug0e";
-    public static final String USER = "iekjwlviubdoza";
-    public static final String PWD = "4b7ae6fe88334715c35cdabf0aa73c90d9102dd1f89a240cc164971a1c63e4ca";
+    public static final String DBMS_URL = "jdbc:postgresql://ec2-54-170-100-209.eu-west-1.compute.amazonaws.com:5432/dequdpq0n89gn3";
+    public static final String USER = "fpttaduzjtshag";
+    public static final String PWD = "dbf8afb3321a3a9907fc6c4e351deb0895d8a01f62e4f3441cea8d5c28fb9321";
     
     /**
      * Create and returns a new connection to a remote database
