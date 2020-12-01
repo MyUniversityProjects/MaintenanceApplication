@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
-import root.Activity;
+import root.entities.Activity;
 import static root.Database.getConnection;
 
 /**
@@ -55,7 +55,7 @@ public class ManageActivityModel {
                         rs.getString("description"),
                         rs.getInt("estimated_time"), rs.getBoolean("interruptible"),
                         rs.getInt("week"),
-                        rs.getString("workspace_notes"), rs.getString("type_activity"));
+                        rs.getString("workspace_notes"), Activity.ActivityType.valueOf(rs.getString("type_activity")));
                     activities.add(activity);
                 }
             }

@@ -3,7 +3,7 @@ package root.screens.manageactivity;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import root.Activity;
+import root.entities.Activity;
 
 /**
  *
@@ -55,7 +55,7 @@ public class ManageActivityController {
         activities.forEach((activity) -> {
             activitiesTableModel.addRow(new Object[] {activity.getId(),
             activity.getBranchOffice(), activity.getArea(),
-            activity.getTypology(), activity.getEstimatedTime(),
+            activity.getTypology(), activity.getTime(),
             activity.getWeek(), activity.isInterruptible()});
 
         });              
