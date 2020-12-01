@@ -5,7 +5,6 @@ import java.awt.EventQueue;
 import java.awt.event.ActionListener;
 import root.Navigable;
 import root.Screen;
-import root.entities.Activity;
 
 public class ModifySelectedActivityView extends Screen {
 
@@ -38,16 +37,7 @@ public class ModifySelectedActivityView extends Screen {
             notesInput.setText(model.getNotes());
             notesInput.setEditable(true);
             materialsInput.setEditable(false);
-            System.out.print(model.getType());
-            if(model.getType() == Activity.ActivityType.PLANNED){
-                typeInput.setText("Scheduled");
-            }else if (model.getType() == Activity.ActivityType.UNPLANNED){
-                typeInput.setText("Unscheduled");
-            }else if (model.getType() == Activity.ActivityType.EXTRA){
-                typeInput.setText("Extra Work");
-            }
-            /*
-            switch (model.getType()) {
+            if(null != model.getType())switch (model.getType()) {
                 case PLANNED:
                     typeInput.setText("Scheduled");
                     break;
@@ -55,10 +45,11 @@ public class ModifySelectedActivityView extends Screen {
                     typeInput.setText("Unscheduled");
                     break;
                 case EXTRA:
-                    typeInput.setText("Extra work");
+                    typeInput.setText("Extra Work");
+                    break;
+                default:
                     break;
             }
-            */
             typeInput.setEditable(false);
         }
     }
