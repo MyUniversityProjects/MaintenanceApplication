@@ -2,8 +2,7 @@ package root.screens.listscheduledactivitiesbyweek;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import root.screenbuilders.ListScheduledActivitiesByWeekBuilder;
-import root.screenbuilders.VerifyActivityBuilder;
+ import root.screenbuilders.VerifyActivityBuilder;
 
 public class ListScheduledActivitiesByWeekController {
     // Need a reference to both the model and the view

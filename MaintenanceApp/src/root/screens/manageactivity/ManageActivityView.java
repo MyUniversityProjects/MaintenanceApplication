@@ -33,17 +33,14 @@ public class ManageActivityView extends Screen {
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         manageActivityTitleLabel = new javax.swing.JLabel();
-        selectBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
         activitiesTableScroll = new javax.swing.JScrollPane();
         activitiesTable = new javax.swing.JTable(new DefaultTableModel());
-        selectIdLabel = new javax.swing.JLabel();
         deleteSelectedBtn = new javax.swing.JButton();
+        modifySelectedBtn = new javax.swing.JButton();
 
         manageActivityTitleLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         manageActivityTitleLabel.setText("MANAGE ACTIVITY");
-
-        selectBtn.setText("Select");
 
         backBtn.setText("back");
 
@@ -74,6 +71,8 @@ public class ManageActivityView extends Screen {
 
         deleteSelectedBtn.setText("Delete Selected");
 
+        modifySelectedBtn.setText("Modify Selected");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -81,19 +80,17 @@ public class ManageActivityView extends Screen {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(activitiesTableScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 818, Short.MAX_VALUE)
-                    .addComponent(selectBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(activitiesTableScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 848, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(modifySelectedBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(deleteSelectedBtn))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(selectIdLabel)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(backBtn)
-                                .addGap(266, 266, 266)
-                                .addComponent(manageActivityTitleLabel)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(backBtn)
+                        .addGap(266, 266, 266)
+                        .addComponent(manageActivityTitleLabel)
+                        .addGap(0, 346, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -105,13 +102,11 @@ public class ManageActivityView extends Screen {
                     .addComponent(backBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(activitiesTableScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(selectIdLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(deleteSelectedBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(selectBtn)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(deleteSelectedBtn)
+                    .addComponent(modifySelectedBtn))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
 
         jScrollPane2.setViewportView(jPanel1);
@@ -121,7 +116,7 @@ public class ManageActivityView extends Screen {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 850, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 906, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -141,24 +136,19 @@ public class ManageActivityView extends Screen {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel manageActivityTitleLabel;
-    private javax.swing.JButton selectBtn;
-    private javax.swing.JLabel selectIdLabel;
+    private javax.swing.JButton modifySelectedBtn;
     // End of variables declaration//GEN-END:variables
 
     public javax.swing.JTable getActivitiesTable(){
         return activitiesTable;
-    }
-    
-    public javax.swing.JLabel getSelectedIdLabel(){
-        return selectIdLabel;
-    }
-    
-    public void addSelectButtonListener(ActionListener al){
-        selectBtn.addActionListener(al);
-    }
-    
+    }    
+
     public void addBackButtonListener(ActionListener al){
         backBtn.addActionListener(al);
+    }
+    
+    public void addModifySelectedButtonListener(ActionListener al){
+        modifySelectedBtn.addActionListener(al);
     }
     
     public void addDeleteSelectedButtonListener(ActionListener al){

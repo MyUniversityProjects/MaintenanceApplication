@@ -463,7 +463,7 @@ public class VerifyActivityView extends Screen {
     
     /**
      * Add skill name to the UI list model for the skills
-     * @param name the name of the skill
+     * @param name the name of the skill; must not be null
      */
     public void addSkill(String name) {
         skillsModel.addElement(PREFIX + name);
@@ -472,7 +472,7 @@ public class VerifyActivityView extends Screen {
     
     /**
      * Add material name to the UI list model for the materials
-     * @param name the name of the material
+     * @param name the name of the material; must not be null
      */
     public void addMaterial(String name) {
         materialsModel.addElement(PREFIX + name);
@@ -480,7 +480,7 @@ public class VerifyActivityView extends Screen {
     
     /**
      * Remove material name to the UI list model for the materials
-     * @param name the name of the material
+     * @param name the name of the material; must not be null
      */
     public void removeMaterial(String name) {
         materialsModel.removeElement(PREFIX + name);
@@ -523,7 +523,7 @@ public class VerifyActivityView extends Screen {
     /**
      * Used to get an array of String of the elements in the model
      * @param m the model used to get the array of String
-     * @return 
+     * @return an array of with the elements of the model
      */
     private static String[] convertModel(DefaultListModel<String> m) {
         int size = m.getSize();

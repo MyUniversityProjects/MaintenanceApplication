@@ -109,9 +109,10 @@ public class Activity {
     }
     
     public static ActivityType convertRawType(String type) {
+        System.out.print(type);
         switch (type) {
-            case "P": return ActivityType.PLANNED;
-            case "EWO": return ActivityType.UNPLANNED;
+            case "PLANNED": return ActivityType.PLANNED;
+            case "UNPLANNED": return ActivityType.UNPLANNED;
             case "EXTRA": return ActivityType.EXTRA;
             default: return null;
         }
