@@ -30,8 +30,12 @@ public class ListScheduledActivitiesByWeekController {
         @Override
         public void actionPerformed(ActionEvent event) {
             int index = view.getSelectedScheduledActivityIndex();
-            int id =  model.getSelectedActivity(index);
-            view.getNav().push(new VerifyActivityBuilder(id));
+            if(index == -1){
+                view.showErrorMsg("No selection", "No activity selected");
+            }else{
+                int id =  model.getSelectedActivity(index);
+                view.getNav().push(new VerifyActivityBuilder(id));
+            }          
         }
     }
     

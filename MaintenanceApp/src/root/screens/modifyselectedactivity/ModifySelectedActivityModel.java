@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Map;
 import root.Database;
 import static root.Database.getConnection;
@@ -17,7 +16,6 @@ public class ModifySelectedActivityModel extends Activity {
         super(id, area, branchOffice, typology, description, time, interruptible, week, notes, type);
     }
     
-    private Connection conn = null;
     private String error = "";
     private int errorCode;
     
@@ -45,18 +43,11 @@ public class ModifySelectedActivityModel extends Activity {
     }
     
     public boolean modify(Map<String, String> inputMap){
-        if (conn == null){
-            try {
-            conn = getConnection();
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
         String query = "UPDATE appactivity "
                 + "SET branch_office = ?,area = ?,typology = ?,description = ?,estimated_time = ?,interruptible = ?,workspace_notes = ? "
                 + "WHERE id = ? ";
-        
         try {
+            Connection conn = getConnection();
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, inputMap.get("branch_office"));
             stmt.setString(2, inputMap.get("area"));
