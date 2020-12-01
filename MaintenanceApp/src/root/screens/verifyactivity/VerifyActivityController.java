@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import root.exceptions.NotFoundException;
+import root.screenbuilders.AssignActivityBuilder;
 
 public class VerifyActivityController {
     private final VerifyActivityModel model;
@@ -57,6 +58,7 @@ public class VerifyActivityController {
             model.setDescription(view.getTextAreaDescription());
             try {
                 model.forward();
+                view.getNav().push(new AssignActivityBuilder(model.getId(), 1, "DAAASSSSDDDDFFFF"));
             } catch (SQLException | NotFoundException ex) {
                 view.showErrorMsg("Unable to forward", ex.getMessage());
                 EventQueue.invokeLater(() -> {
