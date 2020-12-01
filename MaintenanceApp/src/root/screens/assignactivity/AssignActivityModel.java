@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import root.Database;
 
 /**
  *
@@ -23,15 +24,12 @@ public class AssignActivityModel {
     private static Statement stm;
     
     public AssignActivityModel() throws SQLException {
-        conn = getConnection();
+        conn = Database.getConnection();
     }
     
     public Connection getConnection() throws SQLException {
-        String url = "jdbc:postgresql://ec2-54-170-100-209.eu-west-1.compute.amazonaws.com:5432/dequdpq0n89gn3";
-        String user = "fpttaduzjtshag";
-        String pwd = "dbf8afb3321a3a9907fc6c4e351deb0895d8a01f62e4f3441cea8d5c28fb9321";
-    
-        return DriverManager.getConnection(url, user, pwd);
+        
+        return conn;
     }
     
     public String getWeekActivity(int activityID) throws SQLException {
@@ -139,8 +137,7 @@ public class AssignActivityModel {
             
             
         } catch(Exception e){
-        
-        
+        System.out.println("ERRORE getDayAvaibility");   
         return 0;
         }
     }

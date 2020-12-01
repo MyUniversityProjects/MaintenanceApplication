@@ -216,8 +216,11 @@ public class AssignActivityView extends Screen {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAssignActionPerformed
-        if((colSelected < 2) || (tableModel.getValueAt(rowSelected, colSelected).equals(0)))
+        if((colSelected < 2) || (tableModel.getValueAt(rowSelected, colSelected).equals(0))) {
             jLabelError.setText("ERRORE: Devi selezionare una cella con dei minuti disponibili");
+            jLabelError.setVisible(true);
+            return;
+        }
         
         int hourStart, minuteStart, hourEnd, minuteEnd;
         
@@ -230,14 +233,15 @@ public class AssignActivityView extends Screen {
                 }
                 if(time < timeActivity) {
                     jLabelError.setText("ERRORE: Non c'è abbastanza tempo per svolgere l' attività di manutenzione selezionata");
+                    jLabelError.setVisible(true);
                     return;
                 }
                             
         }
         if(colSelected > 5)
-            hourStart = colSelected + 9;
+            hourStart = colSelected + 8;
         else
-            hourStart = colSelected + 7;
+            hourStart = colSelected + 6;
                     
         minuteStart = 60 - Integer.parseInt(tableModel.getValueAt(rowSelected, colSelected).toString());
                     
@@ -258,6 +262,7 @@ public class AssignActivityView extends Screen {
                 jLabelError.setVisible(true);
             }
         } catch (SQLException ex) {
+            System.out.println("ERRORE: ASSEGNAMENTO COL BUTTON NON RIUSCITO");
             Logger.getLogger(AssignActivityView.class.getName()).log(Level.SEVERE, null, ex);
         }
                     
