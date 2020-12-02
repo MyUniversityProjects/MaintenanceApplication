@@ -9,7 +9,11 @@ import root.Screen;
 public class ModifySelectedActivityView extends Screen {
 
     ModifySelectedActivityModel model;
-    
+    /**
+     * Creates new form ModifySelectedActivityView according to the activity type and data
+     * @param nav navigator used to switch between screens
+     * @param model used to show the activity informations
+     */
     public ModifySelectedActivityView(Navigable nav, ModifySelectedActivityModel model) {
         super(nav);
         this.model = model == null ? new ModifySelectedActivityModel(0, "", "", "", "", 0, false, 0, "", null) : model;

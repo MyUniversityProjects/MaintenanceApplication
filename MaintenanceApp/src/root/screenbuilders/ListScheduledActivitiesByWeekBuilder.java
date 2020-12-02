@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import root.Navigable;
-import root.Navigator;
 import root.Screen;
 import root.screens.listscheduledactivitiesbyweek.ListScheduledActivitiesByWeekController;
 import root.screens.listscheduledactivitiesbyweek.ListScheduledActivitiesByWeekModel;

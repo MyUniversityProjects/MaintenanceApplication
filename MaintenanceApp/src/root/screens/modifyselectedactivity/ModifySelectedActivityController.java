@@ -12,6 +12,11 @@ public class ModifySelectedActivityController {
     private final ModifySelectedActivityView view;
     private String checkoutError;
 
+    /**
+     * Create the controller and register buttons listeners of the view
+     * @param model the model of the view
+     * @param view the view to control
+     */
     public ModifySelectedActivityController(ModifySelectedActivityModel model, ModifySelectedActivityView view) {
         this.model = model;
         this.view = view;
@@ -22,6 +27,9 @@ public class ModifySelectedActivityController {
     }
 
     private class BackBtnListener implements ActionListener {
+        /**
+         * Go back to the previous screen
+         */
         @Override
         public void actionPerformed(ActionEvent event) {
             view.getNav().pop();
@@ -29,6 +37,9 @@ public class ModifySelectedActivityController {
     }
     
     private class HomeBtnListener implements ActionListener {
+        /**
+         * Go back to the home screen
+         */
         @Override
         public void actionPerformed(ActionEvent event) {
             view.getNav().goHome();
@@ -36,23 +47,34 @@ public class ModifySelectedActivityController {
     }
     
     private class ModifyBtnListener implements ActionListener {
+        /**
+         * Modify the activity with the inputs of the user.
+         * if the inputs don't respect the checkout conditions,
+         * an error message will be given
+         */
         @Override
         public void actionPerformed(ActionEvent event) {
             Map<String, String> inputMap = getInputs();
             if (modifyCheckout(inputMap)) {
                 model.modify(inputMap);
-                if (!model.modify(inputMap) && model.getErrorCode() == 0){                    
-                    view.showErrorMsg("Id error", "The id is already present");
-                } else {
-                    view.showMsg("Success", "Activity modified successfully");
-                    view.getNav().goHome();
-                }
+                view.showMsg("Success", "Activity modified successfully");
+                view.getNav().goHome();
+                
             } else {
                 view.showErrorMsg("Input error", checkoutError);
             }
         }
     }
     
+    /**
+     * Do the check below:
+     *  1 - check that all fields are present
+     *  2 - check that integer fields have an integer value
+     *  3 - check that the required fields are not empty
+     * 
+     * @param inputMap
+     * @return if the checks are passed
+     */
     public boolean modifyCheckout(Map<String, String> inputMap) {
         
         List<String> keyList = Arrays.asList("branch_office", "area",
@@ -81,6 +103,12 @@ public class ModifySelectedActivityController {
         return true;
     }
     
+    /**
+     * check if a String has an integer value
+     * 
+     * @param str
+     * @return  true if it is a Integer, false otherwise
+     */
     private boolean isInteger(String str) {
         try {
             Integer.parseInt(str);
@@ -90,6 +118,11 @@ public class ModifySelectedActivityController {
         }
     }
     
+    /**
+     * Take the input field from the view and
+     * added them in a map, and return the map.
+     * @return  map having the inputs from the user
+     */
     private Map<String, String> getInputs() {
         Map<String, String> inputMap = new HashMap<>();
         inputMap.put("branch_office", view.getBranchOffice());

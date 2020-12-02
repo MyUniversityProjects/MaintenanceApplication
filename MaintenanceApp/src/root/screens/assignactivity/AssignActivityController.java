@@ -28,6 +28,10 @@ public class AssignActivityController {
         return model.getWeekActivity(activityID);
     }
     
+    public String notes() throws SQLException {
+        return model.getNotes(activityID);
+    }
+    
     public int estimatedTimeActivity() {
         return model.getEstimatedTimeActivity(activityID);
     }

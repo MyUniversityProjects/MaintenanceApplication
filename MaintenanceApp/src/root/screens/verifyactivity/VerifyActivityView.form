@@ -29,15 +29,11 @@
                               <Component id="homeBtn" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="typologyValueLabel" max="32767" attributes="0"/>
-                                  <Component id="areaValueLabel" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="weekValueLabel" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="idValueLabel" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="141" max="-2" attributes="0"/>
+                              <Component id="idValueLabel" min="-2" pref="206" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                               <Component id="jScrollPane2" min="-2" pref="215" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="typologyValueLabel" alignment="0" min="-2" pref="206" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                   </Group>
@@ -50,28 +46,34 @@
                                           <Component id="noteLabel" min="-2" max="-2" attributes="0"/>
                                           <Component id="jScrollPane1" min="-2" pref="206" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                      <Component id="timeTextField" alignment="0" min="-2" pref="151" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="timeLabel" min="-2" pref="206" max="-2" attributes="0"/>
-                                              <Component id="typologyLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="areaLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="weekLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="idLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="timeLabel" min="-2" pref="206" max="-2" attributes="0"/>
+                                                  <Component id="typologyLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="areaLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="weekLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="idLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="areaValueLabel" alignment="1" min="-2" pref="206" max="-2" attributes="0"/>
+                                                  <Component id="weekValueLabel" alignment="1" min="-2" pref="206" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="filler1" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="filler2" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="filler1" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="filler2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="dateValueLabel" alignment="0" min="-2" pref="206" max="-2" attributes="0"/>
+                                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="timeTextField" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="dateLabel" alignment="0" pref="151" max="32767" attributes="0"/>
+                                          </Group>
                                       </Group>
-                                      <Component id="dateValueLabel" alignment="0" min="-2" pref="206" max="-2" attributes="0"/>
-                                      <Component id="dateLabel" min="-2" pref="151" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="filler3" min="-2" pref="0" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -83,7 +85,7 @@
                           </Group>
                           <Component id="materialContainer" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="22" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>

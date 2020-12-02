@@ -45,6 +45,19 @@ public class AssignActivityModel {
         return null;     
     }
     
+    public String getNotes(int activityID) throws SQLException {
+        
+        try {
+            stm = conn.createStatement();
+            ResultSet rst = stm.executeQuery("SELECT workspace_notes FROM public.appactivity WHERE id = "+activityID+" ");
+            rst.next();
+            return rst.getString("workspace_notes");
+        } catch(Exception e){
+        System.out.println("ERRORE notes");}
+        
+        return null;     
+    }
+    
     public int getEstimatedTimeActivity(int activityID) {
         try {
             stm = conn.createStatement();

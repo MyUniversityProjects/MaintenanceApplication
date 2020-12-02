@@ -25,6 +25,11 @@ public class ListScheduledActivitiesByWeekModel implements Serializable {
     // This class is observable
     private PropertyChangeSupport changeSupport;
     
+    /**
+     * Create and return an instance of ListScheduledActivitiesByWeekModel that supports
+     * the propertychangesupport.
+     * @throws SQLException
+     */
     public ListScheduledActivitiesByWeekModel() throws SQLException {
         changeSupport = new PropertyChangeSupport(this);
         numWeekComboBoxModel = new  DefaultComboBoxModel(numWeekIntegerArray());
@@ -32,14 +37,27 @@ public class ListScheduledActivitiesByWeekModel implements Serializable {
         createTableModel();
         changeSupport = new PropertyChangeSupport(this);
     } 
-       
+    
+    /**
+     * Returns the comboboxmodel for the combobox used in the view. 
+     * @return  the comboboxmodel of the NumWeekComboBox of the view.
+     */
     public ComboBoxModel<Integer> getNumWeekComboBoxModel(){
         return this.numWeekComboBoxModel;
     }
     
+    /**
+     * Returns the tablemodel for the table used in the view. 
+     * @return  the DefaultTableModel of the scheduledActivitiesTable of the view.
+     */
     public DefaultTableModel getScheduledActivitiesTableModel(){
         return this.ScheduledActivitiesTableModel;
     }
+    
+    /**
+     * Set the new currentNumWeek, giving a notification to the listener, using the changeSupport 
+     * @param newNumWeek new current week to set 
+     */
     public void setNumWeek(Integer newNumWeek){
          if (!Objects.equals(newNumWeek, currentNumWeek)) {
             Integer previousNumWeek = currentNumWeek;
@@ -51,20 +69,37 @@ public class ListScheduledActivitiesByWeekModel implements Serializable {
         }
     }
     
+    /**
+     * Returns the current number of the week  
+     * @return  current week number.
+     */
     public Integer getNumWeek(){
         return currentNumWeek;
     }
     
+    /**
+     * Add the propertyChangeListener
+     * @param pcl propertyChangeListener
+     */
     public void addPropertyChangeListener(
                         PropertyChangeListener pcl) {
         changeSupport.addPropertyChangeListener(pcl);
     }
     
+    /**
+     * Remove the propertyChangeListener
+     * @param pcl propertyChangeListener
+     */
     public void removePropertyChangeListener(
                         PropertyChangeListener pcl) {
         changeSupport.removePropertyChangeListener(pcl);
     }
     
+     /**
+     * Gets the id,area,typology and estimated time of the Scheduled Activities of the current num week from the database
+     * @return a Matrix of Strings having the elements that are going to be used to create the tablemodel 
+     * @throws java.sql.SQLException
+     */
     public String[][] getCurrentNumWeekScheduledActivities() throws SQLException{
         try {
             String[][] currentNumWeekScheduledActivitiesMatrix = null;    
@@ -91,14 +126,29 @@ public class ListScheduledActivitiesByWeekModel implements Serializable {
         }
     }
     
+    /**
+     * Create the DefaultTableModel used for the table of the view
+     * @return DefaultTableModel having as the columns ID,AREA,TYPE and ESTIMATED INTERVTION TIME 
+     * @throws java.sql.SQLException
+     */
     public  DefaultTableModel createTableModel() throws SQLException{
         this.ScheduledActivitiesTableModel = new DefaultTableModel(this.getCurrentNumWeekScheduledActivities(),new String [] {"ID", "AREA", "TYPE", "ESTIMATED INTERVENTION TIME [min]"});
         return ScheduledActivitiesTableModel;
     }
     
+    /**
+     * Returns the id of the Activity selected
+     * @param index index of Activity in the table 
+     * @return the id of the activity
+     */
     public int getSelectedActivity(int index){
         return  Integer.parseInt((String) this.ScheduledActivitiesTableModel.getValueAt(index, 0)) ;
     }
+    
+    /**
+     * Returns the array  of week numbers
+     * @return array  of week numbers
+     */
     private Integer[] numWeekIntegerArray() {
         int[] a = new int[52];
         for (int i = 0; i < 52; ++i) {
