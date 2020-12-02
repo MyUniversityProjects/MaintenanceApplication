@@ -9,7 +9,6 @@ import static root.Database.getConnection;
 
 public class ActivityModel {
 
-    private Connection conn = null;
     private String error = "";
     private int errorCode;
 
@@ -31,12 +30,14 @@ public class ActivityModel {
      * @return 
      */
     public boolean create(Activity activity){
-        if (conn == null){
-            try {
+        
+        boolean flag;
+        Connection conn = null;
+        
+        try {
             conn = getConnection();
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
         String query = "INSERT INTO appactivity "+
             "(id, branch_office, area, typology, description,"+
@@ -58,11 +59,19 @@ public class ActivityModel {
             stmt.setString(10, activity.getType().toString());
 
             stmt.executeUpdate();   
-            return true;
+            flag = true;
         } catch(SQLException ex){
             error = ex.getMessage();
             errorCode = ex.getErrorCode();            
-            return false;      
+            flag = false;      
         }
+        
+        try {
+            conn.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());                
+        }
+        
+        return flag;
     }
 }

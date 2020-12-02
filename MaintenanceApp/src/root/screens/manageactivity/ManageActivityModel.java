@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
-import root.Activity;
+import root.entities.Activity;
 import static root.Database.getConnection;
 
 /**
@@ -17,7 +17,6 @@ import static root.Database.getConnection;
  * @author giand
  */
 public class ManageActivityModel {
-    private Connection conn = null;
 
     public ManageActivityModel() {
     }
@@ -30,12 +29,12 @@ public class ManageActivityModel {
     
     public List<Activity> getActivities(){
         
-        if (conn == null){
-            try {
+        Connection conn = null;
+        
+        try {
             conn = getConnection();
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
         List<Activity> activities = new LinkedList<>();
         
@@ -55,11 +54,17 @@ public class ManageActivityModel {
                         rs.getString("description"),
                         rs.getInt("estimated_time"), rs.getBoolean("interruptible"),
                         rs.getInt("week"),
-                        rs.getString("workspace_notes"), rs.getString("type_activity"));
+                        rs.getString("workspace_notes"), Activity.ActivityType.valueOf(rs.getString("type_activity")));
                     activities.add(activity);
                 }
             }
         } catch(SQLException ex){
+            System.out.println(ex.getMessage());                
+        }
+        
+        try {
+            conn.close();
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());                
         }
         
@@ -77,25 +82,38 @@ public class ManageActivityModel {
     
     public boolean delete(int id){
         
-        if(conn == null){
-            try {
+        boolean flag;
+        Connection conn = null;
+        
+        try {
             conn = getConnection();
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
+        
         String query = "DELETE FROM appactivity WHERE id = ?";
         
         try {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1, id);
 
-            stmt.executeUpdate();   
-            return true;
+            stmt.executeUpdate();
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());                
+            }
+            flag=true;
         } catch(SQLException ex){
             System.out.println(ex.getMessage());
-            return false;      
+            flag = false;      
         }        
+        try {
+            conn.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());                
+        }
+        return flag;
     }
     
     
