@@ -32,13 +32,12 @@ public class ActivityModel {
     public boolean create(Activity activity){
         
         boolean flag;
-        Connection conn = null;
+        Connection conn = openConnection();
         
-        try {
-            conn = getConnection();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+        if (conn == null){
+            return false;
         }
+        
         String query = "INSERT INTO appactivity "+
             "(id, branch_office, area, typology, description,"+
             "estimated_time, interruptible, week, workspace_notes,"+
@@ -66,12 +65,26 @@ public class ActivityModel {
             flag = false;      
         }
         
+        closeConnection(conn);
+        
+        return flag;
+    }
+    
+    private void closeConnection( Connection conn ){
         try {
             conn.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());                
         }
-        
-        return flag;
+    }
+    
+    private Connection openConnection(){
+        try {
+            Connection conn = getConnection();
+            return conn;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
     }
 }

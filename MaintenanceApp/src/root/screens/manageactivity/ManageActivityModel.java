@@ -29,13 +29,12 @@ public class ManageActivityModel {
     
     public List<Activity> getActivities(){
         
-        Connection conn = null;
+        Connection conn = openConnection();
         
-        try {
-            conn = getConnection();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+        if(conn == null){
+            return new LinkedList<>();
         }
+        
         List<Activity> activities = new LinkedList<>();
         
         String query = "SELECT * FROM appactivity";
@@ -62,11 +61,7 @@ public class ManageActivityModel {
             System.out.println(ex.getMessage());                
         }
         
-        try {
-            conn.close();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());                
-        }
+        closeConnection(conn);
         
         return activities;
     }
@@ -83,12 +78,10 @@ public class ManageActivityModel {
     public boolean delete(int id){
         
         boolean flag;
-        Connection conn = null;
+        Connection conn = openConnection();
         
-        try {
-            conn = getConnection();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+        if(conn == null){
+            return false;
         }
         
         String query = "DELETE FROM appactivity WHERE id = ?";
@@ -108,12 +101,26 @@ public class ManageActivityModel {
             System.out.println(ex.getMessage());
             flag = false;      
         }        
+        closeConnection(conn);
+        return flag;
+    }
+    
+    private void closeConnection( Connection conn ){
         try {
             conn.close();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());                
         }
-        return flag;
+    }
+    
+    private Connection openConnection(){
+        try {
+            Connection conn = getConnection();
+            return conn;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return null;
+        }
     }
     
     
