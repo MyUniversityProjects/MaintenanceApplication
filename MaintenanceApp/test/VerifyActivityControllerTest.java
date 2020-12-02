@@ -112,7 +112,7 @@ public class VerifyActivityControllerTest {
     }
     
     private class ModelStub extends VerifyActivityModel {
-        int forwardCallCount;
+        int forwardCallCount = 0;
 
         public ModelStub() {
             super(1, null, null, null, null, 1, true, 1, null, null);

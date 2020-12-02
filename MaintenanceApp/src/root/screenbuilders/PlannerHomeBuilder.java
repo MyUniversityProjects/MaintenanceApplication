@@ -5,15 +5,15 @@ import root.Screen;
 import root.screens.plannerhome.PlannerHomeView;
 
 public class PlannerHomeBuilder extends ScreenBuilder {
-    private PlannerHomeView view;
+    private Screen screen;
 
     @Override
     public void buildView(Navigable nav) {
-        view = new PlannerHomeView(nav);
+        screen = new PlannerHomeView(nav);
     }
 
     @Override
     public Screen getScreen() {
-        return view;
+        return screen;
     }
 }
