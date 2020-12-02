@@ -399,15 +399,15 @@ public class ModifySelectedActivityView extends Screen {
         return msg_label;
     }
 
-    void addModifyButtonListener(ActionListener al) {
+    public void addModifyButtonListener(ActionListener al) {
         modifyBtn.addActionListener(al);
     }
     
-    void addBackButtonListener(ActionListener al){
+    public void addBackButtonListener(ActionListener al){
         backBtn.addActionListener(al);
     }
     
-    void addHomeButtonListener(ActionListener al){
+    public void addHomeButtonListener(ActionListener al){
         homeBtn.addActionListener(al);
     }
 }

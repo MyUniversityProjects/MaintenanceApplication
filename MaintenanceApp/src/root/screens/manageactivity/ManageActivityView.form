@@ -80,16 +80,11 @@
                       <Component id="activitiesTableScroll" min="-2" pref="402" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="selectIdLabel" min="-2" max="-2" attributes="0"/>
-<<<<<<< HEAD
                       <EmptySpace pref="37" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="deleteSelectedBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="modifySelectedBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-=======
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="deleteSelectedBtn" min="-2" max="-2" attributes="0"/>
->>>>>>> 3a3f5aef66e2c177f3ed033f341805f7a116b51d
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="selectBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="88" max="32767" attributes="0"/>
