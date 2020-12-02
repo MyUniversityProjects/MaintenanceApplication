@@ -150,14 +150,25 @@ public class ListScheduledActivitiesByWeekView extends Screen implements Propert
          selectButton.addActionListener(al);
     }
     
+    /**
+     * Remove the current screen and show the previous one.
+     */
     public void toThePreviousScreen(){
         super.getNav().pop();
     }
     
+    /**
+     * Returns the number of row in the table of the activity selected
+     * @return number of row (index)
+     */
     public int getSelectedScheduledActivityIndex(){
         return scheduledActivitiesTable.getSelectedRow();
     }
      
+     /**
+     * Returns the number of week selected in the combobox
+     * @return number of week
+     */
     public Integer getSelectedComboBoxInteger(){
         return (Integer) numWeekComboBox.getSelectedItem();
     }
@@ -171,6 +182,10 @@ public class ListScheduledActivitiesByWeekView extends Screen implements Propert
     private javax.swing.JLabel weekLabel;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     * Create a new table model that is going to be setted as the model of the table of the view in case of a property change
+     * @param pce PropertyChangeEvent
+     */
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
         if (pce.getPropertyName().equals(ListScheduledActivitiesByWeekModel.NUMWEEK_CHANGE)) {

@@ -18,7 +18,14 @@ public class ModifySelectedActivityModel extends Activity {
     
     private String error = "";
     private int errorCode;
-    
+    /**
+     * Create and return an instance of ModifySelectedActivityModel by fetching the
+     * data of the activity, from the database
+     * @param id activity identifier
+     * @return and instance of ModifySelectedActivityModel
+     * @throws SQLException
+     * @throws NotFoundException 
+     */
     public static ModifySelectedActivityModel fromDatabase(int id) throws SQLException, NotFoundException {
         String query = "SELECT id, area, branch_office, typology, description, estimated_time, interruptible, week, workspace_notes, type_activity, verified FROM AppActivity WHERE id=?";
         try (Connection conn = Database.getConnection()) {
@@ -41,7 +48,11 @@ public class ModifySelectedActivityModel extends Activity {
             );
         }
     }
-    
+    /**
+     * Modify the activity. 
+     * @param inputMap
+     * @return true if the modify was successful, false if not successful
+     */
     public boolean modify(Map<String, String> inputMap){
         String query = "UPDATE appactivity "
                 + "SET branch_office = ?,area = ?,typology = ?,description = ?,estimated_time = ?,interruptible = ?,workspace_notes = ? "

@@ -9,6 +9,11 @@ public class ListScheduledActivitiesByWeekController {
     private ListScheduledActivitiesByWeekView view;
     private ListScheduledActivitiesByWeekModel model;
 
+    /**
+     * Create the controller and register buttons listeners of the view
+     * @param model the model of the view
+     * @param view the view to control
+     */
     public ListScheduledActivitiesByWeekController(ListScheduledActivitiesByWeekView view, ListScheduledActivitiesByWeekModel model) {
         this.view = view;
         this.model = model;
@@ -18,7 +23,7 @@ public class ListScheduledActivitiesByWeekController {
         this.view.addSelectButtonListener(new SelectButtonListener());
     }
     
-     // Inner classess which server as view listeners
+    // Inner classess which server as view listeners
     private class BackButtonListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent event) {

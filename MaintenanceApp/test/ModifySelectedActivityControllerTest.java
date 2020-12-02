@@ -62,39 +62,47 @@ public class ModifySelectedActivityControllerTest {
             modifyListenerCount++;
         }
 
-       
+        @Override
         public String getId(){
             return id;
         }
 
+        @Override
         public String getBranchOffice(){
             return branchOffice;
         }
 
+        @Override
         public String getArea(){
             return area;
         }
 
+        @Override
         public String getEstimatedTime(){
             return estimatedTime;
         }
 
+        @Override
         public String getInterruptible(){
             return interruptible;
         }
 
+        @Override
         public String getTypology(){
             return typology;
         }
 
+        @Override
         public String getWeek(){
             return week;
         }
 
+        @Override
         public String getNotes(){
             return notes;
         }
 
+        @Override
         public String getDescription(){
             return description;
         }
