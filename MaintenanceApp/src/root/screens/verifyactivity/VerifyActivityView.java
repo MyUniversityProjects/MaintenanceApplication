@@ -259,6 +259,7 @@ public class VerifyActivityView extends Screen {
                 .addComponent(interruptLabel))
         );
 
+        jScrollPane3.setBorder(null);
         jScrollPane3.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true), "Materials needed", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(102, 102, 102))); // NOI18N
 
         materialList.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.background"));
