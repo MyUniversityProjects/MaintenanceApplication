@@ -48,7 +48,48 @@ public class AssignActivityController {
         return model.getDayAvaibility(cf, week, day);
     }
     
-    public int assignActivity(int day, LocalTime start_time, LocalTime end_time) throws SQLException {
-        return model.insertAssign(cf, activityID, day, start_time, end_time);                                          
+    public Integer assignActivity(int col, String week) throws SQLException {
+        int index = col-2;
+        int[] avaibility = dayAvaibility(week);
+        int timeActivity = estimatedTimeActivity();
+        if(avaibility[index] == 0) {
+            return -1; //"ERRORE: Devi selezionare una cella con dei minuti disponibili"
+        }
+        
+        int hourStart, minuteStart, hourEnd, minuteEnd;
+        
+        if(avaibility[index] < timeActivity) {
+            int time = avaibility[index];
+            int i = 1;
+                while(((index+i)<7) && (avaibility[index+i] == 60) && (time < timeActivity)) {
+                    time += 60;
+                    i++;
+                }
+                if(time < timeActivity) 
+                    return -2; //"ERRORE: Non c'è abbastanza tempo per svolgere l' attività di manutenzione selezionata"
+                                        
+        }
+        if(col > 5)
+            hourStart = col + 8;
+        else
+            hourStart = col + 6;
+                    
+        minuteStart = 60 - avaibility[index];
+                    
+                    
+        LocalTime start = LocalTime.of(hourStart, minuteStart);
+        LocalTime end = start.plusMinutes(timeActivity);
+        
+        try {
+            int x = model.insertAssign(cf, activityID, day, start, end);
+            if (x > 0)
+                return 1; //"Assignment carry out with success"
+            else 
+                return 0;//"Activity is already assigned"
+            
+        } catch (SQLException ex) {
+            System.out.println("ERRORE: ASSEGNAMENTO NON RIUSCITO");
+        }
+        return -3;
     }
 }

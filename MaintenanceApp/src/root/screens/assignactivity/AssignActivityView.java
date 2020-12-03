@@ -83,6 +83,58 @@ public class AssignActivityView extends Screen {
             tableModel.setValueAt(avaibility[i], 0, i+2);
     }
 
+    /*protected void assign() {
+            if((colSelected < 2) || (tableModel.getValueAt(rowSelected, colSelected).equals(0))) {
+            jLabelError.setText("ERRORE: Devi selezionare una cella con dei minuti disponibili");
+            jLabelError.setVisible(true);
+            return;
+        }
+        
+        int hourStart, minuteStart, hourEnd, minuteEnd;
+        
+        if((Integer.parseInt(tableModel.getValueAt(rowSelected, colSelected).toString()))< timeActivity) {
+            int time = Integer.parseInt(tableModel.getValueAt(rowSelected, colSelected).toString());
+            int i = 1;
+                while(((Integer.parseInt(tableModel.getValueAt(rowSelected, colSelected+i).toString())) == 60) && (time < timeActivity)) {
+                    time += 60;
+                    i++;
+                }
+                if(time < timeActivity) {
+                    jLabelError.setText("ERRORE: Non c'è abbastanza tempo per svolgere l' attività di manutenzione selezionata");
+                    jLabelError.setVisible(true);
+                    return;
+                }
+                            
+        }
+        if(colSelected > 5)
+            hourStart = colSelected + 8;
+        else
+            hourStart = colSelected + 6;
+                    
+        minuteStart = 60 - Integer.parseInt(tableModel.getValueAt(rowSelected, colSelected).toString());
+                    
+                    
+        LocalTime start = LocalTime.of(hourStart, minuteStart);
+        LocalTime end = start.plusMinutes(timeActivity);
+        
+        try {
+            int x = controller.assignActivity(day, start, end);
+            if (x > 0) {
+                jLabelError.setText("Assignment carry out with success");
+                jLabelError.setBackground(Color.green);
+                jLabelError.setVisible(true);
+                setTable();
+            } else {
+                jLabelError.setText("Activity is already assigned");
+                jLabelError.setBackground(Color.red);
+                jLabelError.setVisible(true);
+            }
+        } catch (SQLException ex) {
+            System.out.println("ERRORE: ASSEGNAMENTO COL BUTTON NON RIUSCITO");
+            Logger.getLogger(AssignActivityView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    } */
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -176,26 +228,28 @@ public class AssignActivityView extends Screen {
                         .addGap(102, 102, 102)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabelError, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(128, 128, 128)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(75, 75, 75)
-                                    .addComponent(jLabelNameActivity, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
-                                    .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(120, 120, 120)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(424, 424, 424)
-                        .addComponent(jButtonAssign, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(128, 128, 128)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(75, 75, 75)
+                                .addComponent(jLabelNameActivity, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                                .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(120, 120, 120)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(424, 424, 424)
+                                .addComponent(jButtonAssign, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(143, 143, 143)
+                                .addComponent(jLabelError, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(44, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -220,65 +274,33 @@ public class AssignActivityView extends Screen {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                         .addComponent(jButtonAssign, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(91, 91, 91)))
-                .addComponent(jLabelError)
-                .addGap(83, 83, 83))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelError)
+                        .addGap(155, 155, 155))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAssignActionPerformed
-        if((colSelected < 2) || (tableModel.getValueAt(rowSelected, colSelected).equals(0))) {
-            jLabelError.setText("ERRORE: Devi selezionare una cella con dei minuti disponibili");
+        
+        
+        
+       try {
+            int result = controller.assignActivity(colSelected, week);
+            
+            if(result == 1) jLabelError.setText("Assignment success");
+            if(result == 0) jLabelError.setText("Activity is already assigned");
+            if(result == -1) jLabelError.setText("Devi selezionare una cella con dei minuti disponibili");
+            if(result == -2) jLabelError.setText("Non c'è abbastanza tempo per svolgere l' attività di manutenzione selezionata");
+            
+            
             jLabelError.setVisible(true);
-            return;
-        }
-        
-        int hourStart, minuteStart, hourEnd, minuteEnd;
-        
-        if((Integer.parseInt(tableModel.getValueAt(rowSelected, colSelected).toString()))< timeActivity) {
-            int time = Integer.parseInt(tableModel.getValueAt(rowSelected, colSelected).toString());
-            int i = 1;
-                while(((Integer.parseInt(tableModel.getValueAt(rowSelected, colSelected+i).toString())) == 60) && (time < timeActivity)) {
-                    time += 60;
-                    i++;
-                }
-                if(time < timeActivity) {
-                    jLabelError.setText("ERRORE: Non c'è abbastanza tempo per svolgere l' attività di manutenzione selezionata");
-                    jLabelError.setVisible(true);
-                    return;
-                }
-                            
-        }
-        if(colSelected > 5)
-            hourStart = colSelected + 8;
-        else
-            hourStart = colSelected + 6;
-                    
-        minuteStart = 60 - Integer.parseInt(tableModel.getValueAt(rowSelected, colSelected).toString());
-                    
-                    
-        LocalTime start = LocalTime.of(hourStart, minuteStart);
-        LocalTime end = start.plusMinutes(timeActivity);
-        
-        try {
-            int x = controller.assignActivity(day, start, end);
-            if (x > 0) {
-                jLabelError.setText("Assignment carry out with success");
-                jLabelError.setBackground(Color.green);
-                jLabelError.setVisible(true);
-                setTable();
-            } else {
-                jLabelError.setText("Assignment failed");
-                jLabelError.setBackground(Color.red);
-                jLabelError.setVisible(true);
-            }
+            setTable();
         } catch (SQLException ex) {
-            System.out.println("ERRORE: ASSEGNAMENTO COL BUTTON NON RIUSCITO");
             Logger.getLogger(AssignActivityView.class.getName()).log(Level.SEVERE, null, ex);
         }
                     

@@ -109,7 +109,7 @@ public class AssignActivityModel {
         try {
             stm = conn.createStatement();
             String query = "SELECT * FROM (public.appactivity INNER JOIN public.assignment ON public.appactivity.id = public.assignment.activity)"
-                + " WHERE day = "+Integer.toString(day)+" AND week = "+week+" ";
+                + " WHERE (day = "+Integer.toString(day)+") AND (week = "+week+")";
             ResultSet rst = stm.executeQuery(query);
             while(rst.next()) {
                 int oraInizio = rst.getTime("start_time").toLocalTime().getHour();
@@ -150,7 +150,22 @@ public class AssignActivityModel {
             
             
         } catch(Exception e){
-        System.out.println("ERRORE getDayAvaibility");   
+        System.out.println("");   
+        return 0;
+        }
+    }
+    
+    public int removeAssign(String cf, int activityID) {
+        try {
+            String query = "DELETE FROM public.assignment WHERE maintainer = '" + cf + "' AND activity = " + Integer.toString(activityID);
+            stm = conn.createStatement();
+            int u = stm.executeUpdate(query);
+            System.out.println("DELETE: " + u);
+            return u;
+            
+            
+        } catch(Exception e){
+        System.out.println("ERRORE removeAssign");   
         return 0;
         }
     }

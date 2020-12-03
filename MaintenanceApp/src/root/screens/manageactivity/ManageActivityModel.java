@@ -37,9 +37,7 @@ public class ManageActivityModel {
         
         List<Activity> activities = new LinkedList<>();
         
-        String query = "SELECT * FROM appactivity";
-        
-        System.out.println("Fetch infos");
+        String query = "SELECT * FROM appactivity";        
         
         try {
             Statement stmt = conn.createStatement();
