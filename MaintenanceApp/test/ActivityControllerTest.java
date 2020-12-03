@@ -13,6 +13,7 @@ import static org.junit.Assert.*;
 import root.Navigator;
 import root.Navigable;
 import root.Screen;
+import root.entities.Activity;
 import root.screenbuilders.ScreenBuilder;
 
 public class ActivityControllerTest {
@@ -109,5 +110,5 @@ public class ActivityControllerTest {
 
         assertFalse(ac.createCheckout(inputTest));
     }
-    
+
 }
