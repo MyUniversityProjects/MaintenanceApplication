@@ -21,4 +21,9 @@ abstract public class Screen extends JPanel {
     public void showMsg(String title, String msg) {
         JOptionPane.showMessageDialog(this, msg, title, JOptionPane.INFORMATION_MESSAGE);
     }
+    
+    public boolean confirmDialog(String title, String msg) {
+        int res = JOptionPane.showConfirmDialog(this, msg, title, JOptionPane.YES_NO_OPTION);
+        return res == JOptionPane.YES_OPTION;
+    }
 }
