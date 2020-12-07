@@ -1,8 +1,4 @@
 
-/**
- *
- * @author giand
- */
 import root.screens.createactivity.ActivityController;
 import root.screens.createactivity.ActivityModel;
 import root.screens.createactivity.ActivityView;
