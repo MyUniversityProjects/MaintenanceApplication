@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 package root.screens.modifyuser;
+import javax.swing.ButtonModel;
 import root.Navigable;
 import root.Screen;
+import root.screens.modifyuser.User.UserType;
 
 /**
  *
@@ -56,6 +58,8 @@ public class ModifyUserView extends Screen {
         rolePlannerInput = new javax.swing.JRadioButton();
         roleMaintainerInput = new javax.swing.JRadioButton();
         modifyBtn = new javax.swing.JButton();
+        initCfLabel = new javax.swing.JLabel();
+        initCf = new javax.swing.JLabel();
 
         backBtn.setText("back");
 
@@ -86,6 +90,8 @@ public class ModifyUserView extends Screen {
         roleMaintainerInput.setText("Maintainer");
 
         modifyBtn.setText("Modify");
+
+        initCfLabel.setText("user cf:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -119,7 +125,11 @@ public class ModifyUserView extends Screen {
                             .addComponent(emailLabel)
                             .addComponent(usernameLabel)
                             .addComponent(passwordLabel)
-                            .addComponent(roleLabel))
+                            .addComponent(roleLabel)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(initCfLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(initCf)))
                         .addGap(0, 121, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -130,7 +140,11 @@ public class ModifyUserView extends Screen {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(backBtn)
                     .addComponent(titleLabel))
-                .addGap(40, 40, 40)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(initCfLabel)
+                    .addComponent(initCf))
+                .addGap(18, 18, 18)
                 .addComponent(cfLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cfInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -166,7 +180,7 @@ public class ModifyUserView extends Screen {
                     .addComponent(roleMaintainerInput))
                 .addGap(31, 31, 31)
                 .addComponent(modifyBtn)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addGap(36, 36, 36))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -179,6 +193,8 @@ public class ModifyUserView extends Screen {
     private javax.swing.JLabel cfLabel;
     private javax.swing.JTextField emailInput;
     private javax.swing.JLabel emailLabel;
+    private javax.swing.JLabel initCf;
+    private javax.swing.JLabel initCfLabel;
     private javax.swing.JButton modifyBtn;
     private javax.swing.JTextField nameInput;
     private javax.swing.JLabel nameLabel;
@@ -216,8 +232,8 @@ public class ModifyUserView extends Screen {
     }
 
     public String getRoleInput() {
-        rolePlannerInput.setActionCommand("PLANNER");
-        roleMaintainerInput.setActionCommand("MAINTAINER");
+        rolePlannerInput.setActionCommand("P");
+        roleMaintainerInput.setActionCommand("M");
         return roleInputGroup.getSelection().getActionCommand();
     }
 
@@ -235,6 +251,25 @@ public class ModifyUserView extends Screen {
     
     public void addModifyButtonListener(java.awt.event.ActionListener al){
         modifyBtn.addActionListener(al);
+    }
+    
+    public boolean fillForm(){
+        if(model == null){
+            return false;
+        }
+        
+        initCf.setText(model.getInitCf());
+        cfInput.setText(model.getCf());
+        nameInput.setText(model.getName());
+        surnameInput.setText(model.getSurname());
+        addressInput.setText(model.getAddress());
+        emailInput.setText(model.getEmail());
+        usernameInput.setText(model.getUsername());
+        passwordInput.setText(model.getPassword());
+        roleMaintainerInput.setSelected(model.getRole().toString().equals("M"));
+        roleMaintainerInput.setSelected(model.getRole().toString().equals("P"));
+        
+        return true;
     }
 
 }

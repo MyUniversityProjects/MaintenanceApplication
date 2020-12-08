@@ -8,12 +8,30 @@ public class ModifyUserController {
     private final ModifyUserModel model;
 
     public ModifyUserController(ModifyUserView view, ModifyUserModel model) {
+        
+        if(model == null){
+            view.showErrorMsg("Error", "Error while fetching user data");
+            view.getNav().pop();
+        }
+        
         this.view = view;
         this.model = model;    
+        
+        view.fillForm();
         
         view.addBackButtonListener((e) -> view.getNav().pop());
         view.addModifyButtonListener((e)->{
             if(checkout()){
+                
+                model.setCf(view.getCfInput());
+                model.setName(view.getNameInput());
+                model.setSurname(view.getSurnameInput());
+                model.setAddress(view.getAddressInput());
+                model.setEmail(view.getEmailInput());
+                model.setUsername(view.getUsernameInput());
+                model.setPassword(view.getPasswordInput());
+                model.setRole(User.UserType.valueOf(view.getRoleInput()));
+                
                 try {
                     if(model.modify()){
                         view.showMsg("Modified", "User changed successfully");
@@ -54,7 +72,7 @@ public class ModifyUserController {
         if(role.equals("")){ errStr += "Role cannot be empty\n"; }
         
         if(!errStr.equals("")){
-            view.showErrorMsg("Error", errStr);
+            //view.showErrorMsg("Error", errStr);
             return false;
         }
         

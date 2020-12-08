@@ -12,9 +12,11 @@ public class ModifyUserBuilder extends ScreenBuilder{
     private ModifyUserController controller;
     private ModifyUserModel model;
     private final String cf;
+    private final UserQueries query;
     
-    public ModifyUserBuilder(String cf){
+    public ModifyUserBuilder(String cf, UserQueries query){
         this.cf = cf;
+        this.query = query;
     }
     
     @Override
@@ -25,7 +27,7 @@ public class ModifyUserBuilder extends ScreenBuilder{
     @Override
     public void buildModel(){
         try{
-            model = ModifyUserModel.fromDatabase(cf);
+            model = ModifyUserModel.fromDatabase(cf, query);
         } catch (SQLException | NotFoundException ex){
             model = null;
         }

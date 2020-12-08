@@ -1,7 +1,11 @@
 
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
 import org.junit.*;
 import static org.junit.Assert.*;
 import root.Navigable;
+import root.exceptions.NotFoundException;
 import stubs.NavigatorStub;
 import root.screens.modifyuser.*;
 
@@ -118,23 +122,68 @@ public class ModifyUserControllerTest {
         
     }
     
-    private class ModifyUserModelStub extends ModifyUserModel{    
-        public ModifyUserModelStub(String name, String surname, String cf, String email, String address, String username, String password, UserType role) {
-            super(name, surname, cf, email, address, username, password, role);
+    private class UserQueriesStub extends UserQueries{
+        
+        private final List<String> cfList = Arrays.asList(new String[] {"AAAAAA00A00A000A",
+            "BBBBBB00B00B000B", "CCCCCC00C00C000C", "DDDDDD00D00D000D"});
+        
+        @Override
+        public User getUser(String cf){
+            if(cfList.contains(cf)){
+                return new User("", "", cf, "", "", "", "", User.UserType.P);
+            } else {
+                return null;
+            }                 
+        }
+        
+        @Override
+        public boolean modify(User user){
+            return cfList.contains(user.getInitCf());
+        }
+    }
+    
+    private class ModifyUserModelStub extends ModifyUserModel{  
+        
+        private UserQueries queryStub;
+        
+        public ModifyUserModelStub(String name, String surname, String cf,
+                String email, String address, String username,
+                String password, UserType role, UserQueries query) {
+            super(name, surname, cf, email, address, username,
+                password, role, query);
+            queryStub = query;
+        }
+        
+        public UserQueries getQuery(){
+            return queryStub;
         }
     }
     
     private ModifyUserViewStub viewStub;
     private ModifyUserModelStub modelStub;
     private ModifyUserController controller;
+    private ModifyUserModelStub modelStubNull;
+    private ModifyUserView viewStub2;
+    private ModifyUserModelStub modelQueriesStub;
+    
+    private UserQueries query;
+    private UserQueriesStub queryStub;
+    
     private NavigatorStub navStub;
     
     @Before
     public void setUp(){
-        modelStub = new ModifyUserModelStub(null, null, null,
-            null, null, null, null, ModifyUserModelStub.UserType.valueOf("P"));
+        query = new UserQueries();
+        queryStub = new UserQueriesStub();
+        
+        modelStub = new ModifyUserModelStub(null, null, null, null, null, 
+            null, null, ModifyUserModelStub.UserType.valueOf("P"), query);
         viewStub = new ModifyUserViewStub(navStub, modelStub);
         controller = new ModifyUserController(viewStub, modelStub);
+        modelStubNull = null;
+        viewStub2 = new ModifyUserViewStub(navStub, modelStubNull);
+        modelQueriesStub = new ModifyUserModelStub(null, null, null, null, null, 
+            null, null, ModifyUserModelStub.UserType.valueOf("P"), queryStub);
     }
     
     @Test
@@ -163,20 +212,6 @@ public class ModifyUserControllerTest {
     
     @Test
     public void testCheckoutWithoutName(){
-        viewStub.setSurnameInput("Doe");
-        viewStub.setAddressInput("Indirizzo");
-        viewStub.setCfInput("JJJDDD00J00J000J");
-        viewStub.setUsernameInput("JDoe");
-        viewStub.setPasswordInput("superDoe");
-        viewStub.setRoleInput("P");
-        viewStub.setEmailInput("jdoe@email.com");
-        
-        assertFalse(controller.checkout());
-    }
-    
-    @Test
-    public void testCheckoutWithoutId(){
-        viewStub.setNameInput("John");
         viewStub.setSurnameInput("Doe");
         viewStub.setAddressInput("Indirizzo");
         viewStub.setCfInput("JJJDDD00J00J000J");
@@ -278,5 +313,42 @@ public class ModifyUserControllerTest {
         
         assertFalse(controller.checkout());
     }
+    
+    
+    @Test
+    public void testFillFormWithCorrectModel(){
+        assertTrue(viewStub.fillForm());
+    }
+    
+    @Test
+    public void testFillFormWithNullModel(){
+        assertFalse(viewStub2.fillForm());
+    }
+    
+    @Test
+    public void testGetUserIdeal() throws SQLException, NotFoundException{
+        User user = new User("", "", "AAAAAA00A00A000A", "", "", "", "", User.UserType.P);
+        assertEquals(user.getCf(),
+            modelQueriesStub.getQuery().getUser("AAAAAA00A00A000A").getCf());
+    }
+    
+    @Test
+    public void testGetUserWithWrongCf() throws SQLException, NotFoundException{
+        assertEquals(modelQueriesStub.getQuery().getUser("X"),
+                null);
+    }
+    
+    @Test 
+    public void testModifyIdeal(){
+        User user = new User("", "", "AAAAAA00A00A000A", "", "", "", "", User.UserType.P);
+        assertTrue(modelQueriesStub.getQuery().modify(user));
+    }
+    
+    @Test 
+    public void testModifyWithWrongUser(){
+        User user = new User("", "", "X", "", "", "", "", User.UserType.P);
+        assertFalse(modelQueriesStub.getQuery().modify(user));
+    }
+    
     
 }
