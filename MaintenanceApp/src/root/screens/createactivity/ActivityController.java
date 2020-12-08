@@ -21,7 +21,7 @@ public class ActivityController {
             Map<String, String> inputMap = getInputs();
             if (createCheckout(inputMap)) {
                 Activity act = createActivity(inputMap);
-                if (!model.create(act) && model.getErrorCode() == 0){                    
+                if (!model.create(act) && model.getErrorCode() == 0){ 
                     view.showErrorMsg("Id error", "The id is already present");
                 } else {
                     view.showMsg("Success", "Activity entered successfully");
@@ -67,30 +67,50 @@ public class ActivityController {
      */
     public boolean createCheckout(Map<String, String> inputMap) {
         
+        checkoutError = "";
         List<String> keyList = Arrays.asList("id", "branch_office", "area",
             "estimated_time", "interruptible", "typology", "week",
             "description", "type");       
+        Integer week, time;
+        boolean flag = true;
         
         if ( !inputMap.keySet().containsAll(keyList)) {
-            checkoutError = "Error: The required fields have not been entered";
-            return false;
+            checkoutError += "Error: The required fields have not been entered\n";
+            flag = false;
         }
         
         for (Map.Entry<String, String> entry : inputMap.entrySet()) {
-            if (entry.getKey().equals("id") || entry.getKey().equals("estimated_time") || entry.getKey().equals("week")) {
+            /*if (entry.getKey().equals("id") || entry.getKey().equals("estimated_time") || entry.getKey().equals("week")) {
                 if (!isInteger(entry.getValue())) {
                     checkoutError = "Error: The fields id, estimated_time and week must be an integer";
                     return false;
                 }
+            }*/
+            if(entry.getKey().equals("id") && !validateId(entry.getValue())){
+                checkoutError += "Error: The id field must be a positive integer\n";
+                flag = false;
             }
+             
+            if(entry.getKey().equals("estimated_time") && !validateTime(entry.getValue())){
+                checkoutError += "Error: The estimated time field must be a positive integer\n";
+                flag = false;
+            }
+             
+            if(entry.getKey().equals("week") && !validateId(entry.getValue())){
+                checkoutError += "Error: the week fiels must have a positive value between 1 and 52\n";
+                flag = false;
+            }
+             
+            
+            
             if (!entry.getKey().equals("notes")) {
                 if (entry.getValue().length() <= 0) {
-                    checkoutError = "Error: The required fields can not be empty";
-                    return false;
+                    checkoutError = "Error: The required fields can not be empty\n";
+                    flag = false;
                 }
             }
         }
-        return true;
+        return flag;
     }
     
     /**
@@ -114,17 +134,41 @@ public class ActivityController {
     }
 
     /**
-     * check if a String has an integer value
-     * 
+     *
      * @param str
-     * @return 
+     * @return if str is a correct string to rappresent an id
      */
-    
-    private boolean isInteger(String str) {
+    public boolean validateId(String str){
         try {
-            Integer.parseInt(str);
-            return true;
-        } catch (Exception e) {
+            return Integer.parseInt(str) > 0;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+    
+    /**
+     *
+     * @param str
+     * @return if str is a correct string to rappresent a week
+     */
+    public boolean validateWeek(String str){
+        try {
+            Integer value = Integer.parseInt(str);
+            return !(value <= 0 || value >= 53);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+    
+     /**
+     *
+     * @param str
+     * @return if str is a correct string to rappresent an estimated time
+     */
+    public boolean validateTime(String str){
+        try {
+            return Integer.parseInt(str) > 0;
+        } catch (NumberFormatException e) {
             return false;
         }
     }
