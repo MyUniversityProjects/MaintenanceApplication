@@ -4,10 +4,8 @@
  * and open the template in the editor.
  */
 package root.screens.modifyuser;
-import javax.swing.ButtonModel;
 import root.Navigable;
 import root.Screen;
-import root.screens.modifyuser.User.UserType;
 
 /**
  *
@@ -267,7 +265,7 @@ public class ModifyUserView extends Screen {
         usernameInput.setText(model.getUsername());
         passwordInput.setText(model.getPassword());
         roleMaintainerInput.setSelected(model.getRole().toString().equals("M"));
-        roleMaintainerInput.setSelected(model.getRole().toString().equals("P"));
+        rolePlannerInput.setSelected(model.getRole().toString().equals("P"));
         
         return true;
     }
