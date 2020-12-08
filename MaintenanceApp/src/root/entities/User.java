@@ -1,5 +1,7 @@
 package root.entities;
 
+import java.util.Objects;
+
 public class User {
     public enum UserRole {
         SYSTEM_ADMINISTRATOR,
@@ -88,5 +90,48 @@ public class User {
             case "M": return UserRole.MAINTAINER;
             default: return null;
         }
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 59 * hash + Objects.hashCode(this.cf);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        if (!Objects.equals(this.cf, other.cf)) {
+            return false;
+        }
+        if (!Objects.equals(this.username, other.username)) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.surname, other.surname)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        if (!Objects.equals(this.address, other.address)) {
+            return false;
+        }
+        if (this.role != other.role) {
+            return false;
+        }
+        return true;
     }
 }

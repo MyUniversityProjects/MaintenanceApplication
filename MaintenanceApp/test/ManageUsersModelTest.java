@@ -39,7 +39,7 @@ public class ManageUsersModelTest {
     }
     
     @Test
-    public void testDeleteFirst() {
+    public void testDeleteFirst(){
         model.fetch();
         model.delete(0);
         assertEquals(1, queryTool.getDeleteCallCount());
