@@ -19,7 +19,11 @@ public class ManageUsersModel {
         
     }
     
+    /**
+     * 
+     * @param index 
+     * @throws InvalidIndexException
+     */
     public void delete(int index) {
-        
     }
 }

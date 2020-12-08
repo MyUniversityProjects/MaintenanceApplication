@@ -112,6 +112,8 @@ public class ManageUsersView extends Screen {
     public void addCreateActionListener(ActionListener al) {}
     public void setDeleteUserActionListener(ButtonColumnActionListener al) {}
     public void setEditUserActionListener(ButtonColumnActionListener al) {}
+    
+    public void removeRow(int rowIndex) {}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
