@@ -8,12 +8,20 @@ import root.entities.User;
 import root.exceptions.InvalidIndexException;
 import root.exceptions.QueryFailedException;
 
+/**
+ * Contains and handle the ManageUsersView data.
+ */
 public class ManageUsersModel {
     public static final String[] columnNames = {"Fiscal Code", "Username", "Name", "Surname", "Role", "delete", "edit"};
     private final List<User> users = new LinkedList<>();
     private final DefaultTableModel tableModel;
     private final UserQueries queryTool;
-
+    
+    /**
+     * Create an instance of ManageUsersModel
+     * @param queryTool used to execute queries to the database
+     * @param users the planners and maintainers to display in ManageUsersView
+     */
     public ManageUsersModel(UserQueries queryTool, User[] users) {
         String[][] data = new String[users.length][columnNames.length];
         for (int i=0; i < users.length; i++) {
@@ -32,15 +40,18 @@ public class ManageUsersModel {
     }
     
     /**
-     * @param queryTool
-     * @return 
+     * Fetch users from the database than create and return an instance of
+     * ManageUsersModel with the fetched users
+     * @param queryTool used to execute queries to the database
+     * @return an instance of ManageUsersModel with the users fetched from
+     *         the database
      * @throws QueryFailedException when the database query fails
      */
     public static ManageUsersModel fromDatabase(UserQueries queryTool) {
         User[] users = queryTool.fetchPlannersMaintainers();
         return new ManageUsersModel(queryTool, users);
     }
-
+    
     public User[] getUsers() {
         return users.toArray(new User[users.size()]);
     }
@@ -50,8 +61,8 @@ public class ManageUsersModel {
     }
     
     /**
-     * 
-     * @param index 
+     * Delete an user at certain index from the Database and table model
+     * @param index the index of the user in the table
      * @throws QueryFailedException when the database query fails
      * @throws InvalidIndexException when index is not valid
      */

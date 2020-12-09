@@ -12,9 +12,11 @@ public class ManageUsersView extends Screen {
     private final ButtonColumn deleteCol, editCol;
 
     /**
-     * Creates new form ManageUsersView
-     * @param nav
-     * @param model
+     * Creates new form ManageUsersView. If the model is null, then the view
+     * open an error dialog, then it will automatically go back to the previous
+     * screen.
+     * @param nav navigator used to switch between screens
+     * @param model used to show the users
      */
     public ManageUsersView(Navigable nav, ManageUsersModel model) {
         super(nav);
@@ -34,6 +36,10 @@ public class ManageUsersView extends Screen {
         }
     }
     
+    /**
+     * Create an empty TableModel to use when model is not valid
+     * @return an empty DefaultTableModel
+     */
     private DefaultTableModel createDummyTableModel() {
         return new DefaultTableModel(new Object[0][0], ManageUsersModel.columnNames);
     }

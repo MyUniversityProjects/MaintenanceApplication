@@ -5,10 +5,19 @@ import java.awt.event.ActionListener;
 import root.entities.User;
 import root.exceptions.QueryFailedException;
 
+/**
+ * Handle User interaction of the view ManageUsersView
+ */
 public class ManageUsersController {
     private final ManageUsersModel model;
     private final ManageUsersView view;
-
+    
+    /**
+     * Create an istance of ManageUsersController and register the listeners
+     * to the ManageUsersView
+     * @param model the model of the view
+     * @param view the view to control
+     */
     public ManageUsersController(ManageUsersModel model, ManageUsersView view) {
         this.model = model;
         this.view = view;
