@@ -5,53 +5,185 @@
  */
 package root.screens.assignactivity;
 
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.time.LocalTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author lex99
  */
 public class AssignActivityController {
-    private int activityID;
-    private String cf;
-    private int day;
+    
     private AssignActivityModel model;
+    private AssignActivityView view;
+    private int activityID;
+    private int day = 1;
+    private String cf = "DAAASSSSDDDDFFFF";
+    private String week;
+    private boolean mokeUp = true;
+    private JTable table;
+    private DefaultTableModel tableModel;
+    private int nCols = 9;
+    private JLabel jLabelError;
+    private JTextArea jArea;
       
-    public AssignActivityController(int activityID, String cf, int day) throws SQLException {
+    public AssignActivityController(AssignActivityView view, AssignActivityModel model, int activityID) throws SQLException {
+        
+        this.model = model;
+        this.view = view;
         this.activityID = activityID;
-        this.cf = cf;
-        this.day = day;
-        model = new AssignActivityModel();
+        
+        week = model.getWeekActivity(activityID);
+        view.getLabelNameActivity().setText(model.getStringActivity(activityID));
+        view.getLabelNumberOfWeek().setText(week);
+        //jLabelError.setVisible(false);
+        
+        table = view.getTable();
+        String[] cols = {"Maintainer","Skills","8-00 - 9.00","9.00 - 10.00","10.00 - 11.00", "11.00-12-00","14.00 - 15.00","15.00 - 16.00","16-00 - 17.00"};     
+        tableModel = new DefaultTableModel(cols,1);
+        table.setModel(tableModel);
+        
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+        table.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+        
+        jLabelError = view.getLabelError();
+        jArea = view.getTxtArea();
+        
+        mokeUp = false; // test
+        fillFrame();
+        
     }
-    public String weekActivity() throws SQLException {
+    
+    private void setTableMaintainers() throws SQLException {
+        String[] cols = {"Maintainer","Skills","Mon","Tue","Wed", "Thu","Fri","Sat","Sun"};
+        tableModel.setColumnIdentifiers(cols);
+        String[][] maintainers = null;
+        
+        model.getMaintainers().toArray(maintainers);
+        System.out.println("Maintainers lenght = "+ maintainers.length);
+        System.out.println("Maintainers lenght1 = "+ maintainers[0].length);
+        tableModel.setNumRows(maintainers[0].length);
+        int avaibilityDay;
+        int avaibilityWeek[] = null;
+        for(int j=0; j<maintainers[1].length;j++) {   
+            tableModel.setValueAt(maintainers[0][j], j, 0);
+            for(int i=1; i<8;i++) {
+                avaibilityDay=(sumIntVector(model.getDayAvaibility(cf, week, i))) * 100 / 420;
+                tableModel.setValueAt(avaibilityDay, j, i+2);                    
+            }
+        }
+        
+    }
+    
+    private void setTableAssign() throws SQLException {
+        String[] cols = {"Maintainer","Skills","8-00 - 9.00","9.00 - 10.00","10.00 - 11.00", "11.00-12-00","14.00 - 15.00","15.00 - 16.00","16-00 - 17.00"};
+        tableModel.setColumnIdentifiers(cols);
+        int[] avaibility = model.getDayAvaibility(cf, week, day);
+        String nameMaintainer = model.getNameMaintainer(cf);
+        tableModel.setValueAt(nameMaintainer, 0, 0);
+        for(int i=0; i<nCols-2; i++)
+            tableModel.setValueAt(avaibility[i], 0, i+2);
+    }
+    
+    private void setArea1() {
+        
+    }
+    
+    private void setArea2() throws SQLException {
+        jArea.setText(model.getNotes(activityID));
+    }
+    
+    private void ButtonAssign1() {
+        return;
+    }
+    
+    private void ButtonAssign2() throws SQLException {
+        int result = assignActivity(view.getCol(), activityID, cf, week, day);
+            
+            if(result == 1) {
+                jLabelError.setText("Assignment success");
+                view.getNav().goHome();
+            }
+            if(result == 0) jLabelError.setText("Activity is already assigned");
+            if(result == -1) jLabelError.setText("Devi selezionare una cella con dei minuti disponibili");
+            if(result == -2) jLabelError.setText("Non c'è abbastanza tempo per svolgere l' attività di manutenzione selezionata");
+            
+            jLabelError.setVisible(true);
+    }
+    
+    private void ButtonBack1() {
+        view.getNav().pop();
+    }
+    
+    private void ButtonBack2() throws SQLException {
+        mokeUp = false;
+        fillFrame();
+    }
+    
+    private void fillFrame() throws SQLException {
+        if (mokeUp) {
+            setTableMaintainers();
+            setArea1();
+            view.addButtonBackListener((e) -> ButtonBack1());
+            view.addButtonAssignListener((e) -> ButtonAssign1());
+        }
+        else {
+            setTableAssign();
+            setArea2();
+            view.addButtonBackListener((e) -> {
+                try {
+                    ButtonBack2();
+                } catch (SQLException ex) {
+                    Logger.getLogger(AssignActivityController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+            view.addButtonAssignListener((e) -> {
+                try {
+                    ButtonAssign2();
+                } catch (SQLException ex) {
+                    Logger.getLogger(AssignActivityController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+        }
+    }
+    
+    public String weekActivity(int activityID) throws SQLException {
         return model.getWeekActivity(activityID);
     }
     
-    public String notes() throws SQLException {
+    public String notes(int activityID) throws SQLException {
         return model.getNotes(activityID);
     }
     
-    public int estimatedTimeActivity() {
+    public int estimatedTimeActivity(int activityID) {
         return model.getEstimatedTimeActivity(activityID);
     }
     
-    public String stringActivity() throws SQLException {
+    public String stringActivity(int activityID) throws SQLException {
         return model.getStringActivity(activityID);
     }
     
-    public String nameMaintainer() throws SQLException {
+    public String nameMaintainer(String cf) throws SQLException {
         return model.getNameMaintainer(cf);
     }
     
-    public int[] dayAvaibility(String week) throws SQLException {
+    public int[] dayAvaibility(String cf, String week, int day) throws SQLException {
         return model.getDayAvaibility(cf, week, day);
     }
     
-    public Integer assignActivity(int col, String week) throws SQLException {
+    public Integer assignActivity(int col, int activityID, String cf, String week, int day) throws SQLException {
         int index = col-2;
-        int[] avaibility = dayAvaibility(week);
-        int timeActivity = estimatedTimeActivity();
+        int[] avaibility = dayAvaibility(cf, week, day);
+        int timeActivity = estimatedTimeActivity(activityID);
         if(avaibility[index] == 0) {
             return -1; //"ERRORE: Devi selezionare una cella con dei minuti disponibili"
         }
@@ -92,4 +224,13 @@ public class AssignActivityController {
         }
         return -3;
     }
+    
+    private int sumIntVector(int[] vector) {
+        int sum = vector[0];
+        for(int i=1; i<vector.length; i++)
+            sum += vector[i];
+        return sum;
+    }
+    
+    
 }

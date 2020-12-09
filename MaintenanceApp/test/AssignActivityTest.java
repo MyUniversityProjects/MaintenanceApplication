@@ -184,12 +184,14 @@ public class AssignActivityTest {
     public void test2() throws SQLException {
         int result = controller3.assignActivity(2,"50");
         assertEquals(-1, result);
+        
     }
     
     @Test
     public void test3() throws SQLException {
         int result = controller2.assignActivity(3,"50");
         assertEquals(1, result);
+        //model.removeAssign("TESTTESTTEST2222", 9999994);
     }
     
     
