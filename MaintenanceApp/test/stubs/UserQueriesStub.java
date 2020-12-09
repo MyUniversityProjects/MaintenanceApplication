@@ -22,7 +22,7 @@ public class UserQueriesStub extends UserQueries {
     }
 
     @Override
-    public User[] fetchAll() {
+    public User[] fetchPlannersMaintainers() {
         fetchAllCallCount++;
         User[] users = {
             new User("AAAA", "username-1", User.UserRole.SYSTEM_ADMINISTRATOR, "name-1", "surname-1", "email-1", "address-1"),

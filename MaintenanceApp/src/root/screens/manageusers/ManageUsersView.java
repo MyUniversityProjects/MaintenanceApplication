@@ -1,5 +1,6 @@
 package root.screens.manageusers;
 
+import java.awt.EventQueue;
 import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;
 import root.Navigable;
@@ -7,7 +8,6 @@ import root.Screen;
 
 
 public class ManageUsersView extends Screen {
-    private final DefaultTableModel tableModel;
     private final ManageUsersModel model;
     private final ButtonColumn deleteCol, editCol;
 
@@ -19,34 +19,23 @@ public class ManageUsersView extends Screen {
     public ManageUsersView(Navigable nav, ManageUsersModel model) {
         super(nav);
         this.model = model;
-        String[] columnNames = {"Fiscal Code", "Username", "Name", "Surname", "delete", "edit"};
-        Object[][] data = {
-            {"AAAA", "Ouss", "Oussama", "Ferchichi", "delete", "edit"},
-            {"BBBB", "Ficc", "Alessandro", "Ficca", "delete", "edit"},
-            {"AAAA", "Ouss", "Oussama", "Ferchichi", "delete", "edit"},
-            {"BBBB", "Ficc", "Alessandro", "Ficca", "delete", "edit"},
-            {"AAAA", "Ouss", "Oussama", "Ferchichi", "delete", "edit"},
-            {"BBBB", "Ficc", "Alessandro", "Ficca", "delete", "edit"},
-            {"AAAA", "Ouss", "Oussama", "Ferchichi", "delete", "edit"},
-            {"BBBB", "Ficc", "Alessandro", "Ficca", "delete", "edit"},
-            {"AAAA", "Ouss", "Oussama", "Ferchichi", "delete", "edit"},
-            {"BBBB", "Ficc", "Alessandro", "Ficca", "delete", "edit"},
-        };
-        tableModel = new DefaultTableModel(data, columnNames);
         initComponents();
         
-        usersTable.getColumn("delete").setMaxWidth(100);
-        usersTable.getColumn("edit").setMaxWidth(70);
-        
-        deleteCol = new ButtonColumn(usersTable.getColumn("delete"), true);
-        editCol = new ButtonColumn(usersTable.getColumn("edit"), true);
-        
-        deleteCol.setActionListener((i) -> {
-            super.confirmDialog("Conferma l'azione", "Sei sicuro di voler cancellare " + i);
-        });
-        editCol.setActionListener((i) -> {
-            super.showMsg("Conferma l'azione", "Ancora da implementare");
-        });
+        if (model != null) {
+            usersTable.getColumn("Fiscal Code").setMinWidth(135);
+            deleteCol = new ButtonColumn(usersTable.getColumn("delete"), true, 75);
+            editCol = new ButtonColumn(usersTable.getColumn("edit"), true, 60);
+        } else {
+            deleteCol = editCol = null;
+            EventQueue.invokeLater(() -> {
+                super.showErrorMsg("Unable to fetch users", "Re-try later!");
+                nav.pop();
+            });
+        }
+    }
+    
+    private DefaultTableModel createDummyTableModel() {
+        return new DefaultTableModel(new Object[0][0], ManageUsersModel.columnNames);
     }
 
     /**
@@ -70,7 +59,7 @@ public class ManageUsersView extends Screen {
         jLabel1.setText("MANAGE USERS");
 
         usersTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        usersTable.setModel(tableModel);
+        usersTable.setModel(model != null ? model.getTableModel() : createDummyTableModel());
         usersTable.setRowHeight(20);
         usersTable.setRowSelectionAllowed(false);
         jScrollPane1.setViewportView(usersTable);
@@ -86,11 +75,11 @@ public class ManageUsersView extends Screen {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(createBtn)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(backBtn)
                         .addGap(160, 160, 160)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -108,12 +97,21 @@ public class ManageUsersView extends Screen {
         );
     }// </editor-fold>//GEN-END:initComponents
     
-    public void addBackActionListener(ActionListener al) {}
-    public void addCreateActionListener(ActionListener al) {}
-    public void setDeleteUserActionListener(ButtonColumnActionListener al) {}
-    public void setEditUserActionListener(ButtonColumnActionListener al) {}
+    public void addBackActionListener(ActionListener al) {
+        backBtn.addActionListener(al);
+    }
     
-    public void removeRow(int rowIndex) {}
+    public void addCreateActionListener(ActionListener al) {
+        createBtn.addActionListener(al);
+    }
+    
+    public void setDeleteUserActionListener(ButtonColumnActionListener al) {
+        deleteCol.setActionListener(al);
+    }
+    
+    public void setEditUserActionListener(ButtonColumnActionListener al) {
+        editCol.setActionListener(al);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;

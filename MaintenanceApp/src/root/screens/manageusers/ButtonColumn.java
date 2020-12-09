@@ -18,6 +18,12 @@ public class ButtonColumn {
             tc.setHeaderValue("");
     }
     
+    public ButtonColumn(TableColumn tc, boolean hideHeaderValue, int width) {
+        this(tc, hideHeaderValue);
+        tc.setMinWidth(width);
+        tc.setMaxWidth(width);
+    }
+    
     public ButtonColumn(TableColumn tc) {
         this(tc, false);
     }

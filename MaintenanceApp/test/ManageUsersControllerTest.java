@@ -6,6 +6,7 @@ import org.junit.Before;
 import root.Navigable;
 import root.screens.manageusers.*;
 import stubs.NavigatorStub;
+import stubs.UserQueriesStub;
 
 
 public class ManageUsersControllerTest {
@@ -19,7 +20,6 @@ public class ManageUsersControllerTest {
         int createListenerCount = 0;
         int deleteListenerCount = 0;
         int editListenerCount = 0;
-        int removeRowCallCount = 0;
         
         public ViewStub(Navigable nav, ManageUsersModel model) {
             super(nav, model);
@@ -50,11 +50,6 @@ public class ManageUsersControllerTest {
         }
 
         @Override
-        public void removeRow(int rowIndex) {
-            removeRowCallCount++;
-        }
-
-        @Override
         public boolean confirmDialog(String title, String msg) {
             return true;
         }
@@ -63,8 +58,8 @@ public class ManageUsersControllerTest {
     private class ModelStub extends ManageUsersModel {
         int deleteCallCount = 0;
         
-        public ModelStub() {
-            super(null);
+        public ModelStub(UserQueriesStub queryTool) {
+            super(queryTool, queryTool.fetchPlannersMaintainers());
         }
 
         @Override
@@ -81,7 +76,7 @@ public class ManageUsersControllerTest {
     @Before
     public void setUp() {
         nav = new NavigatorStub();
-        model = new ModelStub();
+        model = new ModelStub(new UserQueriesStub());
         view = new ViewStub(nav, model);
         controller = new ManageUsersController(model, view);
     }
@@ -110,7 +105,6 @@ public class ManageUsersControllerTest {
     public void testDeleteListenerAction() {
         view.deleteActionListener.actionPerformed(1);
         assertEquals(1, model.deleteCallCount);
-        assertEquals(1, view.removeRowCallCount);
     }
     
     @Test

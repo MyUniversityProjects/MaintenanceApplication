@@ -3,6 +3,7 @@ package root.screenbuilders;
 import queries.UserQueries;
 import root.Navigable;
 import root.Screen;
+import root.exceptions.QueryFailedException;
 import root.screens.manageusers.*;
 
 public class ManageUsersBuilder extends ScreenBuilder {
@@ -12,14 +13,18 @@ public class ManageUsersBuilder extends ScreenBuilder {
 
     @Override
     public void buildController() {
-        controller = new ManageUsersController(model, view);
+        if (model != null)
+            controller = new ManageUsersController(model, view);
     }
 
     @Override
     public void buildModel() {
         UserQueries queryTool = new UserQueries();
-        model = new ManageUsersModel(queryTool);
-        model.fetch();
+        try {
+            model = ManageUsersModel.fromDatabase(queryTool);
+        } catch(QueryFailedException ex) {
+            model = null;
+        }
     }
 
     @Override
