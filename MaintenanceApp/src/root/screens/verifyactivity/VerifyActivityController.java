@@ -58,7 +58,7 @@ public class VerifyActivityController {
             model.setDescription(view.getTextAreaDescription());
             try {
                 model.forward();
-                view.getNav().push(new AssignActivityBuilder(model.getId(), 1, "DAAASSSSDDDDFFFF"));
+                view.getNav().push(new AssignActivityBuilder(model.getId()));
             } catch (SQLException | NotFoundException ex) {
                 view.showErrorMsg("Unable to forward", ex.getMessage());
                 EventQueue.invokeLater(() -> {

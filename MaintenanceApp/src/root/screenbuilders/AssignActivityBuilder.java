@@ -27,16 +27,16 @@ public class AssignActivityBuilder extends ScreenBuilder{
     private int day;
     private String cf;
     
-    public AssignActivityBuilder(int activityID, int day, String cf) {
-        this.activityID = activityID;
-        this.day = day;
-        this.cf = cf;
+    
+
+    public AssignActivityBuilder(int id) {
+        this.activityID = id;
     }
 
     @Override
     public void buildController() {
         try {
-            controller = new AssignActivityController(activityID, cf, day);
+            controller = new AssignActivityController(view, model, activityID);
         } catch (SQLException ex) {
             Logger.getLogger(AssignActivityBuilder.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -45,7 +45,7 @@ public class AssignActivityBuilder extends ScreenBuilder{
     @Override
     public void buildView(Navigable nav) {
         try {
-            view = new AssignActivityView(nav, activityID, day, cf);
+            view = new AssignActivityView(nav);
         } catch (SQLException ex) {
             Logger.getLogger(AssignActivityBuilder.class.getName()).log(Level.SEVERE, null, ex);
         }

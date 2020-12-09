@@ -6,6 +6,7 @@
 package root.screens.assignactivity;
 
 import java.awt.Color;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -16,6 +17,8 @@ import java.time.LocalTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import root.Navigable;
@@ -40,28 +43,27 @@ public class AssignActivityView extends Screen {
     /**
      * Creates new form AssignActivityView
      */
-    public AssignActivityView(Navigable nav, int activityID, int day, String cf) throws SQLException {
+    public AssignActivityView(Navigable nav) throws SQLException {
         super(nav);
         initComponents();
-        this.activityID = activityID;
-        this.day = day;
-        this.cf = cf;
-        
-        controller = new AssignActivityController(activityID, cf, day);
-        week = controller.weekActivity();
-        timeActivity = controller.estimatedTimeActivity();
         jLabelError.setVisible(false);
-        jLabelNameActivity.setText(controller.stringActivity());
+        /*
+        controller = new AssignActivityController();
+        week = controller.weekActivity(this.activityID);
+        timeActivity = controller.estimatedTimeActivity(this.activityID);
+        jLabelError.setVisible(false);
+        jLabelNameActivity.setText(controller.stringActivity(this.activityID));
         jLabelNumberOfWeek.setText(week);
-        jTextAreaNotes.setText(controller.notes());
+        jArea.setText(controller.notes(this.activityID));
         formatTable();
-        setTable();
+        setTable(); */
         
         
           
         
     }
     
+    /*
     private void formatTable() {
         // inizializate the structure of the table with the cols
         String[] cols = {"Maintainer","Skills","8-00 - 9.00","9.00 - 10.00","10.00 - 11.00", "11.00-12-00","14.00 - 15.00","15.00 - 16.00","16-00 - 17.00"};
@@ -76,12 +78,50 @@ public class AssignActivityView extends Screen {
     
     private void setTable() throws SQLException {
         // set the table with the avaibility of maintainer in time slots
-        int[] avaibility = controller.dayAvaibility(week);
-        String nameMaintainer = controller.nameMaintainer();
+        int[] avaibility = controller.dayAvaibility(cf, week, day);
+        String nameMaintainer = controller.nameMaintainer(cf);
         tableModel.setValueAt(nameMaintainer, 0, 0);
         for(int i=0; i<nCols-2; i++)
             tableModel.setValueAt(avaibility[i], 0, i+2);
+    } */
+    
+    public JTable getTable() {
+        return jTableAvaibility;
     }
+    
+    public int getCol() {
+        return colSelected;
+    }
+    
+    public int getRow() {
+        return rowSelected;
+    }
+    
+    public JLabel getLabelError() {
+        return jLabelError;
+    }
+    
+    public JTextArea getTxtArea() {
+        return jArea;
+    }
+    
+    public JLabel getLabelNameActivity() {
+        return jLabelNameActivity;
+    }
+    
+    public JLabel getLabelNumberOfWeek() {
+        return jLabelNumberOfWeek;
+    }
+    
+    public void addButtonAssignListener(ActionListener al){
+        jButtonAssign.addActionListener(al);
+    }
+    
+    public void addButtonBackListener(ActionListener al){
+        jButtonBack.addActionListener(al);
+    }
+    
+    
 
     /*protected void assign() {
             if((colSelected < 2) || (tableModel.getValueAt(rowSelected, colSelected).equals(0))) {
@@ -153,7 +193,7 @@ public class AssignActivityView extends Screen {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableAvaibility = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextAreaNotes = new javax.swing.JTextArea();
+        jArea = new javax.swing.JTextArea();
         jButtonAssign = new javax.swing.JButton();
         jLabelError = new javax.swing.JLabel();
         jButtonBack = new javax.swing.JButton();
@@ -190,9 +230,9 @@ public class AssignActivityView extends Screen {
         });
         jScrollPane3.setViewportView(jTableAvaibility);
 
-        jTextAreaNotes.setColumns(20);
-        jTextAreaNotes.setRows(5);
-        jScrollPane2.setViewportView(jTextAreaNotes);
+        jArea.setColumns(20);
+        jArea.setRows(5);
+        jScrollPane2.setViewportView(jArea);
 
         jButtonAssign.setText("Assign");
         jButtonAssign.addActionListener(new java.awt.event.ActionListener() {
@@ -290,16 +330,19 @@ public class AssignActivityView extends Screen {
         
         
        try {
-            int result = controller.assignActivity(colSelected, week);
+            int result = controller.assignActivity(colSelected, activityID, cf, week, day);
             
-            if(result == 1) jLabelError.setText("Assignment success");
+            if(result == 1) {
+                jLabelError.setText("Assignment success");
+                this.getNav().goHome();
+            }
             if(result == 0) jLabelError.setText("Activity is already assigned");
             if(result == -1) jLabelError.setText("Devi selezionare una cella con dei minuti disponibili");
             if(result == -2) jLabelError.setText("Non c'è abbastanza tempo per svolgere l' attività di manutenzione selezionata");
             
             
             jLabelError.setVisible(true);
-            setTable();
+            //setTable();
         } catch (SQLException ex) {
             Logger.getLogger(AssignActivityView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -319,6 +362,7 @@ public class AssignActivityView extends Screen {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea jArea;
     private javax.swing.JButton jButtonAssign;
     private javax.swing.JButton jButtonBack;
     private javax.swing.JLabel jLabel1;
@@ -331,6 +375,5 @@ public class AssignActivityView extends Screen {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableAvaibility;
-    private javax.swing.JTextArea jTextAreaNotes;
     // End of variables declaration//GEN-END:variables
 }
