@@ -7,6 +7,7 @@ import root.Navigable;
 import root.screens.verifyactivity.VerifyActivityController;
 import root.screens.verifyactivity.VerifyActivityModel;
 import root.screens.verifyactivity.VerifyActivityView;
+import stubs.ActivityQueriesStub;
 import stubs.NavigatorStub;
 
 
@@ -29,10 +30,6 @@ public class VerifyActivityControllerTest {
         int addMaterialListenerCount = 0;
         int addSkillListenerCount = 0;
         int removeMaterialListenerCount = 0;
-        // counters of some action on the view
-        int removeMaterialCallCount = 0;
-        int addMaterialCallCount = 0;
-        int addSkillCallCount = 0;
         
         public ViewStub(Navigable nav, ModelStub model) {
             super(nav, model);
@@ -95,6 +92,19 @@ public class VerifyActivityControllerTest {
             return "skill";
         }
 
+        
+    }
+    
+    private class ModelStub extends VerifyActivityModel {
+        int forwardCallCount = 0;
+        int removeMaterialCallCount = 0;
+        int addMaterialCallCount = 0;
+        int addSkillCallCount = 0;
+
+        public ModelStub() {
+            super(new ActivityQueriesStub().fetch(1), new ActivityQueriesStub());
+        }
+        
         @Override
         public void removeMaterial(String name) {
             removeMaterialCallCount++;
@@ -104,18 +114,10 @@ public class VerifyActivityControllerTest {
         public void addMaterial(String name) {
             addMaterialCallCount++;
         }
-
+        
         @Override
-        public void addSkill(String name) {
+        public void addSkillFromComboBox() {
             addSkillCallCount++;
-        }
-    }
-    
-    private class ModelStub extends VerifyActivityModel {
-        int forwardCallCount = 0;
-
-        public ModelStub() {
-            super(1, null, null, null, null, 1, true, 1, null, null);
         }
 
         @Override
@@ -169,19 +171,19 @@ public class VerifyActivityControllerTest {
     @Test
     public void testAddMaterialListenerAction() {
         view.addMaterial.doClick();
-        assertEquals(1, view.addMaterialCallCount);
+        assertEquals(1, model.addMaterialCallCount);
     }
     
     @Test
     public void testRemoveMaterialListenerAction() {
         view.removeMaterial.doClick();
-        assertEquals(1, view.removeMaterialCallCount);
+        assertEquals(1, model.removeMaterialCallCount);
     }
     
     @Test
     public void testAddSkillListenerAction() {
         view.addSkill.doClick();
-        assertEquals(1, view.addSkillCallCount);
+        assertEquals(1, model.addSkillCallCount);
     }
     
     @Test
