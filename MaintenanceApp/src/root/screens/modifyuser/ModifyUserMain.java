@@ -11,9 +11,10 @@ public class ModifyUserMain {
     public static void main(String[] args) throws SQLException, NotFoundException {
         javax.swing.JFrame app = new javax.swing.JFrame();
         UserQueries query = new UserQueries();
+        String cf = "BBBBBB00B00B000B";
         
-        ModifyUserModel model = ModifyUserModel.fromDatabase("X", query);
-        ModifyUserView view = new ModifyUserView(new Navigator("main", new ModifyUserBuilder("X", query)), model);
+        ModifyUserModel model = ModifyUserModel.fromDatabase(cf, query);
+        ModifyUserView view = new ModifyUserView(new Navigator("main", new ModifyUserBuilder(cf, query)), model);
         ModifyUserController controller = new ModifyUserController(view, model);
         
         app.add(view);

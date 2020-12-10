@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import root.Database;
 
 /**
@@ -121,12 +122,13 @@ public class AssignActivityModel {
                 if (avaibilityDay[i] <= durata) {
                     int d = durata;
                     d -= avaibilityDay[i];
-                    avaibilityDay[i] = 0;
                     avaibilityDay[i+1] -= d;
+                    avaibilityDay[i] = 0;
+                    
                     
                 } 
                 else
-                avaibilityDay[i] -= durata;
+                    avaibilityDay[i] -= durata;
                     
                 
             }
@@ -155,7 +157,7 @@ public class AssignActivityModel {
         }
     }
     
-    public int removeAssign(String cf, int activityID) {
+    public int removeAssign(String cf, int activityID) throws SQLException{
         try {
             String query = "DELETE FROM public.assignment WHERE maintainer = '" + cf + "' AND activity = " + Integer.toString(activityID);
             stm = conn.createStatement();
@@ -168,6 +170,36 @@ public class AssignActivityModel {
         System.out.println("ERRORE removeAssign");   
         return 0;
         }
+    }
+    
+    public ArrayList getMaintainers() throws SQLException{
+        try {
+            stm = conn.createStatement();
+            ResultSet rst = stm.executeQuery("SELECT * FROM public.appuser WHERE user_role = 'M'");
+            int i = 0;
+            
+            ArrayList<ArrayList<String>> maintainers = new ArrayList<ArrayList<String>>();
+            
+            while(rst.next()) {
+                ArrayList<String> field = new ArrayList<String>();
+                System.out.println("i = "+i);
+                field.add(rst.getString("name"));
+                field.add(rst.getString("cf"));
+                maintainers.add(field);
+               
+               
+                //maintainers[0][i] = rst.getString("name");
+                //maintainers[1][i] = rst.getString("cf");
+                i++;
+                
+            }
+            
+            return maintainers;
+            
+        } catch(Exception e){
+        System.out.println("ERRORE nameMaintainer");}
+        
+        return null;  
     }
     
 }
