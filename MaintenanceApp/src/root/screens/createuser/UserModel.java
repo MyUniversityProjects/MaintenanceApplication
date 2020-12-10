@@ -12,7 +12,7 @@ package root.screens.createuser;
 public class UserModel {
     private String error;
     private int errorCode;  
-    private UserQueries createUserQueries;
+    private final UserQueries createUserQueries;
 
     public UserModel() {
         this.createUserQueries = new UserQueries();
@@ -25,15 +25,12 @@ public class UserModel {
      * @return 
      */
     public boolean create(User user){
-        return false;
+        return createUserQueries.insertIntoAppUser(user);
     }
     
-    public String getError(){
-        return null;
-    }
     
-    public int getErrorCode(){
-        return 1;
+    public String getDatabaseError(){
+        return createUserQueries.getDatabaseError();
     }
     
     

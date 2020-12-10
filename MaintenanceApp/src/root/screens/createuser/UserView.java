@@ -201,7 +201,7 @@ public class UserView extends Screen {
     private javax.swing.JLabel usernameLabel;
     // End of variables declaration//GEN-END:variables
    // Input Getter
-    public String getCF(){
+    public String getCf(){
         return cfInput.getText();
     }
     
@@ -219,23 +219,25 @@ public class UserView extends Screen {
     }
     
     public String getRole(){
-        return null;
+        roleInputPlanner.setActionCommand("P");
+        roleInputMaintainer.setActionCommand("M");
+        return roleButtonGruop.getSelection().getActionCommand();
     }    
     
     public String getName(){
-        return null;
+        return nameInput.getText();
     }
     
     public String getSurname(){
-        return null;
+        return surnameInput.getText();
     }
     
     public String getEmail(){
-        return null;
+        return emailInput.getText();
     }
     
     public String getAddress(){
-        return null;
+        return addressInput.getText();
     }
     
     public void addCreateButtonListener(ActionListener al) {

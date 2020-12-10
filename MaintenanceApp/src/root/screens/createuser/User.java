@@ -11,7 +11,7 @@ public class User {
     private RoleType role;
     
     
-    public enum RoleType {PLANNER, MAINTAINER};
+    public enum RoleType {P , M};
 
     public User(String cf, String username, String password, String name, String surname, String email,String address,  RoleType role) {
         this.cf = cf;
@@ -91,8 +91,8 @@ public class User {
     
     public static RoleType convertRawType(String type) {
         switch (type) {
-            case "PLANNER": return RoleType.PLANNER;
-            case "UNPLANNED": return RoleType.MAINTAINER;
+            case "P": return RoleType.P;
+            case "M": return RoleType.M;
             default: return null;
         }
     }
