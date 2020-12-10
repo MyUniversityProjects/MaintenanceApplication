@@ -6,6 +6,7 @@
 package root.screens.assignactivity;
 
 import java.awt.Color;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -16,6 +17,8 @@ import java.time.LocalTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import root.Navigable;
@@ -40,28 +43,27 @@ public class AssignActivityView extends Screen {
     /**
      * Creates new form AssignActivityView
      */
-    public AssignActivityView(Navigable nav, int activityID, int day, String cf) throws SQLException {
+    public AssignActivityView(Navigable nav) throws SQLException {
         super(nav);
         initComponents();
-        this.activityID = activityID;
-        this.day = day;
-        this.cf = cf;
-        
-        controller = new AssignActivityController(activityID, cf, day);
-        week = controller.weekActivity();
-        timeActivity = controller.estimatedTimeActivity();
         jLabelError.setVisible(false);
-        jLabelNameActivity.setText(controller.stringActivity());
+        /*
+        controller = new AssignActivityController();
+        week = controller.weekActivity(this.activityID);
+        timeActivity = controller.estimatedTimeActivity(this.activityID);
+        jLabelError.setVisible(false);
+        jLabelNameActivity.setText(controller.stringActivity(this.activityID));
         jLabelNumberOfWeek.setText(week);
-        jTextAreaNotes.setText(controller.notes());
+        jArea.setText(controller.notes(this.activityID));
         formatTable();
-        setTable();
+        setTable(); */
         
         
           
         
     }
     
+    /*
     private void formatTable() {
         // inizializate the structure of the table with the cols
         String[] cols = {"Maintainer","Skills","8-00 - 9.00","9.00 - 10.00","10.00 - 11.00", "11.00-12-00","14.00 - 15.00","15.00 - 16.00","16-00 - 17.00"};
@@ -76,12 +78,58 @@ public class AssignActivityView extends Screen {
     
     private void setTable() throws SQLException {
         // set the table with the avaibility of maintainer in time slots
-        int[] avaibility = controller.dayAvaibility(week);
-        String nameMaintainer = controller.nameMaintainer();
+        int[] avaibility = controller.dayAvaibility(cf, week, day);
+        String nameMaintainer = controller.nameMaintainer(cf);
         tableModel.setValueAt(nameMaintainer, 0, 0);
         for(int i=0; i<nCols-2; i++)
             tableModel.setValueAt(avaibility[i], 0, i+2);
+    } */
+    
+    public void setColZero() {
+        colSelected = 0;
     }
+    
+    public void setRowZero() {
+        rowSelected = 0;
+    }
+    
+    public JTable getTable() {
+        return jTableAvaibility;
+    }
+    
+    public int getCol() {
+        return colSelected;
+    }
+    
+    public int getRow() {
+        return rowSelected;
+    }
+    
+    public JLabel getLabelError() {
+        return jLabelError;
+    }
+    
+    public JTextArea getTxtArea() {
+        return jArea;
+    }
+    
+    public JLabel getLabelNameActivity() {
+        return jLabelNameActivity;
+    }
+    
+    public JLabel getLabelNumberOfWeek() {
+        return jLabelNumberOfWeek;
+    }
+    
+    public void addButtonAssignListener(ActionListener al){
+        jButtonAssign.addActionListener(al);
+    }
+    
+    public void addButtonBackListener(ActionListener al){
+        jButtonBack.addActionListener(al);
+    }
+    
+    
 
     /*protected void assign() {
             if((colSelected < 2) || (tableModel.getValueAt(rowSelected, colSelected).equals(0))) {
@@ -153,7 +201,7 @@ public class AssignActivityView extends Screen {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableAvaibility = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextAreaNotes = new javax.swing.JTextArea();
+        jArea = new javax.swing.JTextArea();
         jButtonAssign = new javax.swing.JButton();
         jLabelError = new javax.swing.JLabel();
         jButtonBack = new javax.swing.JButton();
@@ -190,9 +238,9 @@ public class AssignActivityView extends Screen {
         });
         jScrollPane3.setViewportView(jTableAvaibility);
 
-        jTextAreaNotes.setColumns(20);
-        jTextAreaNotes.setRows(5);
-        jScrollPane2.setViewportView(jTextAreaNotes);
+        jArea.setColumns(20);
+        jArea.setRows(5);
+        jScrollPane2.setViewportView(jArea);
 
         jButtonAssign.setText("Assign");
         jButtonAssign.addActionListener(new java.awt.event.ActionListener() {
@@ -227,8 +275,8 @@ public class AssignActivityView extends Screen {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(102, 102, 102)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(128, 128, 128)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -236,21 +284,19 @@ public class AssignActivityView extends Screen {
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(75, 75, 75)
                                 .addComponent(jLabelNameActivity, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                                .addGap(2, 2, 2)
                                 .addComponent(jButtonBack, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(120, 120, 120)
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(424, 424, 424)
-                                .addComponent(jButtonAssign, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(143, 143, 143)
-                                .addComponent(jLabelError, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(44, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(422, 422, 422)
+                        .addComponent(jButtonAssign, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(120, 120, 120)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(93, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabelError, javax.swing.GroupLayout.PREFERRED_SIZE, 609, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(361, 361, 361))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -263,48 +309,28 @@ public class AssignActivityView extends Screen {
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(4, 4, 4)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonBack)
-                            .addComponent(jLabelNameActivity, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelNameActivity, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonBack))))
                 .addGap(87, 87, 87)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
-                        .addComponent(jButtonAssign, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelError)
-                        .addGap(155, 155, 155))))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                        .addComponent(jButtonAssign, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(33, 33, 33)
+                .addComponent(jLabelError)
+                .addGap(70, 70, 70))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAssignActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAssignActionPerformed
-        
-        
-        
-       try {
-            int result = controller.assignActivity(colSelected, week);
-            
-            if(result == 1) jLabelError.setText("Assignment success");
-            if(result == 0) jLabelError.setText("Activity is already assigned");
-            if(result == -1) jLabelError.setText("Devi selezionare una cella con dei minuti disponibili");
-            if(result == -2) jLabelError.setText("Non c'è abbastanza tempo per svolgere l' attività di manutenzione selezionata");
-            
-            
-            jLabelError.setVisible(true);
-            setTable();
-        } catch (SQLException ex) {
-            Logger.getLogger(AssignActivityView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-                    
-            
+    
         
     }//GEN-LAST:event_jButtonAssignActionPerformed
 
@@ -319,6 +345,7 @@ public class AssignActivityView extends Screen {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea jArea;
     private javax.swing.JButton jButtonAssign;
     private javax.swing.JButton jButtonBack;
     private javax.swing.JLabel jLabel1;
@@ -331,6 +358,5 @@ public class AssignActivityView extends Screen {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableAvaibility;
-    private javax.swing.JTextArea jTextAreaNotes;
     // End of variables declaration//GEN-END:variables
 }

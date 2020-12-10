@@ -3,8 +3,8 @@ package root.screens.verifyactivity;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import root.exceptions.NotFoundException;
+import root.exceptions.QueryFailedException;
 import root.screenbuilders.AssignActivityBuilder;
 
 public class VerifyActivityController {
@@ -50,20 +50,20 @@ public class VerifyActivityController {
         public void actionPerformed(ActionEvent event) {
             if (!isTimeInputValid()) {
                 view.showErrorMsg("Input error", "Estimated time must be a positive integer");
-                return;
-            }
-            
-            model.setTime(Integer.parseInt(view.getTimeValue()));
-            model.setNotes(view.getTextAreaNotes());
-            model.setDescription(view.getTextAreaDescription());
-            try {
-                model.forward();
-                view.getNav().push(new AssignActivityBuilder(model.getId(), 1, "DAAASSSSDDDDFFFF"));
-            } catch (SQLException | NotFoundException ex) {
-                view.showErrorMsg("Unable to forward", ex.getMessage());
-                EventQueue.invokeLater(() -> {
-                    view.getNav().goHome();
-                });
+            } else {
+                model.setTime(Integer.parseInt(view.getTimeValue()));
+                model.setNotes(view.getTextAreaNotes());
+                model.setDescription(view.getTextAreaDescription());
+                
+                try {
+                    model.forward();
+                    view.getNav().push(new AssignActivityBuilder(model.getId()));
+                } catch (QueryFailedException | NotFoundException ex) {
+                    view.showErrorMsg("Unable to forward", ex.getMessage());
+                    EventQueue.invokeLater(() -> {
+                        view.getNav().goHome();
+                    });
+                }
             }
         }
     }
@@ -79,9 +79,7 @@ public class VerifyActivityController {
          */
         @Override
         public void actionPerformed(ActionEvent event) {
-            String name = view.getSelectedSkill();
-            if (name != null)
-                view.addSkill(name);            
+            model.addSkillFromComboBox();            
         }
     }
     
@@ -95,7 +93,7 @@ public class VerifyActivityController {
             if (name.length() == 0) {
                 view.showErrorMsg("Input error", "Material name can't be empty");
             } else {
-                view.addMaterial(name);
+                model.addMaterial(name);
             }
         }
     }
@@ -110,7 +108,7 @@ public class VerifyActivityController {
             if (name.length() == 0) {
                 view.showErrorMsg("Input error", "Material name can't be empty");
             } else {
-                view.removeMaterial(name);
+                model.removeMaterial(name);
             }
         }
     }

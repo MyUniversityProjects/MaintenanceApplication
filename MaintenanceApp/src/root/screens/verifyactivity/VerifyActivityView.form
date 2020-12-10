@@ -372,7 +372,7 @@
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="skillsModel" type="code"/>
+              <Connection code="model.getSkillsModel()" type="code"/>
             </Property>
             <Property name="selectionMode" type="int" value="0"/>
           </Properties>
@@ -647,13 +647,8 @@
       <SubComponents>
         <Component class="javax.swing.JComboBox" name="skillsSelect">
           <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Skill 1"/>
-                <StringItem index="1" value="Skill 2"/>
-                <StringItem index="2" value="Skill 3"/>
-                <StringItem index="3" value="Skill 4"/>
-              </StringArray>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="model.getRemainingSkillsModel()" type="code"/>
             </Property>
           </Properties>
           <AuxValues>
@@ -717,9 +712,6 @@
       <SubComponents>
         <Container class="javax.swing.JScrollPane" name="jScrollPane3">
           <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="null"/>
-            </Property>
             <Property name="viewportBorder" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                 <TitledBorder title="Materials needed">
@@ -749,7 +741,7 @@
                   <Font name="Tahoma" size="12" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="materialsModel" type="code"/>
+                  <Connection code="model.getMaterialsModel()" type="code"/>
                 </Property>
                 <Property name="selectionMode" type="int" value="0"/>
               </Properties>

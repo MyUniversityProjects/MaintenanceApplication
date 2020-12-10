@@ -9,14 +9,11 @@ import root.entities.Activity;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-import javax.swing.DefaultListModel;
 
 
 public class VerifyActivityView extends Screen {
     static final String PREFIX = "\t• ";
     final VerifyActivityModel model;
-    final DefaultListModel<String> skillsModel = new DefaultListModel<>();
-    final DefaultListModel<String> materialsModel = new DefaultListModel<>();
     
     /**
      * Creates new form VerifyActivityView according to the activity type and data
@@ -25,7 +22,7 @@ public class VerifyActivityView extends Screen {
      */
     public VerifyActivityView(Navigable nav, VerifyActivityModel model) {
         super(nav);
-        this.model = model == null ? new VerifyActivityModel(0, "", "", "", "", 0, false, 0, "", null) : model;
+        this.model = model == null ? createDummyModel() : model;
         initComponents();
         
         if (model == null) {
@@ -53,6 +50,11 @@ public class VerifyActivityView extends Screen {
             // set interruptible text
             interruptLabel.setText("This activity " + (model.isInterruptible() ? "can" : "can't") + " be interrupted");
         }
+    }
+    
+    private VerifyActivityModel createDummyModel() {
+        Activity activity = new Activity(0, "", "", "", "", 0, false, 0, "", null);
+        return new VerifyActivityModel(activity, null);
     }
 
     /**
@@ -155,7 +157,7 @@ public class VerifyActivityView extends Screen {
 
         skillList.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.background"));
         skillList.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        skillList.setModel(skillsModel);
+        skillList.setModel(model.getSkillsModel());
         skillList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(skillList);
 
@@ -232,7 +234,7 @@ public class VerifyActivityView extends Screen {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        skillsSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Skill 1", "Skill 2", "Skill 3", "Skill 4" }));
+        skillsSelect.setModel(model.getRemainingSkillsModel());
 
         addSkillBtn.setText("add");
 
@@ -259,12 +261,11 @@ public class VerifyActivityView extends Screen {
                 .addComponent(interruptLabel))
         );
 
-        jScrollPane3.setBorder(null);
         jScrollPane3.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true), "Materials needed", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(102, 102, 102))); // NOI18N
 
         materialList.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.background"));
         materialList.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        materialList.setModel(materialsModel);
+        materialList.setModel(model.getMaterialsModel());
         materialList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane3.setViewportView(materialList);
 
@@ -463,31 +464,6 @@ public class VerifyActivityView extends Screen {
     }
     
     /**
-     * Add skill name to the UI list model for the skills
-     * @param name the name of the skill; must not be null
-     */
-    public void addSkill(String name) {
-        skillsModel.addElement(PREFIX + name);
-        skillsSelect.removeItem(name);
-    }
-    
-    /**
-     * Add material name to the UI list model for the materials
-     * @param name the name of the material; must not be null
-     */
-    public void addMaterial(String name) {
-        materialsModel.addElement(PREFIX + name);
-    }
-    
-    /**
-     * Remove material name to the UI list model for the materials
-     * @param name the name of the material; must not be null
-     */
-    public void removeMaterial(String name) {
-        materialsModel.removeElement(PREFIX + name);
-    }
-    
-    /**
      * Clear the material name text input and returns the deleted value
      * @return user input
      */
@@ -505,35 +481,12 @@ public class VerifyActivityView extends Screen {
         return (String)skillsSelect.getSelectedItem();
     }
     
-    public String[] getMaterials() {
-        return convertModel(materialsModel);
-    }
-    
-    public String[] getSkills() {
-        return convertModel(skillsModel);
-    }
-    
     /**
      * Returns the current value of the estimated time text input
      * @return estimated time value
      */
     public String getTimeValue() {
         return timeTextField.getText();
-    }
-    
-    /**
-     * Used to get an array of String of the elements in the model
-     * @param m the model used to get the array of String
-     * @return an array of with the elements of the model
-     */
-    private static String[] convertModel(DefaultListModel<String> m) {
-        int size = m.getSize();
-        String[] arr = new String[size];
-        
-        for (int i=0; i<size; i++)
-            arr[i] = m.get(i).substring(PREFIX.length());
-        
-        return arr;
     }
     
     /**

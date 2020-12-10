@@ -6,6 +6,8 @@
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -31,18 +33,35 @@ import org.junit.AfterClass;
 public class AssignActivityTest {
     
     
-    
+    private class AssignActivityBuilderStub extends ScreenBuilder{
+        
+        AssignActivityViewStub view;
+        
+        @Override
+        public void buildView(Navigable nav) {
+            try {
+                view = new AssignActivityViewStub(nav);
+            } catch (SQLException ex) {
+                Logger.getLogger(AssignActivityTest.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        @Override
+        public Screen getScreen() {
+            return view;
+        }
+    }
 
     private class AssignActivityViewStub extends AssignActivityView {
              
-        public AssignActivityViewStub(Navigable nav, int activityID, int day, String cf) throws SQLException {
-            super(nav, activityID, day, cf);            
+        public AssignActivityViewStub(Navigable nav) throws SQLException {
+            super(nav);            
         }              
     }
     
     private class AssignActivityControllerStub extends AssignActivityController {
-        public AssignActivityControllerStub(int activityId, String cf, int day) throws SQLException {
-            super(activityId, cf, day);
+        public AssignActivityControllerStub(AssignActivityView view, AssignActivityModel model, int activityID) throws SQLException {
+            super(view, model, activityID);
         }
     }
 
@@ -68,6 +87,7 @@ public class AssignActivityTest {
             return view;
         }
     }
+    
 
     private class ActivityViewStub extends ActivityView {
              
@@ -84,6 +104,7 @@ public class AssignActivityTest {
 
     }
     
+    private AssignActivityView view;
     private AssignActivityControllerStub controller1;
     private AssignActivityControllerStub controller2;
     private AssignActivityControllerStub controller3;
@@ -163,10 +184,13 @@ public class AssignActivityTest {
         Activity a4 = activityController.createActivity(inputTest4);
         activityModel.create(a4);
         
+        view = new AssignActivityViewStub(new Navigator("test",
+                new AssignActivityBuilderStub()));
+        model = new AssignActivityModelStub();
         
-        controller1 = new AssignActivityControllerStub(9999991, "TEST1TEST1TEST11", 7);
-        controller2 = new AssignActivityControllerStub(9999994, "TESTTESTTEST2222", 7);
-        controller3 = new AssignActivityControllerStub(9999993, "TEST1TEST1TEST11", 7);
+        controller1 =  new AssignActivityControllerStub(view, model, 9999991);
+        controller2 = new AssignActivityControllerStub(view, model, 9999994);
+        controller3 = new AssignActivityControllerStub(view, model, 9999993);
         
         
         
@@ -175,27 +199,28 @@ public class AssignActivityTest {
     
     @Test
     public void test1() throws SQLException {
-        System.out.println("test1");
-        int result = controller1.assignActivity(4, "50");
+        int result = controller1.assignActivity(4, 9999991, "TTTTTT11T11T111T", "50", 7);
         assertEquals(0, result);
     }
     
     @Test
     public void test2() throws SQLException {
-        int result = controller3.assignActivity(2,"50");
+        int result = controller3.assignActivity(2, 9999993, "TTTTTT11T11T111T", "50", 7);
         assertEquals(-1, result);
+        
     }
     
     @Test
     public void test3() throws SQLException {
-        int result = controller2.assignActivity(3,"50");
+        int result = controller2.assignActivity(3, 9999994, "TTTTTT22T22T222T", "50", 7);
         assertEquals(1, result);
+        model.removeAssign("TTTTTT22T22T222T", 9999994);
     }
     
     
     @Test
     public void test4() throws SQLException {
-        int result = controller3.assignActivity(3,"50");
+        int result = controller3.assignActivity(3, 9999993, "TTTTTT11T11T111T", "50", 7);
         assertEquals(-2, result);
     }
     
