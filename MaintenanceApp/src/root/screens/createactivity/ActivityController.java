@@ -21,7 +21,7 @@ public class ActivityController {
             Map<String, String> inputMap = getInputs();
             if (createCheckout(inputMap)) {
                 Activity act = createActivity(inputMap);
-                if (!model.create(act) && model.getErrorCode() == 0){ 
+                if (!model.create(act)){ 
                     view.showErrorMsg("Id error", "The id is already present");
                 } else {
                     view.showMsg("Success", "Activity entered successfully");
@@ -80,12 +80,6 @@ public class ActivityController {
         }
         
         for (Map.Entry<String, String> entry : inputMap.entrySet()) {
-            /*if (entry.getKey().equals("id") || entry.getKey().equals("estimated_time") || entry.getKey().equals("week")) {
-                if (!isInteger(entry.getValue())) {
-                    checkoutError = "Error: The fields id, estimated_time and week must be an integer";
-                    return false;
-                }
-            }*/
             if(entry.getKey().equals("id") && !validateId(entry.getValue())){
                 checkoutError += "Error: The id field must be a positive integer\n";
                 flag = false;
@@ -129,7 +123,7 @@ public class ActivityController {
         return new Activity(id,inputMap.get("area"),
             inputMap.get("branch_office"), inputMap.get("typology"),
             inputMap.get("description"), estimated_time, interruptible,
-            week, inputMap.get("workspace_notes"),
+            week, inputMap.get("notes"),
             Activity.ActivityType.valueOf(inputMap.get("type")));
     }
 

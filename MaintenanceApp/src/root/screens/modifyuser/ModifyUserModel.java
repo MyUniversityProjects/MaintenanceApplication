@@ -38,8 +38,7 @@ public class ModifyUserModel extends User{
                     user.getRole(), query);   
         } catch(SQLException | NotFoundException e){
             return null;
-        }
-        
+        } 
         
     }
     

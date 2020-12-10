@@ -14,9 +14,9 @@ public class ModifyUserBuilder extends ScreenBuilder{
     private final String cf;
     private final UserQueries query;
     
-    public ModifyUserBuilder(String cf, UserQueries query){
+    public ModifyUserBuilder(String cf){
         this.cf = cf;
-        this.query = query;
+        this.query = new UserQueries();
     }
     
     @Override
