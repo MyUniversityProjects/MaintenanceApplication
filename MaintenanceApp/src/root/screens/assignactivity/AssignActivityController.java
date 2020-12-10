@@ -26,7 +26,7 @@ public class AssignActivityController {
     private AssignActivityView view;
     private int activityID;
     private int day = 1;
-    private String cf = "DAAASSSSDDDDFFFF";
+    private String cf = null;
     private String week;
     private boolean mokeUp = true;
     private JTable table;
@@ -34,6 +34,7 @@ public class AssignActivityController {
     private int nCols = 9;
     private JLabel jLabelError;
     private JTextArea jArea;
+    private String[][] maintainers = null;
       
     public AssignActivityController(AssignActivityView view, AssignActivityModel model, int activityID) throws SQLException {
         
@@ -47,7 +48,7 @@ public class AssignActivityController {
         //jLabelError.setVisible(false);
         
         table = view.getTable();
-        String[] cols = {"Maintainer","Skills","8-00 - 9.00","9.00 - 10.00","10.00 - 11.00", "11.00-12-00","14.00 - 15.00","15.00 - 16.00","16-00 - 17.00"};     
+        String[] cols = {"Maintainer","Skills","Mon","Tue","Wed", "Thu","Fri","Sat","Sun"};     
         tableModel = new DefaultTableModel(cols,1);
         table.setModel(tableModel);
         
@@ -58,7 +59,7 @@ public class AssignActivityController {
         jLabelError = view.getLabelError();
         jArea = view.getTxtArea();
         
-        mokeUp = false; // test
+        mokeUp = true; // test
         fillFrame();
         
     }
@@ -66,19 +67,15 @@ public class AssignActivityController {
     private void setTableMaintainers() throws SQLException {
         String[] cols = {"Maintainer","Skills","Mon","Tue","Wed", "Thu","Fri","Sat","Sun"};
         tableModel.setColumnIdentifiers(cols);
-        String[][] maintainers = null;
         
-        model.getMaintainers().toArray(maintainers);
-        System.out.println("Maintainers lenght = "+ maintainers.length);
-        System.out.println("Maintainers lenght1 = "+ maintainers[0].length);
+        maintainers = model.getMaintainers();
         tableModel.setNumRows(maintainers[0].length);
         int avaibilityDay;
-        int avaibilityWeek[] = null;
         for(int j=0; j<maintainers[1].length;j++) {   
-            tableModel.setValueAt(maintainers[0][j], j, 0);
+            tableModel.setValueAt(maintainers[0][j] + " " + maintainers[2][j], j, 0);
             for(int i=1; i<8;i++) {
-                avaibilityDay=(sumIntVector(model.getDayAvaibility(cf, week, i))) * 100 / 420;
-                tableModel.setValueAt(avaibilityDay, j, i+2);                    
+                avaibilityDay=(sumIntVector(model.getDayAvaibility(maintainers[1][j], week, i))) * 100 / 420;
+                tableModel.setValueAt(avaibilityDay, j, i+1);                    
             }
         }
         
@@ -92,6 +89,12 @@ public class AssignActivityController {
         tableModel.setValueAt(nameMaintainer, 0, 0);
         for(int i=0; i<nCols-2; i++)
             tableModel.setValueAt(avaibility[i], 0, i+2);
+        int i = tableModel.getRowCount()-1;
+        while(tableModel.getRowCount() > 1) {
+            tableModel.removeRow(i);
+            i--;
+        }
+        
     }
     
     private void setArea1() {
@@ -102,8 +105,11 @@ public class AssignActivityController {
         jArea.setText(model.getNotes(activityID));
     }
     
-    private void ButtonAssign1() {
-        return;
+    private void ButtonAssign1() throws SQLException {
+        cf = maintainers[1][view.getRow()];
+        day = view.getCol()-1;
+        mokeUp = false;
+        fillFrame();
     }
     
     private void ButtonAssign2() throws SQLException {
@@ -125,8 +131,10 @@ public class AssignActivityController {
     }
     
     private void ButtonBack2() throws SQLException {
-        mokeUp = false;
+        mokeUp = true;
         fillFrame();
+        view.setColZero();
+        view.setRowZero();
     }
     
     private void fillFrame() throws SQLException {
@@ -134,7 +142,13 @@ public class AssignActivityController {
             setTableMaintainers();
             setArea1();
             view.addButtonBackListener((e) -> ButtonBack1());
-            view.addButtonAssignListener((e) -> ButtonAssign1());
+            view.addButtonAssignListener((e) -> {
+                try {
+                    ButtonAssign1();
+                } catch (SQLException ex) {
+                    Logger.getLogger(AssignActivityController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
         }
         else {
             setTableAssign();
