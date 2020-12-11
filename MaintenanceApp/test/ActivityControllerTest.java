@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 import org.junit.*;
 import static org.junit.Assert.*;
+import queries.ActivityQueries;
 import root.Navigator;
 import root.Navigable;
 import root.Screen;
-import root.entities.Activity;
 import root.screenbuilders.ScreenBuilder;
 
 public class ActivityControllerTest {
@@ -39,7 +39,7 @@ public class ActivityControllerTest {
     private class ActivityModelStub extends ActivityModel {
 
         public ActivityModelStub() {
-            super();
+            super(new ActivityQueries());
         }
 
     }

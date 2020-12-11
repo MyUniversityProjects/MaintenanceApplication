@@ -1,6 +1,7 @@
 package root.screens.modifyuser;
 
 import java.sql.SQLException;
+import java.util.regex.Pattern;
 
 public class ModifyUserController {
     
@@ -60,13 +61,17 @@ public class ModifyUserController {
         String username = view.getUsernameInput();
         String password = view.getPasswordInput();
         String role = view.getRoleInput();
+        Pattern patternCf = Pattern.compile("^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$");
+        Pattern patternEmail = Pattern.compile("^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$");
         String errStr = "";       
         
         if(name.equals("")){ errStr += "Name cannot be empty\n"; }
         if(surname.equals("")){ errStr += "Surname cannot be empty\n"; }
         if(address.equals("")){ errStr += "Address cannot be empty\n"; }
         if(email.equals("")){ errStr += "Email cannot be empty\n"; }
+        if(!patternEmail.matcher(email).matches()){ errStr += "Email format not valid\n";}
         if(cf.equals("")){ errStr += "CF cannot be empty\n"; }
+        if(!patternCf.matcher(cf).matches()){ errStr += "CF format not valid\n";}
         if(username.equals("")){ errStr += "Username cannot be empty\n"; }
         if(password.equals("")){ errStr += "Password cannot be empty\n"; }
         if(role.equals("")){ errStr += "Role cannot be empty\n"; }

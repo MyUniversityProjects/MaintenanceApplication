@@ -1,6 +1,7 @@
 
 package root.screenbuilders;
 
+import queries.ActivityQueries;
 import root.Navigable;
 import root.Screen;
 import root.screens.manageactivity.ManageActivityController;
@@ -25,7 +26,7 @@ public class ManageActivityBuilder extends ScreenBuilder{
     
     @Override
     public void buildModel() {
-        model = new ManageActivityModel();   
+        model = new ManageActivityModel(new ActivityQueries());   
     }
 
     @Override
