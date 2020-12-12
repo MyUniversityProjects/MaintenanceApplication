@@ -178,6 +178,45 @@ public class ActivityQueries {
         } catch(SQLException ex){
             return false;      
         }
-    
+    }
+ 
+    /**
+     * Gets the id,area,typology and estimated time of the Scheduled Activities of the current num week from the database
+     * @param currentNumWeek
+     * @return a Matrix of Strings having the elements that are going to be used to create the tablemodel 
+     * @throws java.sql.SQLException
+     */
+    public String[][] getCurrentNumWeekScheduledActivities(int currentNumWeek) throws SQLException{
+        try {
+            String[][] currentNumWeekScheduledActivitiesMatrix = null;    
+            Connection conn = Database.getConnection();
+            Statement stmQuery = conn.createStatement();
+            String queryCurrentNumWeekScheduledActivities = "SELECT appactivity.id,appactivity.area,"
+                    + "appactivity.typology,appactivity.estimated_time FROM appactivity"
+                    + " WHERE week = " + currentNumWeek +"AND type_activity = 'PLANNED' "
+                    + " EXCEPT "
+                    + "select appactivity.id,appactivity.area,"
+                    + "appactivity.typology,appactivity.estimated_time "
+                    + "FROM appactivity INNER JOIN assignment ON appactivity.id=assignment.activity "
+                    + "WHERE week = " + currentNumWeek +"AND type_activity = 'PLANNED' order by id"; 
+            String queryCount = "select count(*) as num "
+                    + "FROM ("+ queryCurrentNumWeekScheduledActivities + ") as notassigned";
+            ResultSet rst = stmQuery.executeQuery(queryCount);
+            rst.next();
+            int numActivities = rst.getInt("num");
+            currentNumWeekScheduledActivitiesMatrix = new String[numActivities][4];           
+            rst = stmQuery.executeQuery(queryCurrentNumWeekScheduledActivities);
+            int count = 0;
+            while (rst.next()) {
+                currentNumWeekScheduledActivitiesMatrix[count][0] = Integer.toString(rst.getInt("id"));
+                currentNumWeekScheduledActivitiesMatrix[count][1] = rst.getString("area");
+                currentNumWeekScheduledActivitiesMatrix[count][2] = rst.getString("typology");
+                currentNumWeekScheduledActivitiesMatrix[count][3] = Integer.toString(rst.getInt("estimated_time"));
+                count++;
+            }
+            return currentNumWeekScheduledActivitiesMatrix;
+        } catch (SQLException ex) {
+            return null;
+        }
     }
 }

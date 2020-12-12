@@ -4,7 +4,9 @@ import javax.swing.JButton;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
+import queries.ActivityQueries;
 import root.Navigable;
+import root.entities.Activity;
 import root.screens.modifyselectedactivity.ModifySelectedActivityController;
 import root.screens.modifyselectedactivity.ModifySelectedActivityModel;
 import root.screens.modifyselectedactivity.ModifySelectedActivityView;
@@ -120,10 +122,10 @@ public class ModifySelectedActivityControllerTest {
     }
     /*Defining a Stub of a Model for testing purpose*/
     private class ModelStub extends ModifySelectedActivityModel {
-        int modifyCallCount;
+        int modifyCallCount = 0;
         
-        public ModelStub() {
-            super(1, null, null, null, null, 1, true, 1, null, null);
+        public ModelStub(ActivityQueries query) {
+            super(new Activity(1, null, null, null, null, 1, true, 1, null, null),query);
         }
 
         @Override
@@ -133,6 +135,13 @@ public class ModifySelectedActivityControllerTest {
         }
     }
     
+    private class ActivityQueriesStub extends ActivityQueries{
+        public ActivityQueriesStub() {
+            super();
+        }
+    }
+    
+    ActivityQueriesStub query;
     ModifySelectedActivityController controller;
     ViewStub view;
     ModelStub model;
@@ -141,7 +150,8 @@ public class ModifySelectedActivityControllerTest {
     @Before
     public void setUp() {
         nav = new NavigatorStub();
-        model = new ModelStub();
+        query = new ActivityQueriesStub();
+        model = new ModelStub(query);
         view = new ViewStub(nav, model);
         controller = new ModifySelectedActivityController(model, view);
     }
@@ -168,12 +178,12 @@ public class ModifySelectedActivityControllerTest {
     
     @Test
     public void testmodifyListenerAction() {
+        assertEquals(0, model.modifyCallCount);
         view.modify.doClick();
-        //In the test two modify will successful resolve
-        assertEquals(2, model.modifyCallCount);
+        assertEquals(1, model.modifyCallCount);
         assertTrue(view.result);
     }
-     
+    
     @Test
     public void testModifyCheckoutKeyListNotContainsAll() {
         view.branchOffice = "";
@@ -187,13 +197,13 @@ public class ModifySelectedActivityControllerTest {
         view.modify.doClick();
         assertFalse(view.result);
     }
-    
     @Test
     public void testModifyCheckoutNoteEmpty() {
-        view.notes = "";
+        view.notes = ""; 
+        assertEquals(0, model.modifyCallCount);
         view.modify.doClick();
-        //In the test two modify will successful resolve
-        assertEquals(2, model.modifyCallCount);
+        assertEquals(1, model.modifyCallCount);
         assertTrue(view.result);
     }
+
 }
