@@ -5,6 +5,8 @@
  */
 package root.screens.createuser;
 
+import queries.UserQueries;
+
 public class UserModel {
     private String error;
     private int errorCode;  
@@ -12,9 +14,10 @@ public class UserModel {
 
     /**
      * Creates new UserModel  
+     * @param query
      */
-    public UserModel() {
-        this.createUserQueries = new UserQueries();
+    public UserModel(UserQueries query) {
+        this.createUserQueries = query;
     }
     
     /**
@@ -33,7 +36,7 @@ public class UserModel {
      * @return a string describing the error given by the database
      */
     public String getDatabaseError(){
-        return createUserQueries.getDatabaseError();
+        return createUserQueries.getCreateDatabaseError();
     }
     
     

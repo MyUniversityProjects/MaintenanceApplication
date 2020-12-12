@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import root.Database;
+import static root.Database.getConnection;
 import root.entities.Activity;
 import root.exceptions.NotFoundException;
 import root.exceptions.QueryFailedException;
@@ -153,5 +155,29 @@ public class ActivityQueries {
         } catch(SQLException ex){
             return false;
         }
+    }
+    
+    public boolean modify(Map<String, String> inputMap){
+        String query = "UPDATE appactivity "
+                + "SET branch_office = ?,area = ?,typology = ?,description = ?,estimated_time = ?,interruptible = ?,workspace_notes = ? "
+                + "WHERE id = ? ";
+        try {
+            Connection conn = getConnection();
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, inputMap.get("branch_office"));
+            stmt.setString(2, inputMap.get("area"));
+            stmt.setString(3, inputMap.get("typology"));
+            stmt.setString(4, inputMap.get("description"));
+            stmt.setInt(5, Integer.parseInt(inputMap.get("estimated_time")));
+            stmt.setBoolean(6, Boolean.parseBoolean(inputMap.get("interruptible")));
+            stmt.setString(7, inputMap.get("workspace_notes"));
+            stmt.setInt(8, Integer.parseInt(inputMap.get("id")));
+
+            stmt.executeUpdate();   
+            return true;
+        } catch(SQLException ex){
+            return false;      
+        }
+    
     }
 }

@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionListener;
 import root.Navigable;
 import root.Screen;
+import root.entities.Activity;
 
 public class ModifySelectedActivityView extends Screen {
 
@@ -16,7 +17,7 @@ public class ModifySelectedActivityView extends Screen {
      */
     public ModifySelectedActivityView(Navigable nav, ModifySelectedActivityModel model) {
         super(nav);
-        this.model = model == null ? new ModifySelectedActivityModel(0, "", "", "", "", 0, false, 0, "", null) : model;
+        this.model = model == null ? new ModifySelectedActivityModel(new Activity(0, "", "", "", "", 0, false, 0, "", null),null) : model;
         initComponents();
         if (model == null) {
             EventQueue.invokeLater(() -> {

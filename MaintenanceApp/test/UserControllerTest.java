@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import org.junit.*;
 import static org.junit.Assert.*;
+import queries.UserQueries;
 import root.Navigable;
 import root.screens.createuser.User;
 import root.screens.createuser.UserController;
 import root.screens.createuser.UserModel;
-import root.screens.createuser.UserQueries;
 import root.screens.createuser.UserView;
 import stubs.NavigatorStub;
 
@@ -184,32 +184,29 @@ public class UserControllerTest {
     /**
      * Stub used to the model
      */
-    private class UserModelStub extends UserModel {
-        private UserQueriesStub createUserQueriesStub;
-        
-        public UserModelStub() {
-            super();
-            createUserQueriesStub = new UserQueriesStub();
+     private class UserModelStub extends UserModel {
+        public UserModelStub(UserQueries query) {
+            super(query);   
         }
 
         @Override
-        public boolean create(User user) {
-            return createUserQueriesStub.insertIntoAppUser(user); 
-        }
-        
+        public String getDatabaseError() {
+            return "Error from database";
+        }   
     }
 
     private UserViewStub viewStub;
     private UserModelStub modelStub;
     private UserController controller;
     private UserQueriesStub queryStub;
-    
+    private UserQueriesStub createUserQueriesStub;
     private NavigatorStub navStub;
     
     
     @Before
     public void setUp(){
-        modelStub = new UserModelStub();
+        createUserQueriesStub = new UserQueriesStub();
+        modelStub = new UserModelStub(createUserQueriesStub);
         viewStub = new UserViewStub(navStub);
         controller = new UserController(modelStub, viewStub);
     }
