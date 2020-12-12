@@ -27,6 +27,8 @@ public class Activity {
         this.notes = notes;
         this.type = type;
     }
+    
+    public Activity(){}
 
     public int getId() {
         return id;

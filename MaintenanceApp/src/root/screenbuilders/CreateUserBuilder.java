@@ -1,5 +1,6 @@
 package root.screenbuilders;
 
+import queries.ActivityQueries;
 import root.Navigable;
 import root.Screen;
 import root.screens.createactivity.ActivityController;
@@ -25,7 +26,7 @@ public class CreateUserBuilder extends ScreenBuilder{
     
     @Override
     public void buildModel() {
-        model = new ActivityModel();   
+        model = new ActivityModel(new ActivityQueries());   
     }
 
     @Override

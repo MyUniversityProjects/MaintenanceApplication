@@ -14,7 +14,7 @@ public class ModifyUserMain {
         String cf = "BBBBBB00B00B000B";
         
         ModifyUserModel model = ModifyUserModel.fromDatabase(cf, query);
-        ModifyUserView view = new ModifyUserView(new Navigator("main", new ModifyUserBuilder(cf, query)), model);
+        ModifyUserView view = new ModifyUserView(new Navigator("main", new ModifyUserBuilder(cf)), model);
         ModifyUserController controller = new ModifyUserController(view, model);
         
         app.add(view);

@@ -1,8 +1,9 @@
+
 package root;
 
 import java.awt.EventQueue;
-import root.screenbuilders.PlannerHomeBuilder;
 import root.screenbuilders.ScreenBuilder;
+import root.screens.showcasehome.ShowcaseHomeBuilder;
 
 public class MaintenanceApp {
     public static void main(String[] args) {
@@ -14,7 +15,7 @@ public class MaintenanceApp {
         }
         
         EventQueue.invokeLater(() -> {
-            ScreenBuilder b = new PlannerHomeBuilder();
+            ScreenBuilder b = new ShowcaseHomeBuilder();
             new Navigator("Smart Maintenance App", b).setVisible(true);
         });
     }

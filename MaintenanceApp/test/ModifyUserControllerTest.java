@@ -124,8 +124,8 @@ public class ModifyUserControllerTest {
     
     private class UserQueriesStub extends UserQueries{
         
-        private final List<String> cfList = Arrays.asList(new String[] {"AAAAAA00A00A000A",
-            "BBBBBB00B00B000B", "CCCCCC00C00C000C", "DDDDDD00D00D000D"});
+        private final List<String> cfList = Arrays.asList(new String[]
+            {"AAAAAA00A00A000A", "BBBBBB00B00B000B"});
         
         @Override
         public User getUser(String cf){
@@ -138,7 +138,7 @@ public class ModifyUserControllerTest {
         
         @Override
         public boolean modify(User user){
-            return cfList.contains(user.getInitCf());
+            return cfList.contains(user.getCf());
         }
     }
     
@@ -152,10 +152,6 @@ public class ModifyUserControllerTest {
             super(name, surname, cf, email, address, username,
                 password, role, query);
             queryStub = query;
-        }
-        
-        public UserQueries getQuery(){
-            return queryStub;
         }
     }
     
@@ -328,26 +324,32 @@ public class ModifyUserControllerTest {
     @Test
     public void testGetUserIdeal() throws SQLException, NotFoundException{
         User user = new User("", "", "AAAAAA00A00A000A", "", "", "", "", User.UserType.P);
-        assertEquals(user.getCf(),
-            modelQueriesStub.getQuery().getUser("AAAAAA00A00A000A").getCf());
+        assertEquals(ModifyUserModelStub.fromDatabase("AAAAAA00A00A000A", queryStub).getClass().toString(), ModifyUserModel.class.toString());
     }
     
     @Test
     public void testGetUserWithWrongCf() throws SQLException, NotFoundException{
-        assertEquals(modelQueriesStub.getQuery().getUser("X"),
-                null);
+        assertNull(ModifyUserModelStub.fromDatabase("X", queryStub));
     }
     
     @Test 
     public void testModifyIdeal(){
-        User user = new User("", "", "AAAAAA00A00A000A", "", "", "", "", User.UserType.P);
-        assertTrue(modelQueriesStub.getQuery().modify(user));
+        modelQueriesStub.setCf("AAAAAA00A00A000A");
+        try {
+            assertTrue(modelQueriesStub.modify());
+        } catch (SQLException ex) {
+
+        }
     }
     
     @Test 
     public void testModifyWithWrongUser(){
-        User user = new User("", "", "X", "", "", "", "", User.UserType.P);
-        assertFalse(modelQueriesStub.getQuery().modify(user));
+        modelQueriesStub.setCf("X");
+        try {
+            assertFalse(modelQueriesStub.modify());
+        } catch (SQLException ex) {
+            
+        }
     }
     
     

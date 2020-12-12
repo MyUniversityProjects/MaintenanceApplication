@@ -7,8 +7,8 @@ import root.screenbuilders.ModifySelectedActivityBuilder;
 
 
 public class ManageActivityController {
-    private ManageActivityView view;
-    private ManageActivityModel model;
+    private final ManageActivityView view;
+    private final ManageActivityModel model;
     private DefaultTableModel activitiesTableModel;
 
     public ManageActivityController(ManageActivityModel model,

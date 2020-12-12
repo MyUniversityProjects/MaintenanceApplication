@@ -35,7 +35,7 @@ public class UserQueries {
 
             conn.close();
             return true;
-        } catch (Exception ex) {
+        } catch (SQLException ex) {
             System.out.println(ex.getCause());
             return false;
         }

@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import root.entities.User;
 import root.exceptions.QueryFailedException;
+import root.screenbuilders.CreateUserBuilder;
+import root.screenbuilders.ModifyUserBuilder;
 
 /**
  * Handle User interaction of the view ManageUsersView
@@ -38,7 +40,7 @@ public class ManageUsersController {
     private class CreateBtnListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            // TODO: push create user screen
+            view.getNav().push(new CreateUserBuilder());
         }
     }
     
@@ -60,7 +62,8 @@ public class ManageUsersController {
     private class EditBtnListener implements ButtonColumnActionListener {
         @Override
         public void actionPerformed(int rowIndex) {
-            // TODO: push edit user screen
+            User user = model.getUsers()[rowIndex];
+            view.getNav().push(new ModifyUserBuilder(user.getCf()));
         }
     }
 }

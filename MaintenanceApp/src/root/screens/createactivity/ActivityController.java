@@ -20,8 +20,8 @@ public class ActivityController {
         view.addCreateButtonListener((e) -> {
             Map<String, String> inputMap = getInputs();
             if (createCheckout(inputMap)) {
-                Activity act = createActivity(inputMap);
-                if (!model.create(act) && model.getErrorCode() == 0){ 
+                fillModel();
+                if (!model.create()){ 
                     view.showErrorMsg("Id error", "The id is already present");
                 } else {
                     view.showMsg("Success", "Activity entered successfully");
@@ -32,6 +32,19 @@ public class ActivityController {
         });
         
         view.addBackButtonListener((e)-> {view.getNav().pop();});
+    }
+    
+    public void fillModel(){
+        model.setId(Integer.parseInt(view.getId()));
+        model.setArea(view.getArea());
+        model.setBranchOffice(view.getBranchOffice());
+        model.setDescription(view.getDescription());
+        model.setInterruptible(Boolean.parseBoolean(view.getInterruptible()));
+        model.setNotes(view.getNotes());
+        model.setType(Activity.ActivityType.valueOf(view.getType()));
+        model.setTypology(view.getTypology());
+        model.setWeek(Integer.parseInt(view.getWeek()));
+        model.setTime(Integer.parseInt(view.getEstimatedTime()));
     }
 
     /**
@@ -75,29 +88,23 @@ public class ActivityController {
         boolean flag = true;
         
         if ( !inputMap.keySet().containsAll(keyList)) {
-            checkoutError += "Error: The required fields have not been entered\n";
+            checkoutError += "The required fields have not been entered\n";
             flag = false;
         }
         
         for (Map.Entry<String, String> entry : inputMap.entrySet()) {
-            /*if (entry.getKey().equals("id") || entry.getKey().equals("estimated_time") || entry.getKey().equals("week")) {
-                if (!isInteger(entry.getValue())) {
-                    checkoutError = "Error: The fields id, estimated_time and week must be an integer";
-                    return false;
-                }
-            }*/
             if(entry.getKey().equals("id") && !validateId(entry.getValue())){
-                checkoutError += "Error: The id field must be a positive integer\n";
+                checkoutError += "The id field must be a positive integer\n";
                 flag = false;
             }
              
             if(entry.getKey().equals("estimated_time") && !validateTime(entry.getValue())){
-                checkoutError += "Error: The estimated time field must be a positive integer\n";
+                checkoutError += "The estimated time field must be a positive integer\n";
                 flag = false;
             }
              
             if(entry.getKey().equals("week") && !validateId(entry.getValue())){
-                checkoutError += "Error: the week fiels must have a positive value between 1 and 52\n";
+                checkoutError += "the week fiels must have a positive value between 1 and 52\n";
                 flag = false;
             }
              
@@ -105,32 +112,12 @@ public class ActivityController {
             
             if (!entry.getKey().equals("notes")) {
                 if (entry.getValue().length() <= 0) {
-                    checkoutError = "Error: The required fields can not be empty\n";
+                    checkoutError = "The required fields can not be empty\n";
                     flag = false;
                 }
             }
         }
         return flag;
-    }
-    
-    /**
-     * From an map of input create an Activity and return it
-     * 
-     * @param inputMap
-     * @return Activity
-     */
-    
-    public Activity createActivity(Map<String, String> inputMap){       
-        
-        boolean interruptible = Boolean.parseBoolean(inputMap.get("interruptible"));
-        int id = Integer.parseInt(inputMap.get("id"));
-        int estimated_time = Integer.parseInt(inputMap.get("estimated_time"));
-        int week = Integer.parseInt(inputMap.get("week"));
-        return new Activity(id,inputMap.get("area"),
-            inputMap.get("branch_office"), inputMap.get("typology"),
-            inputMap.get("description"), estimated_time, interruptible,
-            week, inputMap.get("workspace_notes"),
-            Activity.ActivityType.valueOf(inputMap.get("type")));
     }
 
     /**
