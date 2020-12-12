@@ -22,11 +22,11 @@
                       <EmptySpace min="-2" pref="112" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelWN" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                               <Component id="jLabelNumberOfWeek" min="-2" pref="94" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelNotes" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -38,9 +38,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="128" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel6" min="-2" pref="588" max="-2" attributes="0"/>
+                          <Component id="jLabelMA" min="-2" pref="588" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel3" min="-2" pref="273" max="-2" attributes="0"/>
+                              <Component id="jLabelATA" min="-2" pref="273" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
                               <Component id="jLabelNameActivity" min="-2" pref="426" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
@@ -57,7 +57,7 @@
                       <Component id="jScrollPane3" min="-2" pref="813" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="93" max="32767" attributes="0"/>
+              <EmptySpace pref="103" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -73,8 +73,8 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabelNumberOfWeek" alignment="3" min="-2" pref="54" max="-2" attributes="0"/>
-                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel3" alignment="3" min="-2" pref="86" max="-2" attributes="0"/>
+                      <Component id="jLabelWN" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelATA" alignment="3" min="-2" pref="86" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
@@ -86,8 +86,8 @@
               </Group>
               <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelNotes" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabelMA" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -106,9 +106,9 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="jLabelWN">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Week Number"/>
+        <Property name="text" type="java.lang.String" value="Week"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelNumberOfWeek">
@@ -116,7 +116,7 @@
         <Property name="text" type="java.lang.String" value="27"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
+    <Component class="javax.swing.JLabel" name="jLabelATA">
       <Properties>
         <Property name="text" type="java.lang.String" value="Activity to Assign"/>
       </Properties>
@@ -126,12 +126,12 @@
         <Property name="text" type="java.lang.String" value="Name Activity"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel5">
+    <Component class="javax.swing.JLabel" name="jLabelNotes">
       <Properties>
         <Property name="text" type="java.lang.String" value="Notes"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel6">
+    <Component class="javax.swing.JLabel" name="jLabelMA">
       <Properties>
         <Property name="text" type="java.lang.String" value="Maintaner AVAIBILITY"/>
         <Property name="focusable" type="boolean" value="false"/>

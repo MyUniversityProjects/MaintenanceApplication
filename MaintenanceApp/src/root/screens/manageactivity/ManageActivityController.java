@@ -3,60 +3,43 @@ package root.screens.manageactivity;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import root.entities.Activity;
+import root.screenbuilders.CreateActivityBuilder;
 import root.screenbuilders.ModifySelectedActivityBuilder;
 
 
 public class ManageActivityController {
     private final ManageActivityView view;
     private final ManageActivityModel model;
-    private DefaultTableModel activitiesTableModel;
 
     public ManageActivityController(ManageActivityModel model,
             ManageActivityView view) {
         this.view = view;
         this.model = model;
-        activitiesTableModel = (DefaultTableModel) view.getActivitiesTable().getModel();
-
              
         view.addBackButtonListener((e)-> view.getNav().pop());
         
         // call the function that delete from the database the activiy and
         // delete the row in the table
-        view.addDeleteSelectedButtonListener((e) ->{
+        view.setDeleteActivityButtonListener((rowIndex) -> {
             javax.swing.JTable tb = view.getActivitiesTable();
-            int row = tb.getSelectedRow();
-            if (row == -1){
-                view.showErrorMsg("Error", "No activities selected");
-            } else {                
-                if (model.delete((int) tb.getValueAt(row, 0))){
-                    view.showMsg("Deleted", "Deleted selected activity");
-                    activitiesTableModel.removeRow(row);                    
-                } else {
-                    view.showErrorMsg("Error", "Error while deleting");
-                }
+            String id = (String) tb.getValueAt(rowIndex, 0);
+            if (model.delete(Integer.parseInt(id))){
+                view.showMsg("Deleted", "Deleted selected activity");
+                model.getTableModel().removeRow(rowIndex);
+            } else {
+                view.showErrorMsg("Error", "Error while deleting");
             }
         });
         
-        view.addModifySelectedButtonListener((e) ->{
+        view.setEditActivityButtonListener((int rowIndex) -> {
             javax.swing.JTable tb = view.getActivitiesTable();
-            int row = tb.getSelectedRow();
-            if (row == -1){
-                view.showErrorMsg("Error", "No activities selected");
-            } else {                           
-                view.getNav().push(new ModifySelectedActivityBuilder((int) tb.getValueAt(row, 0)));
-            }
+            String id = (String) tb.getValueAt(rowIndex, 0);
+            view.getNav().push(new ModifySelectedActivityBuilder(Integer.parseInt(id)));
         });
         
-        List<Activity> activities = model.getActivities();       
-        
-        // add the activities in the table
-        activities.forEach((activity) -> {
-            activitiesTableModel.addRow(new Object[] {activity.getId(),
-            activity.getBranchOffice(), activity.getArea(),
-            activity.getTypology(), activity.getTime(),
-            activity.getWeek(), activity.isInterruptible()});
-
-        });              
+        view.addPlanActivityButtonListener((e) -> {
+            view.getNav().push(new CreateActivityBuilder());
+        });
     }
     
     
