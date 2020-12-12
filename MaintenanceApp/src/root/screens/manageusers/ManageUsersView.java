@@ -1,5 +1,7 @@
 package root.screens.manageusers;
 
+import ui.ButtonColumnActionListener;
+import ui.ButtonColumn;
 import java.awt.EventQueue;
 import java.awt.event.ActionListener;
 import javax.swing.table.DefaultTableModel;

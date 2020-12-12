@@ -2,7 +2,6 @@
 
 import root.Navigable;
 import root.Screen;
-import root.screenbuilders.CreateActivityBuilder;
 import root.screenbuilders.ListScheduledActivitiesByWeekBuilder;
 import root.screenbuilders.ManageActivityBuilder;
 
@@ -29,7 +28,6 @@ public class PlannerHomeView extends Screen {
 
         titleLabel = new javax.swing.JLabel();
         infoLabel = new javax.swing.JLabel();
-        planActivityBtn = new javax.swing.JButton();
         selectActivityBtn = new javax.swing.JButton();
         manageActivitiesBtn = new javax.swing.JButton();
         assignedTicketsBtn = new javax.swing.JButton();
@@ -41,13 +39,6 @@ public class PlannerHomeView extends Screen {
         infoLabel.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         infoLabel.setForeground(new java.awt.Color(102, 102, 102));
         infoLabel.setText("This screen shows all the planner main actions");
-
-        planActivityBtn.setText("Plan an activity");
-        planActivityBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                planActivityBtnActionPerformed(evt);
-            }
-        });
 
         selectActivityBtn.setText("Select an activity");
         selectActivityBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -79,7 +70,6 @@ public class PlannerHomeView extends Screen {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(assignedTicketsBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(selectActivityBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(planActivityBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(manageActivitiesBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(titleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(144, Short.MAX_VALUE))
@@ -93,23 +83,17 @@ public class PlannerHomeView extends Screen {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(titleLabel)
-                .addGap(53, 53, 53)
-                .addComponent(planActivityBtn)
+                .addGap(67, 67, 67)
+                .addComponent(manageActivitiesBtn)
                 .addGap(18, 18, 18)
                 .addComponent(selectActivityBtn)
                 .addGap(18, 18, 18)
-                .addComponent(manageActivitiesBtn)
-                .addGap(18, 18, 18)
                 .addComponent(assignedTicketsBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
                 .addComponent(infoLabel)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void planActivityBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planActivityBtnActionPerformed
-        super.getNav().push(new CreateActivityBuilder());
-    }//GEN-LAST:event_planActivityBtnActionPerformed
 
     private void selectActivityBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectActivityBtnActionPerformed
         /*
@@ -131,7 +115,6 @@ public class PlannerHomeView extends Screen {
     private javax.swing.JButton assignedTicketsBtn;
     private javax.swing.JLabel infoLabel;
     private javax.swing.JButton manageActivitiesBtn;
-    private javax.swing.JButton planActivityBtn;
     private javax.swing.JButton selectActivityBtn;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables

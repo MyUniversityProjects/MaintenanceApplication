@@ -1,4 +1,4 @@
-package root.screens.manageusers;
+package ui;
 
 import java.awt.Component;
 import javax.swing.DefaultCellEditor;

@@ -1,4 +1,4 @@
-package root.screens.manageusers;
+package ui;
 
 /**
  * Interface of the ButtonColumn action listener

@@ -21,7 +21,6 @@
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Component id="assignedTicketsBtn" alignment="0" max="32767" attributes="0"/>
                   <Component id="selectActivityBtn" alignment="0" max="32767" attributes="0"/>
-                  <Component id="planActivityBtn" alignment="0" max="32767" attributes="0"/>
                   <Component id="manageActivitiesBtn" alignment="0" max="32767" attributes="0"/>
                   <Component id="titleLabel" max="32767" attributes="0"/>
               </Group>
@@ -39,15 +38,13 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="titleLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
-              <Component id="planActivityBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="selectActivityBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
               <Component id="manageActivitiesBtn" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="selectActivityBtn" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="assignedTicketsBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="57" max="32767" attributes="0"/>
+              <EmptySpace pref="84" max="32767" attributes="0"/>
               <Component id="infoLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -74,14 +71,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="This screen shows all the planner main actions"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="planActivityBtn">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Plan an activity"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="planActivityBtnActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="selectActivityBtn">
       <Properties>
