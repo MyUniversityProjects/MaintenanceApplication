@@ -42,6 +42,12 @@ public class UserQueries {
         }
     }
     
+    /**
+     * insert  a new user in the database
+     * 
+     * @param user
+     * @return  true if the insert was successful
+     */
     public boolean insertIntoAppUser(User user){
         boolean flag;
         String query = "INSERT INTO appuser "+
@@ -73,7 +79,13 @@ public class UserQueries {
         
         return flag;
     }
-
+    
+    
+    /**
+     * get the error given by the database
+     * 
+     * @return a string describing the error given by the database
+     */
     public String getDatabaseError(){
         databaseError = "";
         if(error.contains("appuser_pkey")){

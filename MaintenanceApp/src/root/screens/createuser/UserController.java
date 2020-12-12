@@ -7,9 +7,7 @@ package root.screens.createuser;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,7 +19,12 @@ public class UserController {
     private final UserView view;
     private String checkoutError;
     
-
+    /**
+     * create a new UserController
+     * 
+     * @param model
+     * @param view 
+     */
     public UserController(UserModel model, UserView view) {
         this.model = model;
         this.view = view;
@@ -29,6 +32,13 @@ public class UserController {
         view.addCreateButtonListener(new CreateBtnListener());
     }
     
+    /**
+     * returns a map of strings that has as keys 
+     * cf,username,pass,user_role,name,surname,email and address and 
+     * as their respective values the inputs given by the user
+     * 
+     * @return map of string 
+     */
     private Map<String, String> getInputs(){
         Map<String, String> inputMap = new HashMap<>();
 
@@ -44,25 +54,33 @@ public class UserController {
         return inputMap;
     }
 
+    /**
+     * given a map of  string with the inputs of the user as values
+     * it returns true if the inputs respect the restraints
+     * imposed
+     * 
+     * @param inputMap map of  string
+     * @return true if the checkout is successful ,false otherwise
+     */
     public boolean createCheckout(Map<String, String> inputMap) {
         checkoutError = "";     
         boolean flag = true;
         for(Map.Entry<String, String> entry : inputMap.entrySet()){
             if (entry.getKey().equals("cf")) {
                 if (entry.getValue().length() <= 0) {
-                    checkoutError += " CF cannot be void\n";
+                    checkoutError += " CF cannot be empty\n";
                     flag = false;
                 }
             }
             if (entry.getKey().equals("username")) {
                 if (entry.getValue().length() <= 0) {
-                    checkoutError += " Username cannot be void\n";
+                    checkoutError += " Username cannot be empty\n";
                     flag = false;
                 }
             }
             if (entry.getKey().equals("pass")) {
                 if (entry.getValue().length() <= 0) {
-                    checkoutError += " Password cannot be void\n";
+                    checkoutError += " Password cannot be empty\n";
                     flag = false;
                 }
             }
@@ -74,13 +92,13 @@ public class UserController {
             }
             if (entry.getKey().equals("name")) {
                 if (entry.getValue().length() <= 0) {
-                    checkoutError += " Name cannot be void\n";
+                    checkoutError += " Name cannot be empty\n";
                     flag = false;
                 }
             }
             if (entry.getKey().equals("surname")) {
                 if (entry.getValue().length() <= 0) {
-                    checkoutError += " Surname cannot be void\n";
+                    checkoutError += " Surname cannot be empty\n";
                     flag = false;
                 }
             }
@@ -92,13 +110,20 @@ public class UserController {
             }
             if (entry.getKey().equals("address")) {
                 if (entry.getValue().length() <= 0) {
-                    checkoutError += " Address cannot be void\n";
+                    checkoutError += " Address cannot be empty\n";
                     flag = false;
                 }
             }
         }
         return flag;
     }
+    /**
+     * create a new entity user given
+     * a map of  strings with the inputs of the user as values
+     * 
+     * @param inputMap a map of  strings
+     * @return user
+     */
     public User createUser(Map<String, String> inputMap){
         return new User(inputMap.get("cf"),inputMap.get("username"),inputMap.get("pass"),
             inputMap.get("name"),inputMap.get("surname"),inputMap.get("email"),
