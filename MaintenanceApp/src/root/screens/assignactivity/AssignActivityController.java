@@ -25,8 +25,8 @@ public class AssignActivityController {
     private AssignActivityModel model;
     private AssignActivityView view;
     private int activityID;
-    private int day = 1;
-    private String cf = null;
+    private int day;
+    private String cf;
     private String week;
     private boolean mokeUp = true;
     private JTable table;
@@ -35,17 +35,17 @@ public class AssignActivityController {
     private JLabel jLabelError;
     private JTextArea jArea;
     private String[][] maintainers = null;
+    protected boolean interruptible;
       
     public AssignActivityController(AssignActivityView view, AssignActivityModel model, int activityID) throws SQLException {
         
         this.model = model;
         this.view = view;
         this.activityID = activityID;
+        this.interruptible = interruptible;
         
         week = model.getWeekActivity(activityID);
         view.getLabelNameActivity().setText(model.getStringActivity(activityID));
-        view.getLabelNumberOfWeek().setText(week);
-        //jLabelError.setVisible(false);
         
         table = view.getTable();
         String[] cols = {"Maintainer","Skills","Mon","Tue","Wed", "Thu","Fri","Sat","Sun"};     
@@ -59,7 +59,7 @@ public class AssignActivityController {
         jLabelError = view.getLabelError();
         jArea = view.getTxtArea();
         
-        mokeUp = true; // test
+        mokeUp = true; 
         fillFrame();
         
     }
@@ -110,6 +110,8 @@ public class AssignActivityController {
         day = view.getCol()-1;
         mokeUp = false;
         fillFrame();
+        view.setColZero();
+        view.setRowZero();
     }
     
     private void ButtonAssign2() throws SQLException {
@@ -133,12 +135,15 @@ public class AssignActivityController {
     private void ButtonBack2() throws SQLException {
         mokeUp = true;
         fillFrame();
-        view.setColZero();
-        view.setRowZero();
+        
     }
     
     private void fillFrame() throws SQLException {
+        view.removeButtonAssignListener();
+        view.removeButtonBackListener();
+        
         if (mokeUp) {
+            view.getLabelNumberOfWeek().setText(week);
             setTableMaintainers();
             setArea1();
             view.addButtonBackListener((e) -> ButtonBack1());
@@ -151,6 +156,7 @@ public class AssignActivityController {
             });
         }
         else {
+            view.getLabelNumberOfWeek().setText(week+" "+tableModel.getColumnClass(day+1));
             setTableAssign();
             setArea2();
             view.addButtonBackListener((e) -> {
@@ -170,34 +176,12 @@ public class AssignActivityController {
         }
     }
     
-    public String weekActivity(int activityID) throws SQLException {
-        return model.getWeekActivity(activityID);
-    }
-    
-    public String notes(int activityID) throws SQLException {
-        return model.getNotes(activityID);
-    }
-    
-    public int estimatedTimeActivity(int activityID) {
-        return model.getEstimatedTimeActivity(activityID);
-    }
-    
-    public String stringActivity(int activityID) throws SQLException {
-        return model.getStringActivity(activityID);
-    }
-    
-    public String nameMaintainer(String cf) throws SQLException {
-        return model.getNameMaintainer(cf);
-    }
-    
-    public int[] dayAvaibility(String cf, String week, int day) throws SQLException {
-        return model.getDayAvaibility(cf, week, day);
-    }
+   
     
     public Integer assignActivity(int col, int activityID, String cf, String week, int day) throws SQLException {
         int index = col-2;
-        int[] avaibility = dayAvaibility(cf, week, day);
-        int timeActivity = estimatedTimeActivity(activityID);
+        int[] avaibility = model.getDayAvaibility(cf, week, day);
+        int timeActivity = model.getEstimatedTimeActivity(activityID);
         if(avaibility[index] == 0) {
             return -1; //"ERRORE: Devi selezionare una cella con dei minuti disponibili"
         }
@@ -240,6 +224,8 @@ public class AssignActivityController {
     }
     
     private int sumIntVector(int[] vector) {
+        if((vector == null) || (vector.length < 1))
+            return 0;
         int sum = vector[0];
         for(int i=1; i<vector.length; i++)
             sum += vector[i];

@@ -106,8 +106,7 @@ public class AssignActivityModel {
         
         int[] avaibilityDay = {60, 60, 60, 60, 60, 60, 60};
         int i = 0;
-        
-        
+            
         try {
             stm = conn.createStatement();
             String query = "SELECT * FROM (public.appactivity INNER JOIN public.assignment ON public.appactivity.id = public.assignment.activity)"
