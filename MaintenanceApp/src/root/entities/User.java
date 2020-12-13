@@ -83,7 +83,14 @@ public class User {
         this.address = address;
     }
     
+    /**
+     * Convert a string that rappresent an user role, to its enumeration.
+     * The convertion is case sensitive (role should be upper case).
+     * @param raw the raw string
+     * @return UserRole value if the string is valid; otherwise null
+     */
     public static UserRole convertRawRole(String raw) {
+        if (raw == null) return null;
         switch (raw) {
             case "SA": return UserRole.SYSTEM_ADMINISTRATOR;
             case "P": return UserRole.PLANNER;

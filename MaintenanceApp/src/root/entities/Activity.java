@@ -110,7 +110,14 @@ public class Activity {
         this.type = type;
     }
     
+    /**
+     * Convert a string that rappresent an activity type, to its enumeration.
+     * The convertion is case sensitive (type should be upper case).
+     * @param type the raw string
+     * @return ActivityType value if the string is valid; otherwise null
+     */
     public static ActivityType convertRawType(String type) {
+        if (type == null) return null;
         switch (type) {
             case "PLANNED": return ActivityType.PLANNED;
             case "UNPLANNED": return ActivityType.UNPLANNED;

@@ -157,7 +157,7 @@ public class VerifyActivityView extends Screen {
 
         skillList.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.background"));
         skillList.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        skillList.setModel(model.getSkillsModel());
+        skillList.setModel(model.getSkillFillModel().getListModel());
         skillList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(skillList);
 
@@ -234,7 +234,7 @@ public class VerifyActivityView extends Screen {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        skillsSelect.setModel(model.getRemainingSkillsModel());
+        skillsSelect.setModel(model.getSkillFillModel().getComboModel());
 
         addSkillBtn.setText("add");
 

@@ -1,6 +1,5 @@
 package root.screens.verifyactivity;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import queries.ActivityQueries;
 import root.entities.Activity;
@@ -11,9 +10,8 @@ import root.exceptions.QueryFailedException;
 public class VerifyActivityModel extends Activity {
     private static final String PREFIX = "\t• ";
     private final ActivityQueries queryTool;
-    private final DefaultListModel<String> skillsModel = new DefaultListModel<>();
     private final DefaultListModel<String> materialsModel = new DefaultListModel<>();
-    private final DefaultComboBoxModel<String> remainingSkillsModel = new DefaultComboBoxModel<>();
+    private final ListFillModel skillFillModel;
     
     public VerifyActivityModel(Activity activity, ActivityQueries queryTool) {
         super(
@@ -30,23 +28,18 @@ public class VerifyActivityModel extends Activity {
         );
         this.queryTool = queryTool;
         
-        remainingSkillsModel.addElement("A1");
-        remainingSkillsModel.addElement("B1");
-        remainingSkillsModel.addElement("C1");
-        remainingSkillsModel.addElement("D1");
-        remainingSkillsModel.addElement("E1");
+        skillFillModel = new ListFillModel(
+                new String[] {"B1", "C1"},
+                new String[] {"A1", "B1", "C1", "D1", "E1", "F5"}
+        );
     }
-
-    public DefaultListModel<String> getSkillsModel() {
-        return skillsModel;
+    
+    public ListFillModel getSkillFillModel() {
+        return skillFillModel;
     }
 
     public DefaultListModel<String> getMaterialsModel() {
         return materialsModel;
-    }
-
-    public DefaultComboBoxModel<String> getRemainingSkillsModel() {
-        return remainingSkillsModel;
     }
     
     /**
@@ -54,11 +47,7 @@ public class VerifyActivityModel extends Activity {
      * are no skill selected.
      */
     public void addSkillFromComboBox() {
-        String name = (String)remainingSkillsModel.getSelectedItem();
-        if (name != null) {
-            skillsModel.addElement(PREFIX + name);
-            remainingSkillsModel.removeElement(name);
-        }
+        skillFillModel.addSelected();
     }
     
     /**
@@ -102,20 +91,5 @@ public class VerifyActivityModel extends Activity {
         } else {
             queryTool.forwardEwo(getId(), getDescription(), getTime());
         }
-    }
-    
-    /**
-     * Used to get an array of String of the elements in a list model
-     * @param m the model used to get the array of String
-     * @return an array of with the elements of the model
-     */
-    private static String[] convertModel(DefaultListModel<String> m) {
-        int size = m.getSize();
-        String[] arr = new String[size];
-        
-        for (int i=0; i<size; i++)
-            arr[i] = m.get(i).substring(PREFIX.length());
-        
-        return arr;
     }
 }
