@@ -9,10 +9,7 @@ import java.awt.event.ActionListener;
 import root.Navigable;
 import root.Screen;
 
-/**
- *
- * @author ficca
- */
+
 public class UserView extends Screen {
 
     /**

@@ -5,11 +5,13 @@ import javax.swing.JComboBox;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
+import queries.ActivityQueries;
 import root.Navigable;
 import root.screens.listscheduledactivitiesbyweek.ListScheduledActivitiesByWeekController;
 import root.screens.listscheduledactivitiesbyweek.ListScheduledActivitiesByWeekModel;
 import root.screens.listscheduledactivitiesbyweek.ListScheduledActivitiesByWeekView;
 import stubs.NavigatorStub;
+import ui.ButtonColumnActionListener;
 
 
 public class ListScheduledActivitiesByWeekControllerTest {
@@ -20,7 +22,7 @@ public class ListScheduledActivitiesByWeekControllerTest {
         int scheduledActivityIndex = 3;
         Integer selectedItem = 89;
         JButton back = new JButton();
-        JButton select= new JButton();
+        ButtonColumnActionListener selectActionListener;
         JComboBox<Integer> numWeekBox = new JComboBox<>();
         // counters of register calls
         int selectListenerCount = 0;
@@ -48,8 +50,8 @@ public class ListScheduledActivitiesByWeekControllerTest {
         } 
 
         @Override
-        public void addSelectButtonListener(ActionListener al) {
-            select.addActionListener(al);
+        public void setSelectButtonListener(ButtonColumnActionListener al) {
+            selectActionListener = al;
             selectListenerCount++;
         }
 
@@ -77,8 +79,8 @@ public class ListScheduledActivitiesByWeekControllerTest {
     */
     private class ModelStub extends ListScheduledActivitiesByWeekModel {
         int getSelectedActivityCount = 0;
-        public ModelStub() throws SQLException {
-            super();
+        public ModelStub(ActivityQueries query) throws SQLException {
+            super(query);
         }
         @Override
         public int getSelectedActivity(int index){
@@ -88,15 +90,22 @@ public class ListScheduledActivitiesByWeekControllerTest {
         
     }
     
+    private class ActivityQueriesStub extends ActivityQueries{
+        public ActivityQueriesStub() {
+            super();
+        }
+    }
     ListScheduledActivitiesByWeekController controller;
     ViewStub view;
     ModelStub model;
     NavigatorStub nav;
-    
+    ActivityQueriesStub query;
+             
     @Before
     public void setUp() throws SQLException {
         nav = new NavigatorStub();
-        model = new ModelStub();
+        query = new ActivityQueriesStub();
+        model = new ModelStub(query);
         view = new ViewStub(nav, model);
         controller = new ListScheduledActivitiesByWeekController(view, model);
     }
@@ -118,7 +127,7 @@ public class ListScheduledActivitiesByWeekControllerTest {
     
     @Test
     public void selectHomeListenerAction() {
-        view.select.doClick();
+        view.selectActionListener.actionPerformed(0);
         assertEquals(1, view.getSelectedScheduledActivityIndexCount);
         assertEquals(1, view.getSelectedScheduledActivityIndexCount);
         assertEquals(1, model.getSelectedActivityCount);

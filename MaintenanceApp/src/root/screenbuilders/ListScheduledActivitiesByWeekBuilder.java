@@ -8,6 +8,7 @@ package root.screenbuilders;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import queries.ActivityQueries;
 import root.Navigable;
 import root.Screen;
 import root.screens.listscheduledactivitiesbyweek.ListScheduledActivitiesByWeekController;
@@ -24,7 +25,7 @@ public class ListScheduledActivitiesByWeekBuilder extends ScreenBuilder {
     @Override
     public void buildModel(){
         try {
-            model = new ListScheduledActivitiesByWeekModel();
+            model = new ListScheduledActivitiesByWeekModel(new ActivityQueries());
         } catch (SQLException ex) {
             Logger.getLogger(ListScheduledActivitiesByWeekBuilder.class.getName()).log(Level.SEVERE, null, ex);
         }

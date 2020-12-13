@@ -132,7 +132,7 @@ public class ModifySelectedActivityController {
         inputMap.put("typology", view.getTypology());
         inputMap.put("notes", view.getNotes());
         inputMap.put("description", view.getDescription());
-
+        inputMap.put("id", Integer.toString(model.getId()));
         return inputMap;
     }
 }

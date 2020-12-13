@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import root.Database;
+import static root.Database.getConnection;
 import root.entities.Activity;
 import root.exceptions.NotFoundException;
 import root.exceptions.QueryFailedException;
@@ -88,11 +90,6 @@ public class ActivityQueries {
         }
     }
     
-    /**
-     *Database query that create an activity
-     * @param activity information to be entered
-     * @return if the create was successful
-     */
     public boolean create(Activity activity){
         String query = "INSERT INTO appactivity "+
             "(id, branch_office, area, typology, description,"+
@@ -120,10 +117,6 @@ public class ActivityQueries {
         }
     }
     
-    /**
-     *Database query that fetch all activity
-     * @return a List of activity
-     */
     public List<Activity> fetchAll(){
         List<Activity> activities = new LinkedList<>();
         String query = "SELECT * FROM appactivity";
@@ -151,11 +144,6 @@ public class ActivityQueries {
         return null;
     }
     
-    /**
-     *Database query that delete an activity
-     * @param id activity identifier
-     * @return if the delete was successful
-     */
     public boolean delete(int id){
         String query = "DELETE FROM appactivity WHERE id = ?";
         
@@ -166,6 +154,70 @@ public class ActivityQueries {
             return stmt.executeUpdate() != 0;
         } catch(SQLException ex){
             return false;
+        }
+    }
+    
+    public boolean modify(Map<String, String> inputMap){
+        String query = "UPDATE appactivity "
+                + "SET branch_office = ?,area = ?,typology = ?,description = ?,estimated_time = ?,interruptible = ?,workspace_notes = ? "
+                + "WHERE id = ? ";
+        try {
+            Connection conn = getConnection();
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, inputMap.get("branch_office"));
+            stmt.setString(2, inputMap.get("area"));
+            stmt.setString(3, inputMap.get("typology"));
+            stmt.setString(4, inputMap.get("description"));
+            stmt.setInt(5, Integer.parseInt(inputMap.get("estimated_time")));
+            stmt.setBoolean(6, Boolean.parseBoolean(inputMap.get("interruptible")));
+            stmt.setString(7, inputMap.get("workspace_notes"));
+            stmt.setInt(8, Integer.parseInt(inputMap.get("id")));
+
+            stmt.executeUpdate();   
+            return true;
+        } catch(SQLException ex){
+            return false;      
+        }
+    }
+ 
+    /**
+     * Gets the id,area,typology and estimated time of the Scheduled Activities of the current num week from the database
+     * @param currentNumWeek
+     * @return a Matrix of Strings having the elements that are going to be used to create the tablemodel 
+     * @throws java.sql.SQLException
+     */
+    public String[][] getCurrentNumWeekScheduledActivities(int currentNumWeek) throws SQLException{
+        try {
+            String[][] currentNumWeekScheduledActivitiesMatrix = null;    
+            Connection conn = Database.getConnection();
+            Statement stmQuery = conn.createStatement();
+            String queryCurrentNumWeekScheduledActivities = "SELECT appactivity.id,appactivity.area,"
+                    + "appactivity.typology,appactivity.estimated_time FROM appactivity"
+                    + " WHERE week = " + currentNumWeek +"AND type_activity = 'PLANNED' "
+                    + " EXCEPT "
+                    + "select appactivity.id,appactivity.area,"
+                    + "appactivity.typology,appactivity.estimated_time "
+                    + "FROM appactivity INNER JOIN assignment ON appactivity.id=assignment.activity "
+                    + "WHERE week = " + currentNumWeek +"AND type_activity = 'PLANNED' order by id"; 
+            String queryCount = "select count(*) as num "
+                    + "FROM ("+ queryCurrentNumWeekScheduledActivities + ") as notassigned";
+            ResultSet rst = stmQuery.executeQuery(queryCount);
+            rst.next();
+            int numActivities = rst.getInt("num");
+            currentNumWeekScheduledActivitiesMatrix = new String[numActivities][5];           
+            rst = stmQuery.executeQuery(queryCurrentNumWeekScheduledActivities);
+            int count = 0;
+            while (rst.next()) {
+                currentNumWeekScheduledActivitiesMatrix[count][0] = Integer.toString(rst.getInt("id"));
+                currentNumWeekScheduledActivitiesMatrix[count][1] = rst.getString("area");
+                currentNumWeekScheduledActivitiesMatrix[count][2] = rst.getString("typology");
+                currentNumWeekScheduledActivitiesMatrix[count][3] = Integer.toString(rst.getInt("estimated_time"));
+                currentNumWeekScheduledActivitiesMatrix[count][4] = "select";
+                count++;
+            }
+            return currentNumWeekScheduledActivitiesMatrix;
+        } catch (SQLException ex) {
+            return null;
         }
     }
 }

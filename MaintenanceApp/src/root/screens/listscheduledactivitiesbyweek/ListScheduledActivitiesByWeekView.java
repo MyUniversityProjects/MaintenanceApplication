@@ -7,9 +7,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import root.Navigable;
 import root.Screen;
+import ui.ButtonColumn;
+import ui.ButtonColumnActionListener;
 
 public class ListScheduledActivitiesByWeekView extends Screen implements PropertyChangeListener {
     ListScheduledActivitiesByWeekModel model;
+    private final ButtonColumn selectCol;
     /**
      * Creates new form ListScheduledActivitiesByWeekView
      * @param nav navigator used to switch between screens
@@ -23,6 +26,7 @@ public class ListScheduledActivitiesByWeekView extends Screen implements Propert
         this.model.addPropertyChangeListener(this);
         this.numWeekComboBox.setModel(this.model.getNumWeekComboBoxModel());
         this.scheduledActivitiesTable.setModel(this.model.getScheduledActivitiesTableModel());
+        selectCol = new ButtonColumn(scheduledActivitiesTable.getColumn("select"), true, 75);
     }
 
     /**
@@ -40,7 +44,6 @@ public class ListScheduledActivitiesByWeekView extends Screen implements Propert
         scheduledActivitiesTable = new javax.swing.JTable();
         weekLabel = new javax.swing.JLabel();
         titleLabel = new javax.swing.JLabel();
-        selectButton = new javax.swing.JButton();
 
         backButton.setText("Back");
         backButton.addActionListener(new java.awt.event.ActionListener() {
@@ -82,13 +85,6 @@ public class ListScheduledActivitiesByWeekView extends Screen implements Propert
         titleLabel.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         titleLabel.setText("Maintenance Activities");
 
-        selectButton.setText("Select");
-        selectButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selectButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -100,13 +96,11 @@ public class ListScheduledActivitiesByWeekView extends Screen implements Propert
                         .addComponent(backButton)
                         .addGap(178, 178, 178)
                         .addComponent(titleLabel))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addComponent(weekLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(numWeekComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(selectButton))
+                            .addComponent(numWeekComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(tableScrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 827, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
@@ -118,14 +112,11 @@ public class ListScheduledActivitiesByWeekView extends Screen implements Propert
                     .addComponent(titleLabel)
                     .addComponent(backButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(numWeekComboBox)
-                            .addComponent(weekLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(selectButton))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(numWeekComboBox)
+                    .addComponent(weekLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tableScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -133,10 +124,6 @@ public class ListScheduledActivitiesByWeekView extends Screen implements Propert
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         //Not useful
     }//GEN-LAST:event_backButtonActionPerformed
-
-    private void selectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_selectButtonActionPerformed
     // The controller will register as a listener using these methods
     public void addBackButtonListener(ActionListener al) {
          backButton.addActionListener(al);
@@ -146,8 +133,8 @@ public class ListScheduledActivitiesByWeekView extends Screen implements Propert
          numWeekComboBox.addActionListener(al);
     }
     
-    public void addSelectButtonListener(ActionListener al) {
-         selectButton.addActionListener(al);
+    public void setSelectButtonListener(ButtonColumnActionListener al) {
+        selectCol.setActionListener(al);
     }
     
     /**
@@ -176,7 +163,6 @@ public class ListScheduledActivitiesByWeekView extends Screen implements Propert
     private javax.swing.JButton backButton;
     private javax.swing.JComboBox<Integer> numWeekComboBox;
     private javax.swing.JTable scheduledActivitiesTable;
-    private javax.swing.JButton selectButton;
     private javax.swing.JScrollPane tableScrollPane;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JLabel weekLabel;
@@ -192,6 +178,7 @@ public class ListScheduledActivitiesByWeekView extends Screen implements Propert
             Integer newNumWeek = (Integer) pce.getNewValue();
             try {
                 this.scheduledActivitiesTable.setModel(this.model.createTableModel());
+                selectCol.addTo(scheduledActivitiesTable.getColumn("select"));
             } catch (SQLException ex) {
                 Logger.getLogger(ListScheduledActivitiesByWeekView.class.getName()).log(Level.SEVERE, null, ex);
             }

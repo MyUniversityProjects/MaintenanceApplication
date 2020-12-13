@@ -5,12 +5,12 @@
  */
 package root.screenbuilders;
 
-import java.sql.SQLException;
+import queries.ActivityQueries;
 import root.Navigable;
 import root.Screen;
 import root.exceptions.NotFoundException;
+import root.exceptions.QueryFailedException;
 import root.screens.modifyselectedactivity.*;
-
 /**
  *
  * @author ficca
@@ -32,9 +32,10 @@ public class ModifySelectedActivityBuilder extends ScreenBuilder{
 
     @Override
     public void buildModel() {
+        ActivityQueries query = new ActivityQueries();
         try {
-            model = ModifySelectedActivityModel.fromDatabase(id);
-        } catch (SQLException | NotFoundException ex) {
+            model = ModifySelectedActivityModel.fromDatabase(id, query);
+        } catch (QueryFailedException | NotFoundException ex) {
             model = null;
         }
     }

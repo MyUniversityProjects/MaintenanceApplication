@@ -92,7 +92,7 @@ public class VerifyActivityModelTest {
     @Test
     public void testAddOneSkill() {
         ListModelListener skillListener = new ListModelListener();
-        model.getSkillsModel().addListDataListener(skillListener);
+        model.getSkillFillModel().getListModel().addListDataListener(skillListener);
         
         model.addSkillFromComboBox();
         assertEquals(1, skillListener.addedCount);
@@ -101,27 +101,12 @@ public class VerifyActivityModelTest {
     @Test
     public void testAddThreeSkills() {
         ListModelListener skillListener = new ListModelListener();
-        model.getSkillsModel().addListDataListener(skillListener);
+        model.getSkillFillModel().getListModel().addListDataListener(skillListener);
         
         model.addSkillFromComboBox();
         model.addSkillFromComboBox();
         model.addSkillFromComboBox();
         assertEquals(3, skillListener.addedCount);
-    }
-    
-    /**
-     * Test if after 2 skill add, the elements in the combo box were removed
-     */
-    @Test
-    public void testComboBoxShrink() {
-        DefaultComboBoxModel<String> comboBoxModel = model.getRemainingSkillsModel();
-        int startLen = comboBoxModel.getSize();
-        
-        model.addSkillFromComboBox();
-        model.addSkillFromComboBox();
-        
-        int endLen = comboBoxModel.getSize();
-        assertEquals(2, startLen - endLen);
     }
     
     @Test

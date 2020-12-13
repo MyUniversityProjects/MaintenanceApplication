@@ -8,22 +8,25 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import org.junit.*;
 import static org.junit.Assert.*;
+import queries.UserQueries;
 import root.Navigable;
 import root.screens.createuser.User;
 import root.screens.createuser.UserController;
 import root.screens.createuser.UserModel;
-import root.screens.createuser.UserQueries;
 import root.screens.createuser.UserView;
 import stubs.NavigatorStub;
 
 public class UserControllerTest {
-    
+    /*
+    * Stub used to simulute the view 
+    */
     private class UserViewStub extends UserView {
         JButton back = new JButton();
         JButton create = new JButton();  
         // counters of register calls
         int backListenerCount = 0;
         int createListenerCount = 0;
+        // attribute to simulate the inputs from the user
         private String address;
         private String email;
         private String surname;
@@ -123,24 +126,48 @@ public class UserControllerTest {
             back.addActionListener(al);
             backListenerCount++;
         }
-        
+        /**
+         * method override for testing purpose
+         * This fuction is only called in the controller in case 
+         * the create ended successful
+         * 
+         * @param title 
+         * @param msg 
+         */
         @Override
         public void showMsg(String title, String msg) {
             result = true;
         }
 
+        /**
+         * method override for testing purpose
+         * This fuction is only called in the controller in case 
+         * the create has given an error
+         * 
+         * @param title
+         * @param msg 
+         */
         @Override
         public void showErrorMsg(String title, String msg) {
             result = false;
         }
 
     }
-    
+    /**
+     * Used to simulute the interaction between the model and the database
+     * 
+     */
     private class UserQueriesStub extends UserQueries{
         private ArrayList<String> userCfList = new ArrayList<String>();
         private ArrayList<String> userUsernameList = new ArrayList<String>();
         
-         
+        /**
+         * the following override simulate the 
+         * query of an insert of a user in the database
+         * 
+         * @param user
+         * @return 
+         */ 
         @Override
         public boolean insertIntoAppUser(User user){
             if(userCfList.contains(user.getCf()) && userUsernameList.contains(user.getUsername())){
@@ -154,46 +181,54 @@ public class UserControllerTest {
     }
     
 
-    private class UserModelStub extends UserModel {
-        private UserQueriesStub createUserQueriesStub;
-        
-        public UserModelStub() {
-            super();
-            createUserQueriesStub = new UserQueriesStub();
+    /**
+     * Stub used to the model
+     */
+     private class UserModelStub extends UserModel {
+        public UserModelStub(UserQueries query) {
+            super(query);   
         }
 
         @Override
-        public boolean create(User user) {
-            return createUserQueriesStub.insertIntoAppUser(user); 
-        }
-        
+        public String getDatabaseError() {
+            return "Error from database";
+        }   
     }
 
     private UserViewStub viewStub;
     private UserModelStub modelStub;
     private UserController controller;
     private UserQueriesStub queryStub;
-    
+    private UserQueriesStub createUserQueriesStub;
     private NavigatorStub navStub;
     
     
     @Before
     public void setUp(){
-        modelStub = new UserModelStub();
+        createUserQueriesStub = new UserQueriesStub();
+        modelStub = new UserModelStub(createUserQueriesStub);
         viewStub = new UserViewStub(navStub);
         controller = new UserController(modelStub, viewStub);
     }
-    
+    /**
+     * Testing if the BackButtonListener is correctly added
+     */
     @Test
     public void testBackRegisterListener(){
         assertEquals(1, viewStub.backListenerCount);
     }
-   
+    
+    /**
+     * Testing if the CreateButtonListener is correctly added
+     */   
     @Test
     public void testCreateRegisterListener(){
         assertEquals(1, viewStub.createListenerCount);
     }
    
+    /**
+     * Testing a case of ideal create
+     */
     @Test
     public void testCreateCheckoutIdeal() {
         viewStub.setCf("GRRLMO09E21L219M");
@@ -208,6 +243,9 @@ public class UserControllerTest {
         assertTrue(viewStub.result);
     }
     
+    /**
+     * Testing the case of void inputs
+     */
     @Test
     public void testCreateCheckoutVoidInputs() {
         viewStub.setCf("");
@@ -221,7 +259,10 @@ public class UserControllerTest {
         viewStub.create.doClick();
         assertFalse(viewStub.result);
     }
-
+    
+    /**
+     *  Testing the case of a void passwordInput
+     */
     @Test
     public void testCreateCheckoutVoidPasswordInput() {
         viewStub.setCf("FLLLMO09E21L219M");
@@ -236,6 +277,9 @@ public class UserControllerTest {
         assertFalse(viewStub.result);
     }
 
+    /**
+     *  Testing the case of a void cfInput
+     */
     @Test
     public void testCreateCheckoutVoidCfInput() {
         viewStub.setCf("");
@@ -250,6 +294,9 @@ public class UserControllerTest {
         assertFalse(viewStub.result);
     }
     
+    /**
+     *  Testing the case of a void usernameInput
+     */
     @Test
     public void testCreateCheckoutVoidUsernameInput() {
         viewStub.setCf("GRRTPO09E21L219M");
@@ -263,7 +310,10 @@ public class UserControllerTest {
         viewStub.create.doClick();
         assertFalse(viewStub.result);
     }
- 
+    
+    /**
+     *  Testing the case of a void namefInput
+     */
     @Test
     public void testCreateCheckoutVoidNameInput() {
         viewStub.setCf("GRRTPO09E21L219M");
@@ -278,6 +328,9 @@ public class UserControllerTest {
         assertFalse(viewStub.result);
     }
     
+    /**
+     *  Testing the case of a void surnameInput
+     */
     @Test
     public void testCreateCheckoutVoidSurnameInput() {
         viewStub.setCf("GTTTPO09E21L219M");
@@ -291,7 +344,10 @@ public class UserControllerTest {
         viewStub.create.doClick();
         assertFalse(viewStub.result);
     }
-
+    
+    /**
+     *  Testing the case of a void emailInput
+     */
     @Test
     public void testCreateCheckoutVoidEmailInput() {
         viewStub.setCf("GRRTPO04E11L119M");
@@ -305,7 +361,10 @@ public class UserControllerTest {
         viewStub.create.doClick();
         assertFalse(viewStub.result);
     }
-
+    
+    /**
+     *  Testing the case of a void addressInput
+     */
     @Test
     public void testCreateCheckoutVoidAddressInput() {
         viewStub.setCf("GRRTPO04E11L320M");

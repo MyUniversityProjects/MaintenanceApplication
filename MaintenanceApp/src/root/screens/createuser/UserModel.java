@@ -5,17 +5,19 @@
  */
 package root.screens.createuser;
 
-/**
- *
- * @author ficca
- */
+import queries.UserQueries;
+
 public class UserModel {
     private String error;
     private int errorCode;  
     private final UserQueries createUserQueries;
 
-    public UserModel() {
-        this.createUserQueries = new UserQueries();
+    /**
+     * Creates new UserModel  
+     * @param query
+     */
+    public UserModel(UserQueries query) {
+        this.createUserQueries = query;
     }
     
     /**
@@ -28,9 +30,13 @@ public class UserModel {
         return createUserQueries.insertIntoAppUser(user);
     }
     
-    
+    /**
+     * get the error given by the database
+     * 
+     * @return a string describing the error given by the database
+     */
     public String getDatabaseError(){
-        return createUserQueries.getDatabaseError();
+        return createUserQueries.getCreateDatabaseError();
     }
     
     

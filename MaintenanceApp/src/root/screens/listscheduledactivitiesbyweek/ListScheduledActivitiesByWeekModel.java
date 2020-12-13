@@ -4,21 +4,18 @@ package root.screens.listscheduledactivitiesbyweek;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Arrays;
 import java.util.Objects;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
-import root.Database;
+import queries.ActivityQueries;
 
 public class ListScheduledActivitiesByWeekModel implements Serializable {
     // Used when notifying listeners so they know what has changed
     public static final String NUMWEEK_CHANGE = "numweek";
-    
+    ActivityQueries query;
     private Integer currentNumWeek;
     private final ComboBoxModel<Integer> numWeekComboBoxModel;
     private DefaultTableModel ScheduledActivitiesTableModel;
@@ -28,9 +25,11 @@ public class ListScheduledActivitiesByWeekModel implements Serializable {
     /**
      * Create and return an instance of ListScheduledActivitiesByWeekModel that supports
      * the propertychangesupport.
+     * @param query
      * @throws SQLException
      */
-    public ListScheduledActivitiesByWeekModel() throws SQLException {
+    public ListScheduledActivitiesByWeekModel(ActivityQueries query) throws SQLException {
+        this.query = query;
         changeSupport = new PropertyChangeSupport(this);
         numWeekComboBoxModel = new  DefaultComboBoxModel(numWeekIntegerArray());
         currentNumWeek = numWeekComboBoxModel.getElementAt(0);
@@ -101,29 +100,7 @@ public class ListScheduledActivitiesByWeekModel implements Serializable {
      * @throws java.sql.SQLException
      */
     public String[][] getCurrentNumWeekScheduledActivities() throws SQLException{
-        try {
-            String[][] currentNumWeekScheduledActivitiesMatrix = null;    
-            Connection conn = Database.getConnection();
-            Statement stmQuery = conn.createStatement();
-            String queryCount = "select count(*) as num from appactivity WHERE week = " + currentNumWeek +"AND type_activity = 'PLANNED'";
-            ResultSet rst = stmQuery.executeQuery(queryCount);
-            rst.next();
-            int numActivities = rst.getInt("num");
-            currentNumWeekScheduledActivitiesMatrix = new String[numActivities][4];
-            String queryCurrentNumWeekScheduledActivities = "SELECT id,area,typology,estimated_time FROM appactivity WHERE week = " + currentNumWeek+"AND type_activity = 'PLANNED' order by id";            
-            rst = stmQuery.executeQuery(queryCurrentNumWeekScheduledActivities);
-            int count = 0;
-            while (rst.next()) {
-                currentNumWeekScheduledActivitiesMatrix[count][0] = Integer.toString(rst.getInt("id"));
-                currentNumWeekScheduledActivitiesMatrix[count][1] = rst.getString("area");
-                currentNumWeekScheduledActivitiesMatrix[count][2] = rst.getString("typology");
-                currentNumWeekScheduledActivitiesMatrix[count][3] = Integer.toString(rst.getInt("estimated_time"));
-                count++;
-            }
-            return currentNumWeekScheduledActivitiesMatrix;
-        } catch (SQLException ex) {
-            return null;
-        }
+        return query.getCurrentNumWeekScheduledActivities(this.currentNumWeek);
     }
     
     /**
@@ -131,8 +108,9 @@ public class ListScheduledActivitiesByWeekModel implements Serializable {
      * @return DefaultTableModel having as the columns ID,AREA,TYPE and ESTIMATED INTERVTION TIME 
      * @throws java.sql.SQLException
      */
-    public  DefaultTableModel createTableModel() throws SQLException{
-        this.ScheduledActivitiesTableModel = new DefaultTableModel(this.getCurrentNumWeekScheduledActivities(),new String [] {"ID", "AREA", "TYPE", "ESTIMATED INTERVENTION TIME [min]"});
+    public  DefaultTableModel createTableModel() throws SQLException {
+        String [] cols = {"ID", "AREA", "TYPE", "ESTIMATED INTERVENTION TIME [min]", "select"};
+        this.ScheduledActivitiesTableModel = new DefaultTableModel(this.getCurrentNumWeekScheduledActivities(), cols);
         return ScheduledActivitiesTableModel;
     }
     
