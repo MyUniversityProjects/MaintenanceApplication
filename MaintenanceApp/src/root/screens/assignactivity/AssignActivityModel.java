@@ -115,7 +115,7 @@ public class AssignActivityModel {
             
         try {
             stm = conn.createStatement();
-            String query = getStringQueryDayAvaibility(cf, week, day);
+            String query = getStringQueryDayAvaibility(cf, week, day) +  " ORDER BY start_time";
             ResultSet rst = stm.executeQuery(query);
             while(rst.next()) {
                 int oraInizio = rst.getTime("start_time").toLocalTime().getHour();
@@ -192,6 +192,7 @@ public class AssignActivityModel {
                 field.add(rst.getString("cf"));
                 field.add(rst.getString("surname"));
                 maintainers.add(field);
+                
                 i++;
                 
             }
@@ -201,7 +202,7 @@ public class AssignActivityModel {
             for(int j=0; j<i; j++) {
                 vector[0][j] = (String) maintainers.get(j).get(0);
                 vector[1][j] = (String)  maintainers.get(j).get(1);
-                vector[2][j] = (String)  maintainers.get(j).get(1);
+                vector[2][j] = (String)  maintainers.get(j).get(2);
             }
             
             return vector;

@@ -10,7 +10,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import root.Navigable;
 import root.Screen;
-import root.screens.assignactivity.AssignActivityController;
+import root.screens.assignactivity.AssignActivityControllerMokeUp;
+import root.screens.assignactivity.AssignActivityControllerMokeUp1;
+import root.screens.assignactivity.AssignActivityControllerMokeUp2;
 import root.screens.assignactivity.AssignActivityModel;
 import root.screens.assignactivity.AssignActivityView;
 /**
@@ -19,10 +21,10 @@ import root.screens.assignactivity.AssignActivityView;
  */
 public class AssignActivityBuilder extends ScreenBuilder{
     
-    private AssignActivityController controller;
-    private AssignActivityModel model;
-    private AssignActivityView view;
-    private int activityID;
+    private AssignActivityControllerMokeUp1 controller;
+    protected AssignActivityModel model;
+    protected AssignActivityView view;
+    protected int activityID;
     
     public AssignActivityBuilder(int id) {
         this.activityID = id;
@@ -31,7 +33,7 @@ public class AssignActivityBuilder extends ScreenBuilder{
     @Override
     public void buildController() {
         try {
-            controller = new AssignActivityController(view, model, activityID);
+            controller = new AssignActivityControllerMokeUp1(view, model, activityID);
         } catch (SQLException ex) {
             Logger.getLogger(AssignActivityBuilder.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -49,6 +51,7 @@ public class AssignActivityBuilder extends ScreenBuilder{
     @Override
     public void buildModel() {
         try {
+            System.out.println("Create Model");
             model = new AssignActivityModel();
         } catch (SQLException ex) {
             Logger.getLogger(AssignActivityBuilder.class.getName()).log(Level.SEVERE, null, ex);

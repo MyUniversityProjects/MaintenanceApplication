@@ -5,10 +5,13 @@
  */
 package root.screens.assignewoactivity;
 
+import java.awt.EventQueue;
 import root.Navigable;
 import root.Navigator;
 import root.Screen;
+import root.screenbuilders.AssignEwoActivityBuilder;
 import root.screenbuilders.ScreenBuilder;
+import root.screens.showcasehome.ShowcaseHomeBuilder;
 
 /**
  *
@@ -20,8 +23,19 @@ public class NewMainEwo {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Navigator nav = new Navigator(title, ){
-        AssignEwoActivityView view = new AssignEwoActivityView(nav);
+        
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException ex) { 
+            System.out.println("ERROR: postgresql Driver required");
+            return;
+        }
+        
+        EventQueue.invokeLater(() -> {
+            ScreenBuilder b = new AssignEwoActivityBuilder(2222, 1);
+            new Navigator("Smart Maintenance App", b).setVisible(true);
+        });
+        
     }
     
 }
