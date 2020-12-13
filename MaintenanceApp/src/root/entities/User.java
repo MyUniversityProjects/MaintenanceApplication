@@ -111,6 +111,7 @@ public class User {
     }
     
     public static UserRole convertRawRole(String raw) {
+        if (raw == null) return null;
         switch (raw) {
             case "SA": return UserRole.SYSTEM_ADMINISTRATOR;
             case "P": return UserRole.PLANNER;
