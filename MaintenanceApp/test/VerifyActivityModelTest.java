@@ -1,3 +1,4 @@
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
@@ -103,8 +104,12 @@ public class VerifyActivityModelTest {
         ListModelListener skillListener = new ListModelListener();
         model.getSkillFillModel().getListModel().addListDataListener(skillListener);
         
+        ComboBoxModel comboBoxModel = model.getSkillFillModel().getComboModel();
+        
         model.addSkillFromComboBox();
+        comboBoxModel.setSelectedItem(comboBoxModel.getElementAt(3));
         model.addSkillFromComboBox();
+        comboBoxModel.setSelectedItem(comboBoxModel.getElementAt(4));
         model.addSkillFromComboBox();
         assertEquals(3, skillListener.addedCount);
     }
