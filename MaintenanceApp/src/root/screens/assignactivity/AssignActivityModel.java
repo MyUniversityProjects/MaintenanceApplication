@@ -102,6 +102,12 @@ public class AssignActivityModel {
         return null;  
     }
     
+    protected String getStringQueryDayAvaibility(String cf, String week, int day) {
+        String query = "SELECT * FROM (public.appactivity INNER JOIN public.assignment ON public.appactivity.id = public.assignment.activity)"
+                + " WHERE (day = "+Integer.toString(day)+") AND (week = "+week+") AND (maintainer = '"+cf+"')";
+        return query;
+    }
+    
     public int[] getDayAvaibility(String cf, String week, int day) throws SQLException{
         
         int[] avaibilityDay = {60, 60, 60, 60, 60, 60, 60};
@@ -109,8 +115,7 @@ public class AssignActivityModel {
             
         try {
             stm = conn.createStatement();
-            String query = "SELECT * FROM (public.appactivity INNER JOIN public.assignment ON public.appactivity.id = public.assignment.activity)"
-                + " WHERE (day = "+Integer.toString(day)+") AND (week = "+week+") AND (maintainer = '"+cf+"')";
+            String query = getStringQueryDayAvaibility(cf, week, day);
             ResultSet rst = stm.executeQuery(query);
             while(rst.next()) {
                 int oraInizio = rst.getTime("start_time").toLocalTime().getHour();

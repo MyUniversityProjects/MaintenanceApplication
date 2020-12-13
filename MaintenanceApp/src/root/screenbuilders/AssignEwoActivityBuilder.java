@@ -10,28 +10,29 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import root.Navigable;
 import root.Screen;
-import root.screens.assignactivity.AssignActivityController;
-import root.screens.assignactivity.AssignActivityModel;
-import root.screens.assignactivity.AssignActivityView;
+
+import root.screens.assignewoactivity.AssignEwoActivityController;
+import root.screens.assignewoactivity.AssignEwoActivityModel;
+import root.screens.assignewoactivity.AssignEwoActivityView;
+
 /**
  *
  * @author lex99
  */
-public class AssignActivityBuilder extends ScreenBuilder{
-    
-    private AssignActivityController controller;
-    private AssignActivityModel model;
-    private AssignActivityView view;
+public class AssignEwoActivityBuilder extends ScreenBuilder{
+    private AssignEwoActivityController controller;
+    private AssignEwoActivityModel model;
+    private AssignEwoActivityView view;
     private int activityID;
     
-    public AssignActivityBuilder(int id) {
+    public AssignEwoActivityBuilder(int id) {
         this.activityID = id;
     }
 
     @Override
     public void buildController() {
         try {
-            controller = new AssignActivityController(view, model, activityID);
+            controller = new AssignEwoActivityController(view, model, activityID);
         } catch (SQLException ex) {
             Logger.getLogger(AssignActivityBuilder.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -40,7 +41,7 @@ public class AssignActivityBuilder extends ScreenBuilder{
     @Override
     public void buildView(Navigable nav) {
         try {
-            view = new AssignActivityView(nav);
+            view = new AssignEwoActivityView(nav);
         } catch (SQLException ex) {
             Logger.getLogger(AssignActivityBuilder.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -49,9 +50,9 @@ public class AssignActivityBuilder extends ScreenBuilder{
     @Override
     public void buildModel() {
         try {
-            model = new AssignActivityModel();
+            model = new AssignEwoActivityModel();
         } catch (SQLException ex) {
-            Logger.getLogger(AssignActivityBuilder.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AssignEwoActivityBuilder.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
    
@@ -59,5 +60,4 @@ public class AssignActivityBuilder extends ScreenBuilder{
     public Screen getScreen() {
         return view;
     }
-    
 }

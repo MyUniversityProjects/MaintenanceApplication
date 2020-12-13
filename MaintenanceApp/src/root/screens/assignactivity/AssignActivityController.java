@@ -35,14 +35,12 @@ public class AssignActivityController {
     private JLabel jLabelError;
     private JTextArea jArea;
     private String[][] maintainers = null;
-    protected boolean interruptible;
       
     public AssignActivityController(AssignActivityView view, AssignActivityModel model, int activityID) throws SQLException {
         
         this.model = model;
         this.view = view;
         this.activityID = activityID;
-        this.interruptible = interruptible;
         
         week = model.getWeekActivity(activityID);
         view.getLabelNameActivity().setText(model.getStringActivity(activityID));
@@ -84,17 +82,15 @@ public class AssignActivityController {
     private void setTableAssign() throws SQLException {
         String[] cols = {"Maintainer","Skills","8-00 - 9.00","9.00 - 10.00","10.00 - 11.00", "11.00-12-00","14.00 - 15.00","15.00 - 16.00","16-00 - 17.00"};
         tableModel.setColumnIdentifiers(cols);
-        int[] avaibility = model.getDayAvaibility(cf, week, day);
-        String nameMaintainer = model.getNameMaintainer(cf);
+        writeRowAvaibilityDayMaintainer(cf);
+    }
+    
+    protected void writeRowAvaibilityDayMaintainer(String code) throws SQLException {
+        int[] avaibility = model.getDayAvaibility(code, week, day);
+        String nameMaintainer = model.getNameMaintainer(code);
         tableModel.setValueAt(nameMaintainer, 0, 0);
         for(int i=0; i<nCols-2; i++)
             tableModel.setValueAt(avaibility[i], 0, i+2);
-        int i = tableModel.getRowCount()-1;
-        while(tableModel.getRowCount() > 1) {
-            tableModel.removeRow(i);
-            i--;
-        }
-        
     }
     
     private void setArea1() {
@@ -133,14 +129,21 @@ public class AssignActivityController {
     }
     
     private void ButtonBack2() throws SQLException {
-        mokeUp = true;
-        fillFrame();
-        
+        changeFrame();
+    }
+    
+    protected void emptyTable() {
+        int i = tableModel.getRowCount()-1;
+        while(tableModel.getRowCount() > 0) {
+            tableModel.removeRow(i);
+            i--;
+        }
     }
     
     private void fillFrame() throws SQLException {
         view.removeButtonAssignListener();
         view.removeButtonBackListener();
+        emptyTable();
         
         if (mokeUp) {
             view.getLabelNumberOfWeek().setText(week);
@@ -176,7 +179,10 @@ public class AssignActivityController {
         }
     }
     
-   
+    protected void changeFrame() throws SQLException {
+        mokeUp = !mokeUp;
+        fillFrame();
+    }
     
     public Integer assignActivity(int col, int activityID, String cf, String week, int day) throws SQLException {
         int index = col-2;
@@ -231,6 +237,5 @@ public class AssignActivityController {
             sum += vector[i];
         return sum;
     }
-    
     
 }
