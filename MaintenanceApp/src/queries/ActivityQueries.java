@@ -88,6 +88,11 @@ public class ActivityQueries {
         }
     }
     
+    /**
+     *Database query that create an activity
+     * @param activity information to be entered
+     * @return if the create was successful
+     */
     public boolean create(Activity activity){
         String query = "INSERT INTO appactivity "+
             "(id, branch_office, area, typology, description,"+
@@ -115,6 +120,10 @@ public class ActivityQueries {
         }
     }
     
+    /**
+     *Database query that fetch all activity
+     * @return a List of activity
+     */
     public List<Activity> fetchAll(){
         List<Activity> activities = new LinkedList<>();
         String query = "SELECT * FROM appactivity";
@@ -142,6 +151,11 @@ public class ActivityQueries {
         return null;
     }
     
+    /**
+     *Database query that delete an activity
+     * @param id activity identifier
+     * @return if the delete was successful
+     */
     public boolean delete(int id){
         String query = "DELETE FROM appactivity WHERE id = ?";
         

@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import root.screenbuilders.VerifyActivityBuilder;
 
 public class ActivityController {
 
@@ -25,6 +26,11 @@ public class ActivityController {
                     view.showErrorMsg("Id error", "The id is already present");
                 } else {
                     view.showMsg("Success", "Activity entered successfully");
+                    if(model.getType().equals(ActivityModel.ActivityType.UNPLANNED)
+                        || model.getType().equals(ActivityModel.ActivityType.EXTRA)){
+                        view.getNav().replace(
+                            new VerifyActivityBuilder(model.getId()));
+                    }   
                 }
             } else {
                 view.showErrorMsg("Input error", checkoutError);
@@ -32,6 +38,12 @@ public class ActivityController {
         });
         
         view.addBackButtonListener((e)-> {view.getNav().pop();});
+        
+        view.addTypeButtonListener((e)->{
+            String type = view.getType();
+            boolean enabled = type.equals("UNPLANNED") || type.equals("EXTRA");
+            view.setEnableWeek(!enabled);
+        });
     }
     
     public void fillModel(){

@@ -9,8 +9,10 @@ public class User {
         MAINTAINER
     };
     
+    private final String initCf;
     private String cf;
     private String username;
+    private String password;
     private UserRole role;
     private String name;
     private String surname;
@@ -19,6 +21,7 @@ public class User {
 
     public User(String cf, String username, UserRole role, String name, String surname, String email, String address) {
         this.cf = cf;
+        this.initCf = cf;
         this.username = username;
         this.role = role;
         this.name = name;
@@ -26,9 +29,25 @@ public class User {
         this.email = email;
         this.address = address;
     }
+    
+    public User(String name, String surname, String cf, String email, String address, String username, String password, UserRole role) {
+        this.name = name;
+        this.surname = surname;
+        this.cf = cf;
+        this.initCf = cf;
+        this.email = email;
+        this.address = address;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
 
     public String getCf() {
         return cf;
+    }
+    
+    public String getInitCf(){
+        return initCf;
     }
 
     public String getUsername() {
@@ -53,6 +72,10 @@ public class User {
 
     public String getAddress() {
         return address;
+    }
+    
+    public String getPassword(){
+        return password;
     }
     
     public void setCf(String cf) {
@@ -81,6 +104,10 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+    
+    public void setPassword(String password){
+        this.password = password;
     }
     
     public static UserRole convertRawRole(String raw) {

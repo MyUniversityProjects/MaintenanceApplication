@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import root.Navigator;
 import root.exceptions.NotFoundException;
 import root.screenbuilders.ModifyUserBuilder;
+import queries.UserQueries;
 
 public class ModifyUserMain {
     

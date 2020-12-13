@@ -1,11 +1,10 @@
 
 package root.screenbuilders;
 
-import java.sql.SQLException;
 import root.Navigable;
 import root.Screen;
-import root.exceptions.NotFoundException;
 import root.screens.modifyuser.*;
+import queries.UserQueries;
 
 public class ModifyUserBuilder extends ScreenBuilder{
     private ModifyUserView view;
@@ -26,11 +25,7 @@ public class ModifyUserBuilder extends ScreenBuilder{
     
     @Override
     public void buildModel(){
-        try{
-            model = ModifyUserModel.fromDatabase(cf, query);
-        } catch (SQLException | NotFoundException ex){
-            model = null;
-        }
+        model = ModifyUserModel.fromDatabase(cf, query);
     }
     
     @Override

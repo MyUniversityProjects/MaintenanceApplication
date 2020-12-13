@@ -361,11 +361,21 @@ public class ActivityView extends Screen {
         return typeGroupInput.getSelection().getActionCommand();
     }    
 
-    void addCreateButtonListener(ActionListener al) {
+    public void addCreateButtonListener(ActionListener al) {
         createBtn.addActionListener(al);
     }
     
-    void addBackButtonListener(ActionListener al){
+    public void addBackButtonListener(ActionListener al){
         backBtn.addActionListener(al);
+    }
+    
+    public void addTypeButtonListener(ActionListener al){
+        typeExtraWorkInput.addActionListener(al);
+        typeInputScheduled.addActionListener(al);
+        typeUnscheduledInput.addActionListener(al);
+    }
+    
+    public void setEnableWeek(boolean enabled){
+        weekInput.setEnabled(enabled);
     }
 }

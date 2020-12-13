@@ -8,6 +8,8 @@ import root.Navigable;
 import root.exceptions.NotFoundException;
 import stubs.NavigatorStub;
 import root.screens.modifyuser.*;
+import queries.UserQueries;
+import root.entities.User;
 
 public class ModifyUserControllerTest {    
     
@@ -130,7 +132,7 @@ public class ModifyUserControllerTest {
         @Override
         public User getUser(String cf){
             if(cfList.contains(cf)){
-                return new User("", "", cf, "", "", "", "", User.UserType.P);
+                return new User("", "", cf, "", "", "", "", User.UserRole.PLANNER);
             } else {
                 return null;
             }                 
@@ -144,11 +146,11 @@ public class ModifyUserControllerTest {
     
     private class ModifyUserModelStub extends ModifyUserModel{  
         
-        private UserQueries queryStub;
+        private final UserQueries queryStub;
         
         public ModifyUserModelStub(String name, String surname, String cf,
                 String email, String address, String username,
-                String password, UserType role, UserQueries query) {
+                String password, UserRole role, UserQueries query) {
             super(name, surname, cf, email, address, username,
                 password, role, query);
             queryStub = query;
@@ -173,13 +175,13 @@ public class ModifyUserControllerTest {
         queryStub = new UserQueriesStub();
         
         modelStub = new ModifyUserModelStub(null, null, null, null, null, 
-            null, null, ModifyUserModelStub.UserType.valueOf("P"), query);
+            null, null, ModifyUserModelStub.convertRawRole("P"), query);
         viewStub = new ModifyUserViewStub(navStub, modelStub);
         controller = new ModifyUserController(viewStub, modelStub);
         modelStubNull = null;
         viewStub2 = new ModifyUserViewStub(navStub, modelStubNull);
         modelQueriesStub = new ModifyUserModelStub(null, null, null, null, null, 
-            null, null, ModifyUserModelStub.UserType.valueOf("P"), queryStub);
+            null, null, ModifyUserModelStub.convertRawRole("P"), queryStub);
     }
     
     @Test
@@ -323,7 +325,7 @@ public class ModifyUserControllerTest {
     
     @Test
     public void testGetUserIdeal() throws SQLException, NotFoundException{
-        User user = new User("", "", "AAAAAA00A00A000A", "", "", "", "", User.UserType.P);
+        User user = new User("", "", "AAAAAA00A00A000A", "", "", "", "", User.UserRole.PLANNER);
         assertEquals(ModifyUserModelStub.fromDatabase("AAAAAA00A00A000A", queryStub).getClass().toString(), ModifyUserModel.class.toString());
     }
     
@@ -335,21 +337,13 @@ public class ModifyUserControllerTest {
     @Test 
     public void testModifyIdeal(){
         modelQueriesStub.setCf("AAAAAA00A00A000A");
-        try {
-            assertTrue(modelQueriesStub.modify());
-        } catch (SQLException ex) {
-
-        }
+        assertTrue(modelQueriesStub.modify());
     }
     
     @Test 
     public void testModifyWithWrongUser(){
         modelQueriesStub.setCf("X");
-        try {
-            assertFalse(modelQueriesStub.modify());
-        } catch (SQLException ex) {
-            
-        }
+        assertFalse(modelQueriesStub.modify());
     }
     
     

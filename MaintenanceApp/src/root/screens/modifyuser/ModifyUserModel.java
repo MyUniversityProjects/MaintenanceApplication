@@ -1,7 +1,7 @@
 package root.screens.modifyuser;
 
-import java.sql.SQLException;
-import root.exceptions.NotFoundException;
+import queries.UserQueries;
+import root.entities.User;
 
 public class ModifyUserModel extends User{
     
@@ -9,7 +9,7 @@ public class ModifyUserModel extends User{
 
     public ModifyUserModel(String name, String surname, String cf, String email,
             String address, String username, String password,
-            UserType role, UserQueries query) {
+            UserRole role, UserQueries query) {
         super(name, surname, cf, email, address, username, password, role);
         this.query = query;
     }
@@ -21,11 +21,8 @@ public class ModifyUserModel extends User{
      * @param cf User identifier
      * @param query
      * @return an istance of ModifyUserModel
-     * @throws java.sql.SQLException
-     * @throws root.exceptions.NotFoundException
      */
-    public static ModifyUserModel fromDatabase(String cf, UserQueries query)
-        throws SQLException, NotFoundException{
+    public static ModifyUserModel fromDatabase(String cf, UserQueries query){
         
         try {
             User user = query.getUser(cf);
@@ -36,7 +33,7 @@ public class ModifyUserModel extends User{
                     user.getCf(), user.getEmail(), user.getAddress(),
                     user.getUsername(), user.getPassword(), 
                     user.getRole(), query);   
-        } catch(SQLException | NotFoundException e){
+        } catch(Exception e){
             return null;
         } 
         
@@ -46,9 +43,8 @@ public class ModifyUserModel extends User{
      *Execute the query to modify the user and return if successful
      * 
      * @return if the user has been successfully modified
-     * @throws java.sql.SQLException
      */
-    public boolean modify() throws SQLException{
+    public boolean modify(){
         return query.modify(this);
     }
 

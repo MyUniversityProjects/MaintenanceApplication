@@ -1,6 +1,5 @@
 package root.screens.modifyuser;
 
-import java.sql.SQLException;
 import java.util.regex.Pattern;
 
 public class ModifyUserController {
@@ -31,7 +30,7 @@ public class ModifyUserController {
                 model.setEmail(view.getEmailInput());
                 model.setUsername(view.getUsernameInput());
                 model.setPassword(view.getPasswordInput());
-                model.setRole(User.UserType.valueOf(view.getRoleInput()));
+                model.setRole(ModifyUserModel.convertRawRole(view.getRoleInput()));
                 
                 try {
                     if(model.modify()){
@@ -39,7 +38,7 @@ public class ModifyUserController {
                     } else {
                         view.showErrorMsg("Error", "Error while editing");
                     }
-                } catch (SQLException ex) {
+                } catch (Exception ex) {
                     view.showErrorMsg("Error", "Error while editing");
                 }
             }

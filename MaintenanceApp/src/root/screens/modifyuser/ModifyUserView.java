@@ -264,8 +264,10 @@ public class ModifyUserView extends Screen {
         emailInput.setText(model.getEmail());
         usernameInput.setText(model.getUsername());
         passwordInput.setText(model.getPassword());
-        roleMaintainerInput.setSelected(model.getRole().toString().equals("M"));
-        rolePlannerInput.setSelected(model.getRole().toString().equals("P"));
+        roleMaintainerInput.setSelected(model.getRole().equals(
+            ModifyUserModel.UserRole.MAINTAINER));
+        rolePlannerInput.setSelected(model.getRole().equals(
+            ModifyUserModel.UserRole.PLANNER));
         
         return true;
     }

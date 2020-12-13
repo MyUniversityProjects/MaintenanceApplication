@@ -2,8 +2,8 @@ package root.screens.showcasehome;
 
 import root.Navigable;
 import root.Screen;
-import root.screenbuilders.ManageUsersBuilder;
 import root.screenbuilders.PlannerHomeBuilder;
+import root.screenbuilders.SysAdminHomeBuilder;
 
 
 public class ShowcaseHomeView extends Screen {
@@ -35,7 +35,7 @@ public class ShowcaseHomeView extends Screen {
             }
         });
 
-        manageUsersBtn.setText("Manage Users");
+        manageUsersBtn.setText("System Administrator Home");
         manageUsersBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 manageUsersBtnActionPerformed(evt);
@@ -47,23 +47,27 @@ public class ShowcaseHomeView extends Screen {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(148, 148, 148)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(manageUsersBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1)
-                    .addComponent(plannerHomeBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(148, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(108, 108, 108)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(manageUsersBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(plannerHomeBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(90, 90, 90)
+                .addGap(79, 79, 79)
                 .addComponent(plannerHomeBtn)
                 .addGap(18, 18, 18)
                 .addComponent(manageUsersBtn)
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -72,7 +76,7 @@ public class ShowcaseHomeView extends Screen {
     }//GEN-LAST:event_plannerHomeBtnActionPerformed
 
     private void manageUsersBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageUsersBtnActionPerformed
-        getNav().push(new ManageUsersBuilder());
+        getNav().push(new SysAdminHomeBuilder());
     }//GEN-LAST:event_manageUsersBtnActionPerformed
 
 
