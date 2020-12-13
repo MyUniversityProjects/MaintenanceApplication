@@ -204,7 +204,7 @@ public class ActivityQueries {
             ResultSet rst = stmQuery.executeQuery(queryCount);
             rst.next();
             int numActivities = rst.getInt("num");
-            currentNumWeekScheduledActivitiesMatrix = new String[numActivities][4];           
+            currentNumWeekScheduledActivitiesMatrix = new String[numActivities][5];           
             rst = stmQuery.executeQuery(queryCurrentNumWeekScheduledActivities);
             int count = 0;
             while (rst.next()) {
@@ -212,6 +212,7 @@ public class ActivityQueries {
                 currentNumWeekScheduledActivitiesMatrix[count][1] = rst.getString("area");
                 currentNumWeekScheduledActivitiesMatrix[count][2] = rst.getString("typology");
                 currentNumWeekScheduledActivitiesMatrix[count][3] = Integer.toString(rst.getInt("estimated_time"));
+                currentNumWeekScheduledActivitiesMatrix[count][4] = "select";
                 count++;
             }
             return currentNumWeekScheduledActivitiesMatrix;

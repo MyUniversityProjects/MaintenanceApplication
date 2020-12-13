@@ -24,13 +24,11 @@
                       <EmptySpace min="-2" pref="178" max="-2" attributes="0"/>
                       <Component id="titleLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="weekLabel" min="-2" pref="115" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="numWeekComboBox" min="-2" pref="72" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="selectButton" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="tableScrollPane" alignment="0" min="-2" pref="827" max="-2" attributes="0"/>
                   </Group>
@@ -48,17 +46,12 @@
                   <Component id="backButton" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="numWeekComboBox" alignment="0" max="32767" attributes="0"/>
-                          <Component id="weekLabel" alignment="0" pref="46" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="tableScrollPane" min="-2" pref="275" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="selectButton" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="numWeekComboBox" alignment="0" max="32767" attributes="0"/>
+                  <Component id="weekLabel" alignment="0" pref="46" max="32767" attributes="0"/>
               </Group>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Component id="tableScrollPane" min="-2" pref="275" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -122,14 +115,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Maintenance Activities"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="selectButton">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Select"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="selectButtonActionPerformed"/>
-      </Events>
     </Component>
   </SubComponents>
 </Form>

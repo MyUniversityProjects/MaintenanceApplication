@@ -2,7 +2,8 @@ package root.screens.listscheduledactivitiesbyweek;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
- import root.screenbuilders.VerifyActivityBuilder;
+import root.screenbuilders.VerifyActivityBuilder;
+import ui.ButtonColumnActionListener;
 
 public class ListScheduledActivitiesByWeekController {
     // Need a reference to both the model and the view
@@ -20,7 +21,7 @@ public class ListScheduledActivitiesByWeekController {
         // The controller needs to listen to the view
         this.view.addBackButtonListener(new BackButtonListener());
         this.view.addNumWeeKBoxListener(new NumWeekComboBoxListener());
-        this.view.addSelectButtonListener(new SelectButtonListener());
+        this.view.setSelectButtonListener(new SelectButtonListener());
     }
     
     // Inner classess which server as view listeners
@@ -31,16 +32,11 @@ public class ListScheduledActivitiesByWeekController {
         }
     }
     
-    private class SelectButtonListener implements ActionListener{
+    private class SelectButtonListener implements ButtonColumnActionListener {
         @Override
-        public void actionPerformed(ActionEvent event) {
-            int index = view.getSelectedScheduledActivityIndex();
-            if(index == -1){
-                view.showErrorMsg("No selection", "No activity selected");
-            }else{
-                int id =  model.getSelectedActivity(index);
-                view.getNav().push(new VerifyActivityBuilder(id));
-            }          
+        public void actionPerformed(int rowIndex) {
+            int id =  model.getSelectedActivity(rowIndex);
+            view.getNav().push(new VerifyActivityBuilder(id));        
         }
     }
     

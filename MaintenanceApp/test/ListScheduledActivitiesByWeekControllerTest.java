@@ -11,6 +11,7 @@ import root.screens.listscheduledactivitiesbyweek.ListScheduledActivitiesByWeekC
 import root.screens.listscheduledactivitiesbyweek.ListScheduledActivitiesByWeekModel;
 import root.screens.listscheduledactivitiesbyweek.ListScheduledActivitiesByWeekView;
 import stubs.NavigatorStub;
+import ui.ButtonColumnActionListener;
 
 
 public class ListScheduledActivitiesByWeekControllerTest {
@@ -21,7 +22,7 @@ public class ListScheduledActivitiesByWeekControllerTest {
         int scheduledActivityIndex = 3;
         Integer selectedItem = 89;
         JButton back = new JButton();
-        JButton select= new JButton();
+        ButtonColumnActionListener selectActionListener;
         JComboBox<Integer> numWeekBox = new JComboBox<>();
         // counters of register calls
         int selectListenerCount = 0;
@@ -49,8 +50,8 @@ public class ListScheduledActivitiesByWeekControllerTest {
         } 
 
         @Override
-        public void addSelectButtonListener(ActionListener al) {
-            select.addActionListener(al);
+        public void setSelectButtonListener(ButtonColumnActionListener al) {
+            selectActionListener = al;
             selectListenerCount++;
         }
 
@@ -126,7 +127,7 @@ public class ListScheduledActivitiesByWeekControllerTest {
     
     @Test
     public void selectHomeListenerAction() {
-        view.select.doClick();
+        view.selectActionListener.actionPerformed(0);
         assertEquals(1, view.getSelectedScheduledActivityIndexCount);
         assertEquals(1, view.getSelectedScheduledActivityIndexCount);
         assertEquals(1, model.getSelectedActivityCount);

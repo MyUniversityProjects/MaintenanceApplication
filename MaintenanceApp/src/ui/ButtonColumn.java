@@ -14,18 +14,8 @@ import javax.swing.table.TableColumn;
  */
 public class ButtonColumn {
     private ButtonColumnActionListener al;
-    
-    /**
-     * Creates an instance of ButtonColumn with default width
-     * @param tc the JTable column that should countain buttons
-     * @param hideHeaderValue indicates if the column header name should be hidden
-     */
-    public ButtonColumn(TableColumn tc, boolean hideHeaderValue) {
-        tc.setCellRenderer(new Renderer());
-        tc.setCellEditor(new Editor());
-        if (hideHeaderValue)
-            tc.setHeaderValue("");
-    }
+    private final Integer width;
+    private final boolean hideHeaderValue;
     
     /**
      * Creates an instance of ButtonColumn
@@ -33,10 +23,20 @@ public class ButtonColumn {
      * @param hideHeaderValue indicates if the column header name should be hidden
      * @param width indicates the column width
      */
-    public ButtonColumn(TableColumn tc, boolean hideHeaderValue, int width) {
-        this(tc, hideHeaderValue);
-        tc.setMinWidth(width);
-        tc.setMaxWidth(width);
+    public ButtonColumn(TableColumn tc, boolean hideHeaderValue, Integer width) {
+        this.hideHeaderValue = hideHeaderValue;
+        this.width = width;
+        
+        setColumnData(tc);
+    }
+    
+    /**
+     * Creates an instance of ButtonColumn with default width
+     * @param tc the JTable column that should countain buttons
+     * @param hideHeaderValue indicates if the column header name should be hidden
+     */
+    public ButtonColumn(TableColumn tc, boolean hideHeaderValue) {
+        this(tc, hideHeaderValue, null);
     }
     
     /**
@@ -45,7 +45,33 @@ public class ButtonColumn {
      * @param tc the JTable column that should countain buttons
      */
     public ButtonColumn(TableColumn tc) {
-        this(tc, false);
+        this(tc, false, null);
+    }
+    
+    /**
+     * Set settings to a table column.
+     * @param tc the column to set
+     */
+    private void setColumnData(TableColumn tc) {
+        tc.setCellRenderer(new Renderer());
+        tc.setCellEditor(new Editor());
+        
+        if (width != null) {
+            tc.setMinWidth(width);
+            tc.setMaxWidth(width);
+        }
+        
+        if (hideHeaderValue)
+            tc.setHeaderValue("");
+    }
+    
+    /**
+     * Add the previous settings to a new table column. All columns share the 
+     * same ButtonColumnActionListener.
+     * @param tc the column to add
+     */
+    public void addTo(TableColumn tc) {
+        setColumnData(tc);
     }
     
     /**

@@ -108,8 +108,9 @@ public class ListScheduledActivitiesByWeekModel implements Serializable {
      * @return DefaultTableModel having as the columns ID,AREA,TYPE and ESTIMATED INTERVTION TIME 
      * @throws java.sql.SQLException
      */
-    public  DefaultTableModel createTableModel() throws SQLException{
-        this.ScheduledActivitiesTableModel = new DefaultTableModel(this.getCurrentNumWeekScheduledActivities(),new String [] {"ID", "AREA", "TYPE", "ESTIMATED INTERVENTION TIME [min]"});
+    public  DefaultTableModel createTableModel() throws SQLException {
+        String [] cols = {"ID", "AREA", "TYPE", "ESTIMATED INTERVENTION TIME [min]", "select"};
+        this.ScheduledActivitiesTableModel = new DefaultTableModel(this.getCurrentNumWeekScheduledActivities(), cols);
         return ScheduledActivitiesTableModel;
     }
     
