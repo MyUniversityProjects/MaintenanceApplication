@@ -55,6 +55,7 @@ public class PlannerHomeView extends Screen {
         });
 
         assignedTicketsBtn.setText("Show assigned tickets");
+        assignedTicketsBtn.setEnabled(false);
         assignedTicketsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 assignedTicketsBtnActionPerformed(evt);

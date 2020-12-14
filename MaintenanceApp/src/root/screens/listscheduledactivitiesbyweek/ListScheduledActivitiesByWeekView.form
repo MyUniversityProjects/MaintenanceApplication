@@ -24,14 +24,12 @@
                       <EmptySpace min="-2" pref="178" max="-2" attributes="0"/>
                       <Component id="titleLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="weekLabel" min="-2" pref="115" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="numWeekComboBox" min="-2" pref="72" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="tableScrollPane" alignment="0" min="-2" pref="827" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="weekLabel" min="-2" pref="115" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="numWeekComboBox" min="-2" pref="72" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="tableScrollPane" alignment="0" min="-2" pref="827" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="51" max="32767" attributes="0"/>
           </Group>
@@ -45,14 +43,14 @@
                   <Component id="titleLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="backButton" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="numWeekComboBox" alignment="0" max="32767" attributes="0"/>
-                  <Component id="weekLabel" alignment="0" pref="46" max="32767" attributes="0"/>
+                  <Component id="weekLabel" alignment="0" min="-2" pref="46" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="tableScrollPane" min="-2" pref="275" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace pref="52" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

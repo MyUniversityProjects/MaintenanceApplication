@@ -12,7 +12,7 @@ import javax.swing.ListModel;
  * It is not possibile to add duplicate elements
  */
 public class ListFillModel {
-    private static final String PREFIX = "\t• ";
+    public static final String PREFIX = "\t• ";
     
     private final DefaultListModel<String> listModel = new DefaultListModel<>();
     private final DefaultComboBoxModel<String> comboModel = new DefaultComboBoxModel<>();
