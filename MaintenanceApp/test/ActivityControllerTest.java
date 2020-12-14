@@ -1,12 +1,15 @@
 
+import java.sql.SQLException;
 import root.screens.createactivity.ActivityController;
 import root.screens.createactivity.ActivityModel;
 import root.screens.createactivity.ActivityView;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.*;
 import static org.junit.Assert.*;
-import queries.ActivityQueries;
+import queries.*;
 import root.Navigable;
 import stubs.NavigatorStub;
 
@@ -21,8 +24,8 @@ public class ActivityControllerTest {
 
     private class ActivityModelStub extends ActivityModel {
 
-        public ActivityModelStub() {
-            super(new ActivityQueries());
+        public ActivityModelStub() throws SQLException {
+            super(new ActivityQueries(),new MaterialQueries());
         }
     }
 
@@ -34,7 +37,11 @@ public class ActivityControllerTest {
 
     @Before
     public void setUp() {
-        ams = new ActivityModelStub();
+        try {
+            ams = new ActivityModelStub();
+        } catch (SQLException ex) {
+            Logger.getLogger(ActivityControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
         avs = new ActivityViewStub(navStub, ams);
         ac = new ActivityController(ams, avs);
         inputTest = new HashMap<>();

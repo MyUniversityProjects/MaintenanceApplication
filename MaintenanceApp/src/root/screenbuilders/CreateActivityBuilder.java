@@ -3,7 +3,7 @@ package root.screenbuilders;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import queries.ActivityQueries;
+import queries.*;
 import root.Navigable;
 import root.Screen;
 import root.screens.createactivity.ActivityController;
@@ -30,7 +30,7 @@ public class CreateActivityBuilder extends ScreenBuilder{
     @Override
     public void buildModel() {
         try {   
-            model = new ActivityModel(new ActivityQueries());
+            model = new ActivityModel(new ActivityQueries(),new MaterialQueries());
         } catch (SQLException ex) {
             Logger.getLogger(CreateActivityBuilder.class.getName()).log(Level.SEVERE, null, ex);
         }

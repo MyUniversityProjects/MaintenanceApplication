@@ -1,6 +1,8 @@
 package root.screenbuilders;
 
 import queries.ActivityQueries;
+import queries.CompetenceQueries;
+import queries.MaterialQueries;
 import root.Navigable;
 import root.Screen;
 import root.exceptions.NotFoundException;
@@ -27,8 +29,10 @@ public class VerifyActivityBuilder extends ScreenBuilder {
     @Override
     public void buildModel() {
         ActivityQueries queryTool = new ActivityQueries();
+        MaterialQueries matQueryTool = new MaterialQueries();
+        CompetenceQueries compQueryTool = new CompetenceQueries();
         try {
-            model = VerifyActivityModel.fromDatabase(id, queryTool);
+            model = VerifyActivityModel.fromDatabase(id, queryTool, matQueryTool, compQueryTool);
         } catch (QueryFailedException | NotFoundException ex) {
             model = null;
         }
