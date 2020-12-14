@@ -1,5 +1,4 @@
 import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 import org.junit.Test;
@@ -95,7 +94,7 @@ public class VerifyActivityModelTest {
         ListModelListener skillListener = new ListModelListener();
         model.getSkillFillModel().getListModel().addListDataListener(skillListener);
         
-        model.addSkillFromComboBox();
+        model.addSelectedSkill();
         assertEquals(1, skillListener.addedCount);
     }
     
@@ -106,41 +105,49 @@ public class VerifyActivityModelTest {
         
         ComboBoxModel comboBoxModel = model.getSkillFillModel().getComboModel();
         
-        model.addSkillFromComboBox();
+        model.addSelectedSkill();
         comboBoxModel.setSelectedItem(comboBoxModel.getElementAt(3));
-        model.addSkillFromComboBox();
+        model.addSelectedSkill();
         comboBoxModel.setSelectedItem(comboBoxModel.getElementAt(4));
-        model.addSkillFromComboBox();
+        model.addSelectedSkill();
         assertEquals(3, skillListener.addedCount);
     }
     
     @Test
     public void testAddOneMaterial() {
         ListModelListener materialListener = new ListModelListener();
-        model.getMaterialsModel().addListDataListener(materialListener);
+        model.getMaterialFillModel().getListModel().addListDataListener(materialListener);
         
-        model.addMaterial("material-1");
+        model.addSelectedMaterial();
         assertEquals(1, materialListener.addedCount);
     }
     
     @Test
     public void testAddThreeMaterial() {
         ListModelListener materialListener = new ListModelListener();
-        model.getMaterialsModel().addListDataListener(materialListener);
+        model.getMaterialFillModel().getListModel().addListDataListener(materialListener);
         
-        model.addMaterial("material-1");
-        model.addMaterial("material-2");
-        model.addMaterial("material-3");
+        ComboBoxModel comboBoxModel = model.getMaterialFillModel().getComboModel();
+        
+        comboBoxModel.setSelectedItem(comboBoxModel.getElementAt(0));
+        model.addSelectedMaterial();
+        comboBoxModel.setSelectedItem(comboBoxModel.getElementAt(1));
+        model.addSelectedMaterial();
+        comboBoxModel.setSelectedItem(comboBoxModel.getElementAt(2));
+        model.addSelectedMaterial();
         assertEquals(3, materialListener.addedCount);
     }
     
     @Test
     public void testRemoveOneMaterial() {
         ListModelListener materialListener = new ListModelListener();
-        model.getMaterialsModel().addListDataListener(materialListener);
+        model.getMaterialFillModel().getListModel().addListDataListener(materialListener);
         
-        model.addMaterial("material-1");
-        model.removeMaterial("material-1");
+        ComboBoxModel comboBoxModel = model.getMaterialFillModel().getComboModel();
+        comboBoxModel.setSelectedItem(comboBoxModel.getElementAt(4));
+        
+        model.addSelectedMaterial();
+        model.removeSelectedMaterial();
         
         assertEquals(1, materialListener.removedCount);
     }
@@ -148,15 +155,25 @@ public class VerifyActivityModelTest {
     @Test
     public void testRemoveThreeMaterial() {
         ListModelListener materialListener = new ListModelListener();
-        model.getMaterialsModel().addListDataListener(materialListener);
+        model.getMaterialFillModel().getListModel().addListDataListener(materialListener);
         
-        model.addMaterial("material-1");
-        model.addMaterial("material-2");
-        model.addMaterial("material-3");
+        ComboBoxModel comboBoxModel = model.getMaterialFillModel().getComboModel();
         
-        model.removeMaterial("material-1");
-        model.removeMaterial("material-2");
-        model.removeMaterial("material-3");
+        // Add materials
+        comboBoxModel.setSelectedItem(comboBoxModel.getElementAt(0));
+        model.addSelectedMaterial();
+        comboBoxModel.setSelectedItem(comboBoxModel.getElementAt(1));
+        model.addSelectedMaterial();
+        comboBoxModel.setSelectedItem(comboBoxModel.getElementAt(2));
+        model.addSelectedMaterial();
+        
+        // Remove materials
+        comboBoxModel.setSelectedItem(comboBoxModel.getElementAt(1));
+        model.removeSelectedMaterial();
+        comboBoxModel.setSelectedItem(comboBoxModel.getElementAt(0));
+        model.removeSelectedMaterial();
+        comboBoxModel.setSelectedItem(comboBoxModel.getElementAt(2));
+        model.removeSelectedMaterial();
         
         assertEquals(3, materialListener.removedCount);
     }

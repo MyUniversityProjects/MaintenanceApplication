@@ -23,6 +23,7 @@ public class VerifyActivityController {
         view.addForwardBtnListener(new ForwardBtnListener());
         view.addSmpBtnListener(new SmpBtnListener());
         view.addSkillAddBtnListener(new AddSkillBtnListener());
+        view.addSkillRemoveBtnListener(new RemoveSkillBtnListener());
         view.addMaterialAddBtnListener(new AddMaterialBtnListener());
         view.addMaterialRemoveBtnListener(new RemoveMaterialBtnListener());
         view.addBackBtnListener(new BackBtnListener());
@@ -79,37 +80,37 @@ public class VerifyActivityController {
          */
         @Override
         public void actionPerformed(ActionEvent event) {
-            model.addSkillFromComboBox();            
+            model.addSelectedSkill();            
+        }
+    }
+    
+    private class RemoveSkillBtnListener implements ActionListener {
+        /**
+         * Remove the selected skill from the skill UI list
+         */
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            model.removeSelectedSkill();            
         }
     }
     
     private class AddMaterialBtnListener implements ActionListener {
         /**
-         * Add the typed material to the material UI list
+         * Add the selected material to the material UI list
          */
         @Override
         public void actionPerformed(ActionEvent event) {
-            String name = view.popMaterialInputValue();
-            if (name.length() == 0) {
-                view.showErrorMsg("Input error", "Material name can't be empty");
-            } else {
-                model.addMaterial(name);
-            }
+            model.addSelectedMaterial();
         }
     }
     
     private class RemoveMaterialBtnListener implements ActionListener {
         /**
-         * Remove the typed material to the material UI list
+         * Remove the selected material from the material UI list
          */
         @Override
         public void actionPerformed(ActionEvent event) {
-            String name = view.popMaterialInputValue();
-            if (name.length() == 0) {
-                view.showErrorMsg("Input error", "Material name can't be empty");
-            } else {
-                model.removeMaterial(name);
-            }
+            model.removeSelectedMaterial();
         }
     }
     

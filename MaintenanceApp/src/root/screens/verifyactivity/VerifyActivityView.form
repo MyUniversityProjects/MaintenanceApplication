@@ -29,11 +29,17 @@
                               <Component id="homeBtn" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               <Component id="idValueLabel" min="-2" pref="206" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                               <Component id="jScrollPane2" min="-2" pref="215" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="typologyValueLabel" alignment="0" min="-2" pref="206" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="typologyValueLabel" min="-2" pref="206" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                              <Component id="smpContainer" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                   </Group>
@@ -79,7 +85,6 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jScrollPane4" alignment="0" min="-2" pref="206" max="-2" attributes="0"/>
                                   <Component id="descLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="smpContainer" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="ewoLeftContainer" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -169,9 +174,9 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="materialContainer" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
               <Component id="forwardBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="67" max="32767" attributes="0"/>
+              <EmptySpace pref="53" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -623,38 +628,36 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <Component id="skillsSelect" min="-2" pref="158" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="addSkillBtn" min="-2" max="-2" attributes="0"/>
-              </Group>
               <Component id="interruptLabel" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="skillsSelect" min="-2" pref="207" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="addSkillBtn" min="-2" pref="101" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="removeSkillBtn" min="-2" pref="101" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace min="0" pref="32" max="32767" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
+                  <Component id="skillsSelect" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="9" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="skillsSelect" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="addSkillBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="removeSkillBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="interruptLabel" min="-2" max="-2" attributes="0"/>
+                  <Component id="interruptLabel" min="-2" pref="15" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JComboBox" name="skillsSelect">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="model.getSkillFillModel().getComboModel()" type="code"/>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
-        </Component>
         <Component class="javax.swing.JButton" name="addSkillBtn">
           <Properties>
             <Property name="text" type="java.lang.String" value="add"/>
@@ -667,6 +670,21 @@
             </Property>
             <Property name="text" type="java.lang.String" value="0"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="removeSkillBtn">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="remove"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="skillsSelect">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="model.getSkillFillModel().getComboModel()" type="code"/>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
@@ -684,7 +702,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="remMaterialBtn" pref="97" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="materialInput" max="32767" attributes="0"/>
+                      <Component id="materialComboBox" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -697,8 +715,8 @@
                   <Component id="jScrollPane3" min="-2" max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                  <Component id="materialInput" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                  <Component id="materialComboBox" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="remMaterialBtn" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -741,7 +759,7 @@
                   <Font name="Tahoma" size="12" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="model.getMaterialsModel()" type="code"/>
+                  <Connection code="model.getMaterialFillModel().getListModel()" type="code"/>
                 </Property>
                 <Property name="selectionMode" type="int" value="0"/>
               </Properties>
@@ -751,13 +769,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JTextField" name="materialInput">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="12" style="0"/>
-            </Property>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JButton" name="remMaterialBtn">
           <Properties>
             <Property name="text" type="java.lang.String" value="remove"/>
@@ -767,6 +778,16 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="add"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="materialComboBox">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="model.getMaterialFillModel().getComboModel()" type="code"/>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

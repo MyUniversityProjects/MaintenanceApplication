@@ -1,16 +1,27 @@
-package root.screens.verifyactivity;
+package ui;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ListModel;
 
+/**
+ * Rappresents the model of a fill operation with a selection.
+ * To do this, there is a listModel to save the elements selected and a combo
+ * box model used to select the element to add in the list.
+ * It is not possibile to add duplicate elements
+ */
 public class ListFillModel {
     private static final String PREFIX = "\t• ";
     
     private final DefaultListModel<String> listModel = new DefaultListModel<>();
     private final DefaultComboBoxModel<String> comboModel = new DefaultComboBoxModel<>();
-
+    
+    /**
+     * Create an instance of ListFillModel and fill the list and combo model
+     * @param listItems items to add to the list
+     * @param comboItems items to add to the combo box
+     */
     public ListFillModel(String[] listItems, String[] comboItems) {
         for (String listItem: listItems)
             listModel.addElement(PREFIX + listItem);
@@ -27,7 +38,7 @@ public class ListFillModel {
     }
     
     /**
-     * Extract and return all the elements in the list model
+     * Return all the elements in the list model
      * @return an array of elements
      */
     public String[] getElements() {

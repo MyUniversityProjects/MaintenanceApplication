@@ -1,6 +1,6 @@
 package root.screens.verifyactivity;
 
-import javax.swing.DefaultListModel;
+import ui.ListFillModel;
 import queries.ActivityQueries;
 import root.entities.Activity;
 import root.exceptions.NotFoundException;
@@ -8,10 +8,9 @@ import root.exceptions.QueryFailedException;
 
 
 public class VerifyActivityModel extends Activity {
-    private static final String PREFIX = "\t• ";
     private final ActivityQueries queryTool;
-    private final DefaultListModel<String> materialsModel = new DefaultListModel<>();
     private final ListFillModel skillFillModel;
+    private final ListFillModel materialFillModel;
     
     public VerifyActivityModel(Activity activity, ActivityQueries queryTool) {
         super(
@@ -32,38 +31,50 @@ public class VerifyActivityModel extends Activity {
                 new String[] {"B1", "C1"},
                 new String[] {"A1", "B1", "C1", "D1", "E1", "F5"}
         );
+        materialFillModel = new ListFillModel(
+                new String[] {},
+                new String[] {"Material-1", "Material-2", "Material-3", "Material-4", "Material-5", "Material-6"}
+        );
     }
     
     public ListFillModel getSkillFillModel() {
         return skillFillModel;
     }
-
-    public DefaultListModel<String> getMaterialsModel() {
-        return materialsModel;
+    
+    public ListFillModel getMaterialFillModel() {
+        return materialFillModel;
     }
     
     /**
      * Add selcted skill to the skill list model; Nothing happens if there
-     * are no skill selected.
+     * are no skill selected or the skill is already on the list.
      */
-    public void addSkillFromComboBox() {
+    public void addSelectedSkill() {
         skillFillModel.addSelected();
     }
     
     /**
-     * Add material name to the UI list model for the materials
-     * @param name the name of the material; must not be null
+     * Remove selcted skill from the skill list model; Nothing happens if 
+     * there are no skill selected or the skill is not on the list.
      */
-    public void addMaterial(String name) {
-        materialsModel.addElement(PREFIX + name);
+    public void removeSelectedSkill() {
+        skillFillModel.removeSelected();
     }
     
     /**
-     * Remove material name to the UI list model for the materials
-     * @param name the name of the material; must not be null
+     * Add selcted material to the material list model; Nothing happens if there
+     * are no material selected or the material is already on the list.
      */
-    public void removeMaterial(String name) {
-        materialsModel.removeElement(PREFIX + name);
+    public void addSelectedMaterial() {
+        materialFillModel.addSelected();
+    }
+    
+    /**
+     * Remove selcted material from the material list model; Nothing happens if 
+     * there are no material selected or the material is not on the list.
+     */
+    public void removeSelectedMaterial() {
+        materialFillModel.removeSelected();
     }
     
     /**

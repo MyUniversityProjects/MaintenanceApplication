@@ -94,15 +94,16 @@ public class VerifyActivityView extends Screen {
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 190), new java.awt.Dimension(0, 190), new java.awt.Dimension(32767, 190));
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 190), new java.awt.Dimension(0, 190), new java.awt.Dimension(32767, 190));
         ewoLeftContainer = new javax.swing.JPanel();
-        skillsSelect = new javax.swing.JComboBox<>();
         addSkillBtn = new javax.swing.JButton();
         interruptLabel = new javax.swing.JLabel();
+        removeSkillBtn = new javax.swing.JButton();
+        skillsSelect = new javax.swing.JComboBox<>();
         materialContainer = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         materialList = new javax.swing.JList<>();
-        materialInput = new javax.swing.JTextField();
         remMaterialBtn = new javax.swing.JButton();
         addMaterialBtn = new javax.swing.JButton();
+        materialComboBox = new javax.swing.JComboBox<>();
 
         backBtn.setText("back");
 
@@ -234,46 +235,54 @@ public class VerifyActivityView extends Screen {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        skillsSelect.setModel(model.getSkillFillModel().getComboModel());
-
         addSkillBtn.setText("add");
 
         interruptLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         interruptLabel.setText("0");
 
+        removeSkillBtn.setText("remove");
+
+        skillsSelect.setModel(model.getSkillFillModel().getComboModel());
+
         javax.swing.GroupLayout ewoLeftContainerLayout = new javax.swing.GroupLayout(ewoLeftContainer);
         ewoLeftContainer.setLayout(ewoLeftContainerLayout);
         ewoLeftContainerLayout.setHorizontalGroup(
             ewoLeftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ewoLeftContainerLayout.createSequentialGroup()
-                .addComponent(skillsSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(addSkillBtn))
             .addComponent(interruptLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(ewoLeftContainerLayout.createSequentialGroup()
+                .addGroup(ewoLeftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(skillsSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(ewoLeftContainerLayout.createSequentialGroup()
+                        .addComponent(addSkillBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(removeSkillBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 32, Short.MAX_VALUE))
         );
         ewoLeftContainerLayout.setVerticalGroup(
             ewoLeftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ewoLeftContainerLayout.createSequentialGroup()
+                .addComponent(skillsSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(ewoLeftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(skillsSelect, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addSkillBtn))
+                    .addComponent(addSkillBtn)
+                    .addComponent(removeSkillBtn))
                 .addGap(18, 18, 18)
-                .addComponent(interruptLabel))
+                .addComponent(interruptLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jScrollPane3.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true), "Materials needed", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(102, 102, 102))); // NOI18N
 
         materialList.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.background"));
         materialList.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        materialList.setModel(model.getMaterialsModel());
+        materialList.setModel(model.getMaterialFillModel().getListModel());
         materialList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane3.setViewportView(materialList);
-
-        materialInput.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         remMaterialBtn.setText("remove");
 
         addMaterialBtn.setText("add");
+
+        materialComboBox.setModel(model.getMaterialFillModel().getComboModel());
 
         javax.swing.GroupLayout materialContainerLayout = new javax.swing.GroupLayout(materialContainer);
         materialContainer.setLayout(materialContainerLayout);
@@ -287,7 +296,7 @@ public class VerifyActivityView extends Screen {
                         .addComponent(addMaterialBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(remMaterialBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE))
-                    .addComponent(materialInput))
+                    .addComponent(materialComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         materialContainerLayout.setVerticalGroup(
@@ -296,8 +305,8 @@ public class VerifyActivityView extends Screen {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(materialContainerLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(materialInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(materialComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(materialContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(remMaterialBtn)
@@ -321,10 +330,15 @@ public class VerifyActivityView extends Screen {
                                 .addGap(115, 115, 115)
                                 .addComponent(homeBtn))
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(idValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(34, 34, 34)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(typologyValueLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(typologyValueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(36, 36, 36)
+                                .addComponent(smpContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(24, 24, 24))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -360,7 +374,6 @@ public class VerifyActivityView extends Screen {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(descLabel)
-                                    .addComponent(smpContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(ewoLeftContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(materialContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -429,9 +442,9 @@ public class VerifyActivityView extends Screen {
                     .addComponent(filler3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(materialContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(39, 39, 39)
                 .addComponent(forwardBtn)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     
@@ -455,30 +468,16 @@ public class VerifyActivityView extends Screen {
         addSkillBtn.addActionListener(al);
     }
     
+    public void addSkillRemoveBtnListener(ActionListener al) {
+        removeSkillBtn.addActionListener(al);
+    }
+    
     public void addMaterialAddBtnListener(ActionListener al) {
         addMaterialBtn.addActionListener(al);
     }
     
     public void addMaterialRemoveBtnListener(ActionListener al) {
         remMaterialBtn.addActionListener(al);
-    }
-    
-    /**
-     * Clear the material name text input and returns the deleted value
-     * @return user input
-     */
-    public String popMaterialInputValue() {
-        String val = materialInput.getText().trim();
-        materialInput.setText("");
-        return val;
-    }
-    
-    /**
-     * Return the selected skill in the compo box
-     * @return name of the selected skill
-     */
-    public String getSelectedSkill() {
-        return (String)skillsSelect.getSelectedItem();
     }
     
     /**
@@ -525,11 +524,12 @@ public class VerifyActivityView extends Screen {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JComboBox<String> materialComboBox;
     private javax.swing.JPanel materialContainer;
-    private javax.swing.JTextField materialInput;
     private javax.swing.JList<String> materialList;
     private javax.swing.JTextArea noteTextArea;
     private javax.swing.JButton remMaterialBtn;
+    private javax.swing.JButton removeSkillBtn;
     private javax.swing.JList<String> skillList;
     private javax.swing.JComboBox<String> skillsSelect;
     protected final javax.swing.JButton smpBtn = new javax.swing.JButton();

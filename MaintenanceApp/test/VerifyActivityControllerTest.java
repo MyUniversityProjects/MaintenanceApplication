@@ -22,6 +22,7 @@ public class VerifyActivityControllerTest {
         JButton addMaterial = new JButton();
         JButton addSkill = new JButton();
         JButton removeMaterial = new JButton();
+        JButton removeSkill = new JButton();
         // counters of register calls
         int forwardListenerCount = 0;
         int smpListenerCount = 0;
@@ -30,6 +31,7 @@ public class VerifyActivityControllerTest {
         int addMaterialListenerCount = 0;
         int addSkillListenerCount = 0;
         int removeMaterialListenerCount = 0;
+        int removeSkillListenerCount = 0;
         
         public ViewStub(Navigable nav, ModelStub model) {
             super(nav, model);
@@ -78,21 +80,15 @@ public class VerifyActivityControllerTest {
         }
         
         @Override
+        public void addSkillRemoveBtnListener(ActionListener al) {
+            removeSkill.addActionListener(al);
+            removeSkillListenerCount++;
+        }
+        
+        @Override
         public String getTimeValue() {
             return timeValue;
         }
-        
-        @Override
-        public String popMaterialInputValue() {
-            return "material";
-        }
-
-        @Override
-        public String getSelectedSkill() {
-            return "skill";
-        }
-
-        
     }
     
     private class ModelStub extends VerifyActivityModel {
@@ -100,24 +96,30 @@ public class VerifyActivityControllerTest {
         int removeMaterialCallCount = 0;
         int addMaterialCallCount = 0;
         int addSkillCallCount = 0;
+        int removeSkillCallCount = 0;
 
         public ModelStub() {
             super(new ActivityQueriesStub().fetch(1), new ActivityQueriesStub());
         }
         
         @Override
-        public void removeMaterial(String name) {
+        public void removeSelectedMaterial() {
             removeMaterialCallCount++;
         }
 
         @Override
-        public void addMaterial(String name) {
+        public void addSelectedMaterial() {
             addMaterialCallCount++;
         }
         
         @Override
-        public void addSkillFromComboBox() {
+        public void addSelectedSkill() {
             addSkillCallCount++;
+        }
+        
+        @Override
+        public void removeSelectedSkill() {
+            removeSkillCallCount++;
         }
 
         @Override
@@ -148,6 +150,7 @@ public class VerifyActivityControllerTest {
         assertEquals(1, view.addSkillListenerCount);
         assertEquals(1, view.addMaterialListenerCount);
         assertEquals(1, view.removeMaterialListenerCount);
+        assertEquals(1, view.removeSkillListenerCount);
     }
     
     @Test
@@ -184,6 +187,12 @@ public class VerifyActivityControllerTest {
     public void testAddSkillListenerAction() {
         view.addSkill.doClick();
         assertEquals(1, model.addSkillCallCount);
+    }
+    
+    @Test
+    public void testRemoveSkillListenerAction() {
+        view.removeSkill.doClick();
+        assertEquals(1, model.removeSkillCallCount);
     }
     
     @Test
