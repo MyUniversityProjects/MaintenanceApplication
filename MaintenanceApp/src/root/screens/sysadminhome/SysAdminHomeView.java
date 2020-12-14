@@ -3,6 +3,7 @@ package root.screens.sysadminhome;
 
 import root.Navigable;
 import root.Screen;
+import root.screenbuilders.ManageUsersBuilder;
 
 public class SysAdminHomeView extends Screen {
 
@@ -136,7 +137,7 @@ public class SysAdminHomeView extends Screen {
     }// </editor-fold>//GEN-END:initComponents
 
     private void manageUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageUserBtnActionPerformed
-        // TODO add your handling code here:
+        super.getNav().push(new ManageUsersBuilder());
     }//GEN-LAST:event_manageUserBtnActionPerformed
 
 

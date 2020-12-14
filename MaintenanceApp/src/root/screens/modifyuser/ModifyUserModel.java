@@ -30,9 +30,9 @@ public class ModifyUserModel extends User{
                 return null;
             }
             return new ModifyUserModel(user.getName(), user.getSurname(),
-                    user.getCf(), user.getEmail(), user.getAddress(),
-                    user.getUsername(), user.getPassword(), 
-                    user.getRole(), query);   
+                user.getCf(), user.getEmail(), user.getAddress(),
+                user.getUsername(), user.getPassword(), 
+                user.getRole(), query);   
         } catch(Exception e){
             return null;
         } 

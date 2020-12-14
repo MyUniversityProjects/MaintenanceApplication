@@ -1,5 +1,7 @@
 package stubs;
 
+import java.util.LinkedList;
+import java.util.List;
 import queries.ActivityQueries;
 import root.entities.Activity;
 import root.entities.Activity.ActivityType;
@@ -12,6 +14,10 @@ public class ActivityQueriesStub extends ActivityQueries {
     private int forwardScheduledCounter = 0;
     private int fetchCounter = 0;
     private int fetchCompleteCounter = 0;
+    private int createCounter = 0;
+    private int fetchAllCounter = 0;
+    private int deleteCounter = 0;
+    private int typologiesCounter = 0;
 
     public int getForwardEwoCounter() {
         return forwardEwoCounter;
@@ -49,5 +55,29 @@ public class ActivityQueriesStub extends ActivityQueries {
     public Activity fetchComplete(int id) {
         fetchCompleteCounter++;
         return new Activity(1, "area", "office", "typology", "description", 10, true, 1, "notes", ActivityType.PLANNED, MATERIALS, COMPETENCES);
+    }
+    
+    @Override
+    public boolean create(Activity activity){
+        createCounter++;
+        return true;
+    }
+    
+    @Override
+    public List<Activity> fetchAll(){
+        fetchAllCounter++;
+        return new LinkedList<>();
+    }
+    
+    @Override
+    public boolean delete(int id){
+        deleteCounter++;
+        return true;
+    }
+    
+    @Override
+    public List<String> getTypologies(){
+        typologiesCounter++;
+        return new LinkedList<>();
     }
 }

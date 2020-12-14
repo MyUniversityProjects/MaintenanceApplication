@@ -6,10 +6,14 @@ import root.Navigable;
 import root.Screen;
 
 public class ActivityView extends Screen {
+    
+    private final ActivityModel model;
 
-    public ActivityView(Navigable nav) {
+    public ActivityView(Navigable nav, ActivityModel model) {
         super(nav);
         initComponents();
+        this.model = model;
+        typologyInput.setModel(model.getTypologyInputModel());
     }
 
     @SuppressWarnings("unchecked")
@@ -32,7 +36,6 @@ public class ActivityView extends Screen {
         areaLabel = new javax.swing.JLabel();
         areaInput = new javax.swing.JTextField();
         typologyLabel = new javax.swing.JLabel();
-        typologyInput = new javax.swing.JTextField();
         estimatedTimeLabel = new javax.swing.JLabel();
         estimatedTimeInput = new javax.swing.JTextField();
         weekLabel = new javax.swing.JLabel();
@@ -52,6 +55,7 @@ public class ActivityView extends Screen {
         notesInput = new javax.swing.JTextArea();
         notesLabel = new javax.swing.JLabel();
         createBtn = new javax.swing.JButton();
+        typologyInput = new javax.swing.JComboBox<>();
 
         jTextArea3.setColumns(20);
         jTextArea3.setRows(1);
@@ -149,49 +153,44 @@ public class ActivityView extends Screen {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(weekLabel)
+                            .addComponent(weekInput, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(mandatoryLabel)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(areaLabel)
-                                            .addComponent(typologyLabel)
-                                            .addComponent(estimatedTimeLabel)
-                                            .addComponent(BranchOfficeLabel)
-                                            .addComponent(idLabel))
-                                        .addGap(81, 81, 81))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(estimatedTimeInput, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(typologyInput, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(areaInput, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(branchOfficeInput, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(idInput, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(materialsLabel)
-                                    .addComponent(notesLabel)
-                                    .addComponent(descriptionLabel)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(notesScrollInput1, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(notesScrollInput, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(descriptionScrollInput, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(interruptibleYesInput)
+                                .addGap(18, 18, 18)
+                                .addComponent(interruptibleNoInput))
+                            .addComponent(interruptibleLabel)
+                            .addComponent(typeLabel)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(weekLabel)
-                                    .addComponent(weekInput, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(mandatoryLabel)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(interruptibleYesInput)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(interruptibleNoInput))
-                                    .addComponent(interruptibleLabel)
-                                    .addComponent(typeLabel)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(typeInputScheduled)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(typeUnscheduledInput)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(typeExtraWorkInput)))
-                                .addGap(351, 351, 351))))
+                                .addComponent(typeInputScheduled)
+                                .addGap(18, 18, 18)
+                                .addComponent(typeUnscheduledInput)
+                                .addGap(18, 18, 18)
+                                .addComponent(typeExtraWorkInput))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(typologyInput, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(idInput, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(areaLabel)
+                                        .addComponent(typologyLabel)
+                                        .addComponent(estimatedTimeLabel)
+                                        .addComponent(BranchOfficeLabel)
+                                        .addComponent(idLabel))
+                                    .addGap(81, 81, 81))
+                                .addComponent(estimatedTimeInput, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(areaInput, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(branchOfficeInput, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(materialsLabel)
+                            .addComponent(notesLabel)
+                            .addComponent(descriptionLabel)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(notesScrollInput1, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(notesScrollInput, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(descriptionScrollInput, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(backBtn)
                         .addGap(221, 221, 221)
@@ -228,7 +227,7 @@ public class ActivityView extends Screen {
                         .addComponent(typologyLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(typologyInput, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(13, 13, 13)
                         .addComponent(estimatedTimeLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(estimatedTimeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -303,7 +302,7 @@ public class ActivityView extends Screen {
     private javax.swing.JRadioButton typeInputScheduled;
     private javax.swing.JLabel typeLabel;
     private javax.swing.JRadioButton typeUnscheduledInput;
-    private javax.swing.JTextField typologyInput;
+    private javax.swing.JComboBox<String> typologyInput;
     private javax.swing.JLabel typologyLabel;
     private javax.swing.JTextField weekInput;
     private javax.swing.JLabel weekLabel;
@@ -339,7 +338,7 @@ public class ActivityView extends Screen {
     }
     
     public String getTypology(){
-        return typologyInput.getText();
+        return null;
     }
     
     public String getWeek(){
@@ -377,5 +376,9 @@ public class ActivityView extends Screen {
     
     public void setEnableWeek(boolean enabled){
         weekInput.setEnabled(enabled);
+    }
+    
+    public void addTypologyInputListener(ActionListener al){
+        typologyInput.addActionListener(al);
     }
 }

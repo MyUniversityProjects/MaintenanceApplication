@@ -14,7 +14,7 @@ import root.Navigator;
 import root.Screen;
 import root.entities.Activity;
 import root.screenbuilders.ScreenBuilder;
-import root.screens.assignactivity.AssignActivityController;
+import root.screens.assignactivity.AssignActivityControllerMokeUp2;
 import root.screens.assignactivity.AssignActivityModel;
 import root.screens.assignactivity.AssignActivityView;
 import queries.ActivityQueries;
@@ -51,9 +51,9 @@ public class AssignActivityTest {
         }              
     }
     
-    private class AssignActivityControllerStub extends AssignActivityController {
-        public AssignActivityControllerStub(AssignActivityView view, AssignActivityModel model, int activityID) throws SQLException {
-            super(view, model, activityID);
+    private class AssignActivityControllerStub extends AssignActivityControllerMokeUp2 {
+        public AssignActivityControllerStub(AssignActivityView view, AssignActivityModel model, int activityID, String cf) throws SQLException {
+            super(view, model, activityID, 7, cf);
         }
     }
 
@@ -104,9 +104,9 @@ public class AssignActivityTest {
                 new AssignActivityBuilderStub()));
         model = new AssignActivityModelStub();
         
-        controller1 =  new AssignActivityControllerStub(view, model, 9999991);
-        controller2 = new AssignActivityControllerStub(view, model, 9999994);
-        controller3 = new AssignActivityControllerStub(view, model, 9999993);
+        controller1 =  new AssignActivityControllerStub(view, model, 9999991, "TTTTTT11T11T111T");
+        controller2 = new AssignActivityControllerStub(view, model, 9999994, "TTTTTT22T22T222T");
+        controller3 = new AssignActivityControllerStub(view, model, 9999993, "TTTTTT11T11T111T");
         
     }
     
