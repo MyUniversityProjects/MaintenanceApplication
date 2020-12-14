@@ -191,8 +191,8 @@ public class AssignActivityModel {
                 field.add(rst.getString("name"));
                 field.add(rst.getString("cf"));
                 field.add(rst.getString("surname"));
-                maintainers.add(field);
-                
+               
+                System.out.println(maintainers);
                 i++;
                 
             }

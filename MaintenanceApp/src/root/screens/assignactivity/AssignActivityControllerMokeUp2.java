@@ -24,7 +24,7 @@ public class AssignActivityControllerMokeUp2 extends AssignActivityController{
         this.cf = cf;
         setTable();
         setArea();
-        //view.getLabelNumberOfWeek().setText(week+" "+tableModel.getColumnClass(day+1));
+        view.getLabelNumberOfWeek().setText(week);
           
     }
     
@@ -32,7 +32,7 @@ public class AssignActivityControllerMokeUp2 extends AssignActivityController{
     protected void setTable() throws SQLException{
         String[] cols = {"Maintainer","Skills","8-00 - 9.00","9.00 - 10.00","10.00 - 11.00", "11.00-12-00","14.00 - 15.00","15.00 - 16.00","16-00 - 17.00"};
         tableModel.setColumnIdentifiers(cols);
-        writeRowAvaibilityDayMaintainer(cf);
+        writeRowAvaibilityDayMaintainer(cf, 0);
     }
     
     @Override
@@ -67,20 +67,20 @@ public class AssignActivityControllerMokeUp2 extends AssignActivityController{
         view.getNav().pop();
     }
     
-    protected void writeRowAvaibilityDayMaintainer(String code) throws SQLException {
+    protected void writeRowAvaibilityDayMaintainer(String code, int index) throws SQLException {
         int[] avaibility = model.getDayAvaibility(code, week, day);
         System.out.println(avaibility);
         String nameMaintainer = model.getNameMaintainer(code);
         tableModel.setValueAt(nameMaintainer, 0, 0);
         for(int i=0; i<nCols-2; i++)
-            tableModel.setValueAt(avaibility[i], 0, i+2);
+            tableModel.setValueAt(avaibility[i], index , i+2);
     }
     
     public Integer assignActivity(int col, int activityID, String cf, String week, int day) throws SQLException {
         int index = col-2;
         int[] avaibility = model.getDayAvaibility(cf, week, day);
         int timeActivity = model.getEstimatedTimeActivity(activityID);
-        if(avaibility[index] == 0) {
+        if((index < 0) || (avaibility[index] == 0)) {
             return -1; //"ERRORE: Devi selezionare una cella con dei minuti disponibili"
         }
         

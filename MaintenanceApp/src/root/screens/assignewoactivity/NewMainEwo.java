@@ -32,7 +32,7 @@ public class NewMainEwo {
         }
         
         EventQueue.invokeLater(() -> {
-            ScreenBuilder b = new AssignEwoActivityBuilder(2222, 1);
+            ScreenBuilder b = new AssignEwoActivityBuilder(2222, 2);
             new Navigator("Smart Maintenance App", b).setVisible(true);
         });
         

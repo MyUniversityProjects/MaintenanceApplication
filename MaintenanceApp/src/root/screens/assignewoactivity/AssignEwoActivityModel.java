@@ -20,7 +20,7 @@ public class AssignEwoActivityModel extends AssignActivityModel{
     
     @Override
     protected String getStringQueryDayAvaibility(String cf, String week, int day) {
-        String query = super.getStringQueryDayAvaibility(cf, week, day) + " AND (interruptible = true)";
+        String query = super.getStringQueryDayAvaibility(cf, week, day) + " AND (interruptible = false) ";
         return query;     
     }
     

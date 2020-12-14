@@ -20,20 +20,20 @@ public class AssignEwoActivityController extends AssignActivityControllerMokeUp2
     
     public AssignEwoActivityController(AssignActivityView view, AssignEwoActivityModel model, int activityID, int day, String cf) throws SQLException {
         super(view, model, activityID, day, cf);
-        System.out.println("CIAO 1");
+        
     }
     
     @Override
     protected void setTable() throws SQLException {
         
-        
+        super.setTable();
         maintainers = model.getMaintainers();
-        System.out.println("CIAO 2");
-        tableModel.setNumRows(maintainers[0].length);
+        
+        tableModel.setNumRows(maintainers[1].length);
         
         for(int j=0; j<maintainers[1].length;j++) {   
             tableModel.setValueAt(maintainers[0][j] + " " + maintainers[2][j], j, 0);
-            writeRowAvaibilityDayMaintainer(maintainers[1][j]);
+            writeRowAvaibilityDayMaintainer(maintainers[1][j], j);
         }
         
     }

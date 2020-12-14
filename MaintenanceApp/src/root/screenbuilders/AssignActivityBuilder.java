@@ -50,7 +50,6 @@ public class AssignActivityBuilder extends ScreenBuilder{
     @Override
     public void buildModel() {
         try {
-            System.out.println("Create Model");
             model = new AssignActivityModel();
         } catch (SQLException ex) {
             Logger.getLogger(AssignActivityBuilder.class.getName()).log(Level.SEVERE, null, ex);
