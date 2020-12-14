@@ -1,5 +1,8 @@
 package root.screenbuilders;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import queries.ActivityQueries;
 import root.Navigable;
 import root.Screen;
@@ -16,7 +19,7 @@ public class CreateActivityBuilder extends ScreenBuilder{
 
     @Override
     public void buildView(Navigable nav) {
-        view = new ActivityView(nav);   
+        view = new ActivityView(nav,model);   
     }
     
     @Override
@@ -26,7 +29,11 @@ public class CreateActivityBuilder extends ScreenBuilder{
     
     @Override
     public void buildModel() {
-        model = new ActivityModel(new ActivityQueries());   
+        try {   
+            model = new ActivityModel(new ActivityQueries());
+        } catch (SQLException ex) {
+            Logger.getLogger(CreateActivityBuilder.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override

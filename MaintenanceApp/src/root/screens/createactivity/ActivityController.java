@@ -1,6 +1,8 @@
 package root.screens.createactivity;
 
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import root.entities.Activity;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -17,7 +19,8 @@ public class ActivityController {
     public ActivityController(ActivityModel model, ActivityView view) {
         this.model = model;
         this.view = view;
-
+        view.addMaterialAddBtnListener(new AddMaterialBtnListener());
+        view.addMaterialRemoveBtnListener(new RemoveMaterialBtnListener());
         view.addCreateButtonListener((e) -> {
             Map<String, String> inputMap = getInputs();
             if (createCheckout(inputMap)) {
@@ -25,6 +28,9 @@ public class ActivityController {
                 if (!model.create()){ 
                     view.showErrorMsg("Id error", "The id is already present");
                 } else {
+                    if(!model.assignMaterialsToActivity(model.getId())){
+                        view.showErrorMsg("Materials error", "The materials cannot be assigned to the activity");
+                    }
                     view.showMsg("Success", "Activity entered successfully");
                     if(model.getType().equals(ActivityModel.ActivityType.UNPLANNED)
                         || model.getType().equals(ActivityModel.ActivityType.EXTRA)){
@@ -44,6 +50,8 @@ public class ActivityController {
             boolean enabled = type.equals("UNPLANNED") || type.equals("EXTRA");
             view.setEnableWeek(!enabled);
         });
+        
+        
     }
     
     public void fillModel(){
@@ -169,6 +177,26 @@ public class ActivityController {
             return Integer.parseInt(str) > 0;
         } catch (NumberFormatException e) {
             return false;
+        }
+    }
+
+    private class RemoveMaterialBtnListener implements ActionListener {
+        /**
+         * Remove the selected skill from the skill UI list
+         */
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            model.removeSelectedMaterial();            
+        }
+    }
+    
+    private class AddMaterialBtnListener implements ActionListener {
+        /**
+         * Add the selected material to the material UI list
+         */
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            model.addSelectedMaterial();
         }
     }
 

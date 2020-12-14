@@ -234,4 +234,52 @@ public class ActivityQueries {
             return null;
         }
     }
+    /**
+     * get an array withe the materials saved in the database
+     * 
+     * @return un array of string
+     * @throws SQLException 
+     */
+    public String[] getMaterials() throws SQLException{
+        try {
+            String[] materials = null;    
+            Connection conn = Database.getConnection();
+            Statement stmQuery = conn.createStatement();
+            String queryMaterials = "SELECT name FROM material ";           
+            String queryCount = "select count(*) as num FROM material";
+            ResultSet rst = stmQuery.executeQuery(queryCount);
+            rst.next();
+            int numMaterials = rst.getInt("num");
+            materials = new String[numMaterials];           
+            rst = stmQuery.executeQuery(queryMaterials);
+            int count = 0;
+            while (rst.next()) {
+                materials[count] = rst.getString("name");
+                count++;
+            }
+            return materials;
+        } catch (SQLException ex) {
+            return null;
+        }               
+    }
+    
+    public boolean assignMaterialsToActivity(String[] materials, int id){
+        String query = "INSERT INTO activitymaterials "+
+            "(activity,material) VALUES "+
+            "(?, ?)";
+        
+        try(Connection conn = Database.getConnection()){
+            PreparedStatement stmt = conn.prepareStatement(query);
+            for(int i = 0; i<materials.length; i++){
+                stmt.setInt(1,id);
+                stmt.setString(2, materials[i]);
+                if(stmt.executeUpdate() == 0){
+                    return false;
+                }
+            }
+        } catch(SQLException ex){
+            return false;
+        }
+        return true;
+    }
 }
