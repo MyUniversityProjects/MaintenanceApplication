@@ -1,10 +1,11 @@
 package root.screens.manageactivity;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
-import javax.swing.table.DefaultTableModel;
-import root.entities.Activity;
 import root.screenbuilders.CreateActivityBuilder;
 import root.screenbuilders.ModifySelectedActivityBuilder;
+import ui.ButtonColumnActionListener;
 
 
 public class ManageActivityController {
@@ -16,11 +17,32 @@ public class ManageActivityController {
         this.view = view;
         this.model = model;
              
-        view.addBackButtonListener((e)-> view.getNav().pop());
-        
         // call the function that delete from the database the activiy and
         // delete the row in the table
-        view.setDeleteActivityButtonListener((rowIndex) -> {
+        view.setDeleteActivityButtonListener(new DeleteBtnListener());
+        view.setEditActivityButtonListener((new EditBtnListener()));
+        view.addBackButtonListener(new BackBtnListener());
+        view.addPlanActivityButtonListener(new PlanBtnListener());
+    }
+    
+      
+    private class BackBtnListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            view.getNav().pop();
+        }
+    }
+    
+    private class PlanBtnListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            view.getNav().push(new CreateActivityBuilder());
+        }
+    }
+    
+    private class DeleteBtnListener implements ButtonColumnActionListener {
+        @Override
+        public void actionPerformed(int rowIndex) {
             javax.swing.JTable tb = view.getActivitiesTable();
             String id = (String) tb.getValueAt(rowIndex, 0);
             if (model.delete(Integer.parseInt(id))){
@@ -29,17 +51,16 @@ public class ManageActivityController {
             } else {
                 view.showErrorMsg("Error", "Error while deleting");
             }
-        });
-        
-        view.setEditActivityButtonListener((int rowIndex) -> {
+        }
+    }
+    
+    private class EditBtnListener implements ButtonColumnActionListener {
+        @Override
+        public void actionPerformed(int rowIndex) {
             javax.swing.JTable tb = view.getActivitiesTable();
             String id = (String) tb.getValueAt(rowIndex, 0);
             view.getNav().push(new ModifySelectedActivityBuilder(Integer.parseInt(id)));
-        });
-        
-        view.addPlanActivityButtonListener((e) -> {
-            view.getNav().push(new CreateActivityBuilder());
-        });
+        }
     }
     
     

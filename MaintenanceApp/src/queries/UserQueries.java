@@ -65,6 +65,11 @@ public class UserQueries {
         
         try (Connection conn = Database.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement(query);
+            String role = user.convertRoleInChar(user.getRole());
+            if (role == null){
+                return false;
+            }
+            
             stmt.setString(1, user.getCf());
             stmt.setString(2, user.getName());
             stmt.setString(3, user.getSurname());
@@ -72,7 +77,7 @@ public class UserQueries {
             stmt.setString(5, user.getEmail());
             stmt.setString(6, user.getUsername());
             stmt.setString(7, user.getPassword());
-            stmt.setString(8, user.getRole().toString());
+            stmt.setString(8, role);
             stmt.setString(9, user.getInitCf());
 
             int ris = stmt.executeUpdate();
@@ -84,7 +89,7 @@ public class UserQueries {
             conn.close();
             return true;
         } catch (SQLException ex) {
-            System.out.println(ex.getCause());
+            System.out.println(ex.getMessage());
             return false;
         }
     }

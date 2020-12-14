@@ -2,6 +2,9 @@ package root.screens.createactivity;
 
 
 import java.sql.SQLException;
+import java.util.List;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import root.entities.Activity;
 import queries.ActivityQueries;
 import ui.ListFillModel;
@@ -9,11 +12,14 @@ import ui.ListFillModel;
 public class ActivityModel extends Activity{
     private final ActivityQueries query;
     private ListFillModel materialFillModel;
+    private final ComboBoxModel<String> typologyInputModel;
     
     public ActivityModel(ActivityQueries query) throws SQLException {
         super();
         this.query = query;
         this.materialFillModel = new ListFillModel(new String[] {},query.getMaterials());
+        this.typologyInputModel = new DefaultComboBoxModel(
+            query.getTypologies().toArray());
     }
 
     /**
@@ -49,4 +55,11 @@ public class ActivityModel extends Activity{
         return query.assignMaterialsToActivity(materialFillModel.getElements(),id);
     }
 
+    public String getTypology(){
+        return (String) typologyInputModel.getSelectedItem();
+    }
+    
+    public ComboBoxModel<String> getTypologyInputModel(){
+        return typologyInputModel;
+    }
 }

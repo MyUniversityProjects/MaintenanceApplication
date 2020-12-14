@@ -6,11 +6,14 @@ import root.Navigable;
 import root.Screen;
 
 public class ActivityView extends Screen {
-    ActivityModel model;
-    public ActivityView(Navigable nav,ActivityModel model) {
+    
+    private final ActivityModel model;
+
+    public ActivityView(Navigable nav, ActivityModel model) {
         super(nav);
         this.model = model;
         initComponents();
+        typologyInput.setModel(model.getTypologyInputModel());
     }
 
     @SuppressWarnings("unchecked")
@@ -33,7 +36,6 @@ public class ActivityView extends Screen {
         areaLabel = new javax.swing.JLabel();
         areaInput = new javax.swing.JTextField();
         typologyLabel = new javax.swing.JLabel();
-        typologyInput = new javax.swing.JTextField();
         estimatedTimeLabel = new javax.swing.JLabel();
         estimatedTimeInput = new javax.swing.JTextField();
         weekLabel = new javax.swing.JLabel();
@@ -55,6 +57,7 @@ public class ActivityView extends Screen {
         materialComboBox = new javax.swing.JComboBox<>();
         addMaterialBtn = new javax.swing.JButton();
         remMaterialBtn = new javax.swing.JButton();
+        typologyInput = new javax.swing.JComboBox<>();
 
         jTextArea3.setColumns(20);
         jTextArea3.setRows(1);
@@ -239,7 +242,7 @@ public class ActivityView extends Screen {
                         .addComponent(typologyLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(typologyInput, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(13, 13, 13)
                         .addComponent(estimatedTimeLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(estimatedTimeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -320,7 +323,7 @@ public class ActivityView extends Screen {
     private javax.swing.JRadioButton typeInputScheduled;
     private javax.swing.JLabel typeLabel;
     private javax.swing.JRadioButton typeUnscheduledInput;
-    private javax.swing.JTextField typologyInput;
+    private javax.swing.JComboBox<String> typologyInput;
     private javax.swing.JLabel typologyLabel;
     private javax.swing.JTextField weekInput;
     private javax.swing.JLabel weekLabel;
@@ -356,7 +359,7 @@ public class ActivityView extends Screen {
     }
     
     public String getTypology(){
-        return typologyInput.getText();
+        return null;
     }
     
     public String getWeek(){
@@ -404,4 +407,7 @@ public class ActivityView extends Screen {
         remMaterialBtn.addActionListener(al);
     }
     
+    public void addTypologyInputListener(ActionListener al){
+        typologyInput.addActionListener(al);
+    }
 }

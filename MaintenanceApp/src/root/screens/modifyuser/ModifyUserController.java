@@ -35,6 +35,7 @@ public class ModifyUserController {
                 try {
                     if(model.modify()){
                         view.showMsg("Modified", "User changed successfully");
+                        view.getNav().goHome();
                     } else {
                         view.showErrorMsg("Error", "Error while editing");
                     }
@@ -76,7 +77,7 @@ public class ModifyUserController {
         if(role.equals("")){ errStr += "Role cannot be empty\n"; }
         
         if(!errStr.equals("")){
-            //view.showErrorMsg("Error", errStr);
+            view.showErrorMsg("Error", errStr);
             return false;
         }
         
