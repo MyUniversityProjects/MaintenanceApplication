@@ -117,22 +117,10 @@ public class ListScheduledActivitiesByWeekControllerTest {
         assertEquals(1, view.backListenerCount);
     }
     
-    
     @Test
     public void testBackListenerAction() {
         view.back.doClick();
         assertEquals(1, view.toThePreviousScreenCount);
         assertEquals(1, nav.getPopCallCount());
-    }
-    
-    @Test
-    public void selectHomeListenerAction() {
-        view.selectActionListener.actionPerformed(0);
-        assertEquals(1, view.getSelectedScheduledActivityIndexCount);
-        assertEquals(1, view.getSelectedScheduledActivityIndexCount);
-        assertEquals(1, model.getSelectedActivityCount);
-        assertEquals(1, nav.getPushCallCount());
-    }
-
-    
+    }    
 }
