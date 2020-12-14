@@ -11,6 +11,8 @@ public class Activity {
     private int week;
     private String notes;
     private ActivityType type;
+    private String[] materials;
+    private String[] competences;
     
     
     public enum ActivityType {PLANNED, UNPLANNED, EXTRA};
@@ -26,6 +28,12 @@ public class Activity {
         this.week = week;
         this.notes = notes;
         this.type = type;
+    }
+    
+    public Activity(int id, String area, String branchOffice, String typology, String description, int time, boolean interruptible, int week, String notes, ActivityType type, String[] materials, String[] competences) {
+        this(id, area, branchOffice, typology, description, time, interruptible, week, notes, type);
+        this.materials = materials;
+        this.competences = competences;
     }
     
     public Activity(){}
@@ -108,6 +116,22 @@ public class Activity {
 
     public void setType(ActivityType type) {
         this.type = type;
+    }
+
+    public String[] getMaterials() {
+        return materials;
+    }
+
+    public void setMaterials(String[] materials) {
+        this.materials = materials;
+    }
+
+    public String[] getCompetences() {
+        return competences;
+    }
+
+    public void setCompetences(String[] competences) {
+        this.competences = competences;
     }
     
     /**

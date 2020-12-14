@@ -2,6 +2,8 @@ package root.screens.verifyactivity;
 
 import ui.ListFillModel;
 import queries.ActivityQueries;
+import queries.CompetenceQueries;
+import queries.MaterialQueries;
 import root.entities.Activity;
 import root.exceptions.NotFoundException;
 import root.exceptions.QueryFailedException;
@@ -12,7 +14,7 @@ public class VerifyActivityModel extends Activity {
     private final ListFillModel skillFillModel;
     private final ListFillModel materialFillModel;
     
-    public VerifyActivityModel(Activity activity, ActivityQueries queryTool) {
+    public VerifyActivityModel(Activity activity, ActivityQueries queryTool, String[] allCompetences, String[] allMaterials) {
         super(
                 activity.getId(),
                 activity.getArea(),
@@ -23,18 +25,24 @@ public class VerifyActivityModel extends Activity {
                 activity.isInterruptible(),
                 activity.getWeek(),
                 activity.getNotes(),
-                activity.getType()
+                activity.getType(),
+                activity.getMaterials(),
+                activity.getCompetences()
         );
         this.queryTool = queryTool;
         
         skillFillModel = new ListFillModel(
-                new String[] {"B1", "C1"},
-                new String[] {"A1", "B1", "C1", "D1", "E1", "F5"}
+                activity.getCompetences(),
+                allCompetences
         );
         materialFillModel = new ListFillModel(
-                new String[] {},
-                new String[] {"Material-1", "Material-2", "Material-3", "Material-4", "Material-5", "Material-6"}
+                activity.getMaterials(),
+                allMaterials
         );
+    }
+    
+    public VerifyActivityModel(Activity activity, ActivityQueries queryTool) {
+        this(activity, queryTool, new String[] {}, new String[] {});
     }
     
     public ListFillModel getSkillFillModel() {
@@ -82,13 +90,22 @@ public class VerifyActivityModel extends Activity {
      * data of the activity, from the database
      * @param id activity identifier
      * @param queryTool used to make queries to the database
+     * @param matQuery used (eventually) to get all materials
+     * @param compQuery used (eventually) to get all competences
      * @return and instance of VerifyActivityModel
      * @throws NotFoundException if the activity is not found
      * @throws QueryFailedException if app is unable to query the database
      */
-    public static VerifyActivityModel fromDatabase(int id, ActivityQueries queryTool) throws NotFoundException {
-        Activity activity = queryTool.fetch(id);
-        return new VerifyActivityModel(activity, queryTool);
+    public static VerifyActivityModel fromDatabase(int id, ActivityQueries queryTool, MaterialQueries matQuery, CompetenceQueries compQuery) throws NotFoundException {
+        Activity activity = queryTool.fetchComplete(id);
+        
+        if (activity.getType() == ActivityType.PLANNED){
+            return new VerifyActivityModel(activity, queryTool, new String[] {}, new String[] {});
+        } else {
+            String[] materials = matQuery.fetchAll();
+            String[] competences = compQuery.fetchAll();
+            return new VerifyActivityModel(activity, queryTool, competences, materials);
+        }
     }
     
     /**
@@ -100,7 +117,7 @@ public class VerifyActivityModel extends Activity {
         if (getType() == ActivityType.PLANNED) {
             queryTool.forwardScheduled(getId(), getNotes());
         } else {
-            queryTool.forwardEwo(getId(), getDescription(), getTime());
+            queryTool.forwardEwo(getId(), getDescription(), getTime(), materialFillModel.getElements(), skillFillModel.getElements());
         }
     }
 }

@@ -31,17 +31,19 @@ public class VerifyActivityModelTest {
     
     VerifyActivityModel model;
     ActivityQueriesStub queryTool;
+    String[] allMaterials = {"material-1", "material-2", "material-3", "material-4", "material-5", "material-6"};
+    String[] allCompetences = {"competence-1", "competence-2", "competence-3", "competence-4", "competence-5"};
     
     @Before
     public void setUp() {
         queryTool = new ActivityQueriesStub();
-        model = new VerifyActivityModel(queryTool.fetch(1), queryTool);
+        model = new VerifyActivityModel(queryTool.fetchComplete(1), queryTool, allCompetences, allMaterials);
     }
     
     @Test
     public void testCreate() {
-        Activity activity = queryTool.fetch(0);
-        model = new VerifyActivityModel(activity, queryTool);
+        Activity activity = queryTool.fetchComplete(0);
+        model = new VerifyActivityModel(activity, queryTool, allCompetences, allMaterials);
         
         // check activity fields
         assertEquals(activity.getId(), model.getId());
@@ -54,12 +56,30 @@ public class VerifyActivityModelTest {
         assertEquals(activity.getTypology(), model.getTypology());
         assertEquals(activity.getWeek(), model.getWeek());
         assertEquals(activity.isInterruptible(), model.isInterruptible());
-        // TODO: check inner models when materials, skills are implemented
+        assertArrayEquals(activity.getMaterials(), model.getMaterials());
+        assertArrayEquals(activity.getCompetences(), model.getCompetences());
+        // check models elements
+        assertArrayEquals(activity.getMaterials(), model.getMaterialFillModel().getElements());
+        assertArrayEquals(activity.getCompetences(), model.getSkillFillModel().getElements());
+        // check materials combo box elements
+        ComboBoxModel<String> comboModel = model.getMaterialFillModel().getComboModel();
+        String[] comboElements = new String[comboModel.getSize()];
+        for (int i=0; i<comboElements.length; i++) {
+            comboElements[i] = comboModel.getElementAt(i);
+        }
+        assertArrayEquals(allMaterials, comboElements);
+        // check skills combo box elements
+        comboModel = model.getSkillFillModel().getComboModel();
+        comboElements = new String[comboModel.getSize()];
+        for (int i=0; i<comboElements.length; i++) {
+            comboElements[i] = comboModel.getElementAt(i);
+        }
+        assertArrayEquals(allCompetences, comboElements);
     }
     
     @Test
     public void testForwardScheduled() {
-        Activity activity = queryTool.fetch(0);
+        Activity activity = queryTool.fetchComplete(0);
         activity.setType(Activity.ActivityType.PLANNED);
         model = new VerifyActivityModel(activity, queryTool);
         
@@ -75,7 +95,7 @@ public class VerifyActivityModelTest {
     
     @Test
     public void testForwardEwo() {
-        Activity activity = queryTool.fetch(0);
+        Activity activity = queryTool.fetchComplete(0);
         activity.setType(Activity.ActivityType.UNPLANNED);
         model = new VerifyActivityModel(activity, queryTool);
         

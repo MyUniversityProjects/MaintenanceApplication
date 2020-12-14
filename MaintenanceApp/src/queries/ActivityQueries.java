@@ -24,28 +24,95 @@ public class ActivityQueries {
      * @throws QueryFailedException if app is unable to query the database
      */
     public Activity fetch(int id) throws NotFoundException {
-        String query = "SELECT id, area, branch_office, typology, description, estimated_time, interruptible, week, workspace_notes, type_activity, verified FROM AppActivity WHERE id=?";
         try (Connection conn = Database.getConnection()) {
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setInt(1, id);
-            ResultSet rst = stmt.executeQuery();
+            // fetch activity and check if there is a result
+            ResultSet activityRes = simpleFetch(conn, id);
+            if (!activityRes.next()) throw new NotFoundException();
             
-            if (!rst.next()) throw new NotFoundException();
             return new Activity(
-                rst.getInt("id"),
-                rst.getString("area"),
-                rst.getString("branch_office"),
-                rst.getString("typology"),
-                rst.getString("description"),
-                rst.getInt("estimated_time"),
-                rst.getBoolean("interruptible"),
-                rst.getInt("week"),
-                rst.getString("workspace_notes"),
-                Activity.convertRawType(rst.getString("type_activity"))
+                activityRes.getInt("id"),
+                activityRes.getString("area"),
+                activityRes.getString("branch_office"),
+                activityRes.getString("typology"),
+                activityRes.getString("description"),
+                activityRes.getInt("estimated_time"),
+                activityRes.getBoolean("interruptible"),
+                activityRes.getInt("week"),
+                activityRes.getString("workspace_notes"),
+                Activity.convertRawType(activityRes.getString("type_activity"))
             );
         } catch(SQLException ex) {
             throw new QueryFailedException(ex.getMessage());
         }
+    }
+    
+    /**
+     * Create and return an instance of Activity by fetching the activity,
+     * materials and competences data.
+     * @param id activity identifier
+     * @return the fetched activity
+     * @throws NotFoundException if the activity is not found
+     * @throws QueryFailedException if app is unable to query the database
+     */
+    public Activity fetchComplete(int id) throws NotFoundException {
+        try (Connection conn = Database.getConnection()) {
+            // fetch activity and check if there is a result
+            ResultSet activityRes = simpleFetch(conn, id);
+            if (!activityRes.next()) throw new NotFoundException();
+            
+            // fetch activity materials
+            String[] materials = fetchActivityMaterials(conn, id);
+            // fetch activity competences
+            String[] competences = fetchActivityCompetences(conn, id);
+            
+            return new Activity(
+                activityRes.getInt("id"),
+                activityRes.getString("area"),
+                activityRes.getString("branch_office"),
+                activityRes.getString("typology"),
+                activityRes.getString("description"),
+                activityRes.getInt("estimated_time"),
+                activityRes.getBoolean("interruptible"),
+                activityRes.getInt("week"),
+                activityRes.getString("workspace_notes"),
+                Activity.convertRawType(activityRes.getString("type_activity")),
+                materials,
+                competences
+            );
+        } catch (SQLException ex) {
+            throw new QueryFailedException(ex.getMessage());
+        }
+    }
+    
+    private ResultSet simpleFetch(Connection conn, int id) throws SQLException {
+        String query = "SELECT id, area, branch_office, typology, description, estimated_time, interruptible, week, workspace_notes, type_activity, verified FROM AppActivity WHERE id=?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1, id);
+        return stmt.executeQuery();
+    }
+    
+    private String[] fetchActivityMaterials(Connection conn, int id) throws SQLException {
+        String query = "SELECT material FROM ActivityMaterials WHERE activity=?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1, id);
+        ResultSet rst = stmt.executeQuery();
+        
+        List<String> materials = new LinkedList<>();
+        while (rst.next())
+            materials.add(rst.getString("material"));
+        return materials.toArray(new String[materials.size()]);
+    }
+    
+    private String[] fetchActivityCompetences(Connection conn, int id) throws SQLException {
+        String query = "SELECT competence FROM ActivityCompetences WHERE activity=?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1, id);
+        ResultSet rst = stmt.executeQuery();
+        
+        List<String> competences = new LinkedList<>();
+        while (rst.next())
+            competences.add(rst.getString("competence"));
+        return competences.toArray(new String[competences.size()]);
     }
     
     /**
@@ -73,10 +140,12 @@ public class ActivityQueries {
      * @param id activity identifier
      * @param desc the new desctiption of the activity
      * @param time the new estimated time of the activity
+     * @param materials to add to the activity
+     * @param competences to add to the activity
      * @throws NotFoundException if the activity is not found
      * @throws QueryFailedException if app is unable to query the database
      */
-    public void forwardEwo(int id, String desc, int time) throws NotFoundException {
+    public void forwardEwo(int id, String desc, int time, String[] materials, String[] competences) throws NotFoundException {
         String query = "UPDATE AppActivity SET description=?, estimated_time=?, verified=TRUE WHERE id=?";
         try (Connection conn = Database.getConnection()) {
             PreparedStatement stmt = conn.prepareStatement(query);
@@ -85,6 +154,57 @@ public class ActivityQueries {
             stmt.setInt(3, id);
             int res = stmt.executeUpdate();
             if (res == 0) throw new NotFoundException("Activity not found");
+            
+            
+            // remove all the materials not needed
+            query = "DELETE FROM ActivityMaterials WHERE activity=?";
+            if (materials.length > 0) {
+                String[] tmp = new String[materials.length];
+                for (int i = 0; i < tmp.length; i++) tmp[i] = "?";
+                query += " AND material not in (" + String.join(", ", tmp) + ")";
+            }
+            stmt = conn.prepareStatement(query);
+            stmt.setInt(1, id);
+            for (int i = 0; i < materials.length; i++) {
+                stmt.setString(i + 2, materials[i]);
+            }
+            stmt.executeUpdate();
+            
+            // add all materials to the activity
+            query = "INSERT INTO ActivityMaterials(activity, material) VALUES (?, ?)";
+            for (String material: materials) {
+                stmt = conn.prepareStatement(query);
+                stmt.setInt(1, id);
+                stmt.setString(2, material);
+                try {
+                    stmt.executeUpdate();
+                } catch(SQLException ex) {}
+            }
+            
+            // remove all competences not needed
+            query = "DELETE FROM ActivityCompetences WHERE activity=?";
+            if (competences.length > 0) {
+                String[] tmp = new String[competences.length];
+                for (int i = 0; i < tmp.length; i++) tmp[i] = "?";
+                query += " AND competence not in (" + String.join(", ", tmp) + ")";
+            }
+            stmt = conn.prepareStatement(query);
+            stmt.setInt(1, id);
+            for (int i = 0; i < competences.length; i++) {
+                stmt.setString(i + 2, competences[i]);
+            }
+            stmt.executeUpdate();
+            
+            // add all competences to the activity
+            query = "INSERT INTO ActivityCompetences(activity, competence) VALUES (?, ?)";
+            for (String competence: competences) {
+                stmt = conn.prepareStatement(query);
+                stmt.setInt(1, id);
+                stmt.setString(2, competence);
+                try {
+                    stmt.executeUpdate();
+                } catch(SQLException ex) {}
+            }
         } catch(SQLException ex) {
             throw new QueryFailedException(ex.getMessage());
         }
