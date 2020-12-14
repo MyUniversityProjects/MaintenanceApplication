@@ -7,32 +7,15 @@ import java.util.Map;
 import org.junit.*;
 import static org.junit.Assert.*;
 import queries.ActivityQueries;
-import root.Navigator;
 import root.Navigable;
-import root.Screen;
-import root.screenbuilders.ScreenBuilder;
+import stubs.NavigatorStub;
 
 public class ActivityControllerTest {
-    
-    private class ActivityBuilderStub extends ScreenBuilder{
-        
-        ActivityViewStub view;
-        
-        @Override
-        public void buildView(Navigable nav) {
-            view = new ActivityViewStub(nav);
-        }
-
-        @Override
-        public Screen getScreen() {
-            return view;
-        }
-    }
 
     private class ActivityViewStub extends ActivityView {
              
-        public ActivityViewStub(Navigable nav) {
-            super(nav);            
+        public ActivityViewStub(Navigable nav, ActivityModelStub model) {
+            super(nav, model);            
         }              
     }
 
@@ -41,19 +24,18 @@ public class ActivityControllerTest {
         public ActivityModelStub() {
             super(new ActivityQueries());
         }
-
     }
 
     private ActivityController ac;
     private ActivityViewStub avs;
     private ActivityModelStub ams;
     public Map<String, String> inputTest;
+    private NavigatorStub navStub;
 
     @Before
     public void setUp() {
         ams = new ActivityModelStub();
-        avs = new ActivityViewStub(new Navigator("test",
-                new ActivityControllerTest.ActivityBuilderStub()));
+        avs = new ActivityViewStub(navStub, ams);
         ac = new ActivityController(ams, avs);
         inputTest = new HashMap<>();
     }
@@ -71,7 +53,7 @@ public class ActivityControllerTest {
         inputTest.put("notes", "ciao");
         inputTest.put("description", "Il lavoro consiste nel"
                 + " sostituire una lampadina");
-        inputTest.put("type", "scheduled");       
+        inputTest.put("type", "PLANNED");       
 
         assertTrue(ac.createCheckout(inputTest));
     }
@@ -89,6 +71,7 @@ public class ActivityControllerTest {
         inputTest.put("notes", "ciao");
         inputTest.put("description", "Il lavoro consiste nel"
                 + " sostituire una lampadina");
+        inputTest.put("type", "PLANNED");  
 
         assertFalse(ac.createCheckout(inputTest));
     }
@@ -105,7 +88,7 @@ public class ActivityControllerTest {
         inputTest.put("notes", "ciao");
         inputTest.put("description", "Il lavoro consiste nel"
                 + " sostituire una lampadina");
-        inputTest.put("type", "scheduled");       
+        inputTest.put("type", "PLANNED");       
 
         assertFalse(ac.createCheckout(inputTest));
     }
@@ -122,6 +105,7 @@ public class ActivityControllerTest {
         inputTest.put("notes", "ciao");
         inputTest.put("description", "Il lavoro consiste nel"
                 + " sostituire una lampadina");
+        inputTest.put("type", "PLANNED");  
 
         assertFalse(ac.createCheckout(inputTest));
     }
@@ -138,7 +122,7 @@ public class ActivityControllerTest {
         inputTest.put("notes", "ciao");
         inputTest.put("description", "Il lavoro consiste nel"
                 + " sostituire una lampadina");
-        inputTest.put("type", "scheduled");       
+        inputTest.put("type", "PLANNED");       
 
         assertFalse(ac.createCheckout(inputTest));
     }
@@ -155,7 +139,7 @@ public class ActivityControllerTest {
         inputTest.put("notes", "ciao");
         inputTest.put("description", "Il lavoro consiste nel"
                 + " sostituire una lampadina");
-        inputTest.put("type", "scheduled");       
+        inputTest.put("type", "PLANNED");       
 
         assertFalse(ac.createCheckout(inputTest));
     }
@@ -172,7 +156,7 @@ public class ActivityControllerTest {
         inputTest.put("notes", "ciao");
         inputTest.put("description", "Il lavoro consiste nel"
                 + " sostituire una lampadina");
-        inputTest.put("type", "scheduled");       
+        inputTest.put("type", "PLANNED");       
 
         assertFalse(ac.createCheckout(inputTest));
     }
@@ -189,7 +173,7 @@ public class ActivityControllerTest {
         inputTest.put("notes", "ciao");
         inputTest.put("description", "Il lavoro consiste nel"
                 + " sostituire una lampadina");
-        inputTest.put("type", "scheduled");       
+        inputTest.put("type", "PLANNED");       
 
         assertFalse(ac.createCheckout(inputTest));
     }
@@ -206,7 +190,7 @@ public class ActivityControllerTest {
         inputTest.put("notes", "ciao");
         inputTest.put("description", "Il lavoro consiste nel"
                 + " sostituire una lampadina");
-        inputTest.put("type", "scheduled");       
+        inputTest.put("type", "PLANNED");       
 
         assertFalse(ac.createCheckout(inputTest));
     }
@@ -223,7 +207,7 @@ public class ActivityControllerTest {
         inputTest.put("week", "17");
         inputTest.put("description", "Il lavoro consiste nel"
                 + " sostituire una lampadina");
-        inputTest.put("type", "scheduled");       
+        inputTest.put("type", "PLANNED");       
 
         assertTrue(ac.createCheckout(inputTest));
     }
@@ -239,7 +223,7 @@ public class ActivityControllerTest {
         inputTest.put("typology", "elettrica");
         inputTest.put("week", "17");
         inputTest.put("notes", "ciao");
-        inputTest.put("type", "scheduled");       
+        inputTest.put("type", "PLANNED");       
 
         assertFalse(ac.createCheckout(inputTest));
     }
@@ -274,7 +258,7 @@ public class ActivityControllerTest {
         inputTest.put("notes", "ciao");
         inputTest.put("description", "Il lavoro consiste nel"
                 + " sostituire una lampadina");
-        inputTest.put("type", "scheduled");    
+        inputTest.put("type", "PLANNED");    
 
         assertFalse(ac.createCheckout(inputTest));
     }
@@ -292,7 +276,7 @@ public class ActivityControllerTest {
         inputTest.put("notes", "ciao");
         inputTest.put("description", "Il lavoro consiste nel"
                 + " sostituire una lampadina");
-        inputTest.put("type", "scheduled");    
+        inputTest.put("type", "PLANNED");    
 
         assertFalse(ac.createCheckout(inputTest));
     }
@@ -310,7 +294,7 @@ public class ActivityControllerTest {
         inputTest.put("notes", "ciao");
         inputTest.put("description", "Il lavoro consiste nel"
                 + " sostituire una lampadina");
-        inputTest.put("type", "scheduled");    
+        inputTest.put("type", "PLANNED");    
 
         assertFalse(ac.createCheckout(inputTest));
     }
@@ -328,6 +312,7 @@ public class ActivityControllerTest {
         inputTest.put("notes", "ciao");
         inputTest.put("description", "Il lavoro consiste nel"
                 + " sostituire una lampadina");
+        inputTest.put("type", "PLANNED");  
 
         assertFalse(ac.createCheckout(inputTest));
     }

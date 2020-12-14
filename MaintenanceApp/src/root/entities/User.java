@@ -119,6 +119,19 @@ public class User {
             default: return null;
         }
     }
+    
+    public String convertRoleInChar(UserRole role){
+        switch (role) {
+            case MAINTAINER:
+                return "M";
+            case PLANNER:
+                return "P";
+            case SYSTEM_ADMINISTRATOR:
+                return "SA";
+            default:
+                return null;
+        }
+    }
 
     @Override
     public int hashCode() {

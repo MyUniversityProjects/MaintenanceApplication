@@ -3,8 +3,11 @@ package root.screens.createactivity;
 
 import root.entities.Activity;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import root.screenbuilders.VerifyActivityBuilder;
 
@@ -35,6 +38,7 @@ public class ActivityController {
             } else {
                 view.showErrorMsg("Input error", checkoutError);
             }
+           
         });
         
         view.addBackButtonListener((e)-> {view.getNav().pop();});
@@ -44,18 +48,35 @@ public class ActivityController {
             boolean enabled = type.equals("UNPLANNED") || type.equals("EXTRA");
             view.setEnableWeek(!enabled);
         });
+        
+        view.addTypologyInputListener((e)->{
+            model.setTypology(model.getTypology());
+        });
     }
     
     public void fillModel(){
+        
+        String type = view.getType();
+        int week = 0;
+        
         model.setId(Integer.parseInt(view.getId()));
         model.setArea(view.getArea());
         model.setBranchOffice(view.getBranchOffice());
         model.setDescription(view.getDescription());
         model.setInterruptible(Boolean.parseBoolean(view.getInterruptible()));
         model.setNotes(view.getNotes());
-        model.setType(Activity.ActivityType.valueOf(view.getType()));
+        model.setType(Activity.ActivityType.valueOf(type));
         model.setTypology(view.getTypology());
-        model.setWeek(Integer.parseInt(view.getWeek()));
+        if(type.equals("UNPLANNED") || type.equals("EXTRA")){
+            Calendar calendar = Calendar.getInstance(Locale.ITALY);
+            week = calendar.get(Calendar.WEEK_OF_YEAR);
+            if(week > 52){
+                week = 52;
+            }
+            model.setWeek(week);
+        } else {
+            model.setWeek(Integer.parseInt(view.getWeek()));   
+        }
         model.setTime(Integer.parseInt(view.getEstimatedTime()));
     }
 
@@ -72,7 +93,7 @@ public class ActivityController {
         inputMap.put("area", view.getArea());
         inputMap.put("estimated_time", view.getEstimatedTime());
         inputMap.put("interruptible", view.getInterruptible());
-        inputMap.put("typology", view.getTypology());
+        inputMap.put("typology", model.getTypology());
         inputMap.put("week", view.getWeek());
         inputMap.put("notes", view.getNotes());
         inputMap.put("description", view.getDescription());
@@ -93,11 +114,21 @@ public class ActivityController {
     public boolean createCheckout(Map<String, String> inputMap) {
         
         checkoutError = "";
-        List<String> keyList = Arrays.asList("id", "branch_office", "area",
-            "estimated_time", "interruptible", "typology", "week",
-            "description", "type");       
-        Integer week, time;
+        String type = inputMap.get("type") != null ? inputMap.get("type") : "";
+        int week, time;
         boolean flag = true;
+        boolean isUnplanned = !type.equals("") && 
+                (type.equals("UNPLANNED") || type.equals("EXTRA"));
+        List<String> keyList;
+        if(isUnplanned){
+            keyList = Arrays.asList("id", "branch_office", "area",
+                "estimated_time", "interruptible", "typology",
+                "description", "type");
+        } else {
+            keyList = Arrays.asList("id", "branch_office", "area",
+                "estimated_time", "week", "interruptible", "typology",
+                "description", "type");
+        }
         
         if ( !inputMap.keySet().containsAll(keyList)) {
             checkoutError += "The required fields have not been entered\n";
@@ -105,6 +136,16 @@ public class ActivityController {
         }
         
         for (Map.Entry<String, String> entry : inputMap.entrySet()) {
+            
+            if (!(entry.getKey().equals("notes") || 
+                    (isUnplanned && entry.getKey().equals("week")))) {
+                if (entry.getValue().length() <= 0) {
+                    checkoutError = "The required fields can not be empty\n";
+                    System.out.println(entry.getKey());
+                    flag = false;
+                }
+            }
+            
             if(entry.getKey().equals("id") && !validateId(entry.getValue())){
                 checkoutError += "The id field must be a positive integer\n";
                 flag = false;
@@ -114,20 +155,17 @@ public class ActivityController {
                 checkoutError += "The estimated time field must be a positive integer\n";
                 flag = false;
             }
-             
-            if(entry.getKey().equals("week") && !validateId(entry.getValue())){
-                checkoutError += "the week fiels must have a positive value between 1 and 52\n";
-                flag = false;
-            }
-             
             
-            
-            if (!entry.getKey().equals("notes")) {
-                if (entry.getValue().length() <= 0) {
-                    checkoutError = "The required fields can not be empty\n";
-                    flag = false;
+             
+            if(entry.getKey().equals("week")){
+                if(!isUnplanned){
+                    if(!validateWeek(entry.getValue())){                   
+                        checkoutError += "the week fiels must have a positive value between 1 and 52\n";
+                        flag = false;
+                    }
                 }
             }
+          
         }
         return flag;
     }

@@ -234,4 +234,26 @@ public class ActivityQueries {
             return null;
         }
     }
+    
+    public List<String> getTypologies(){
+        String query = "SELECT * FROM typology";
+        List<String> typologies = new LinkedList<>();
+        try(Connection conn = Database.getConnection()){
+            Statement stmt = conn.createStatement();
+            ResultSet rst = stmt.executeQuery(query);
+            if (rst== null){
+                return null;           
+            }
+            while(rst.next()){
+                typologies.add(rst.getString("name"));
+            }
+            if(typologies.isEmpty()){
+                return null;
+            } else {
+                return typologies;
+            }
+        }catch(Exception e){
+            return null;
+        }
+    }
 }

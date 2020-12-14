@@ -16,7 +16,7 @@ public class CreateActivityBuilder extends ScreenBuilder{
 
     @Override
     public void buildView(Navigable nav) {
-        view = new ActivityView(nav);   
+        view = new ActivityView(nav, model);   
     }
     
     @Override
