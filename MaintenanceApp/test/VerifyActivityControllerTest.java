@@ -99,7 +99,7 @@ public class VerifyActivityControllerTest {
         int removeSkillCallCount = 0;
 
         public ModelStub() {
-            super(new ActivityQueriesStub().fetch(1), new ActivityQueriesStub());
+            super(new ActivityQueriesStub().fetchComplete(1), new ActivityQueriesStub());
         }
         
         @Override

@@ -3,9 +3,12 @@ package root.screens.verifyactivity;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import root.entities.Activity.ActivityType;
 import root.exceptions.NotFoundException;
 import root.exceptions.QueryFailedException;
 import root.screenbuilders.AssignActivityBuilder;
+import root.screenbuilders.AssignEwoActivityBuilder;
 
 public class VerifyActivityController {
     private final VerifyActivityModel model;
@@ -58,7 +61,12 @@ public class VerifyActivityController {
                 
                 try {
                     model.forward();
-                    view.getNav().push(new AssignActivityBuilder(model.getId()));
+                    if (model.getType() == ActivityType.PLANNED) {
+                        view.getNav().push(new AssignActivityBuilder(model.getId()));
+                    } else {
+                        int day = LocalDate.now().getDayOfWeek().getValue();
+                        view.getNav().push(new AssignEwoActivityBuilder(model.getId(), day));
+                    }
                 } catch (QueryFailedException | NotFoundException ex) {
                     view.showErrorMsg("Unable to forward", ex.getMessage());
                     EventQueue.invokeLater(() -> {
