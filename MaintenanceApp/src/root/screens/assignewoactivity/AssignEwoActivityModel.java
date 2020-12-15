@@ -5,8 +5,11 @@
  */
 package root.screens.assignewoactivity;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import root.screens.assignactivity.AssignActivityModel;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 /**
  *
@@ -23,5 +26,28 @@ public class AssignEwoActivityModel extends AssignActivityModel{
         String query = super.getStringQueryDayAvaibility(cf, week, day) + " AND (interruptible = false) ";
         return query;     
     }
+    
+    protected LocalTime getStartTimeAssignment(int activityID) {
+        try {
+            stm = conn.createStatement();
+            ResultSet rst = stm.executeQuery("SELECT start_time FROM public.appactivity WHERE id = "+activityID+" ");
+            rst.next();
+            return rst.getTime("start_time").toLocalTime();
+        } catch(Exception e){
+        System.out.println("ERRORE weekActivity");}
+        return null;
+    }
+    
+    protected LocalTime getEndTimeAssignment(int activityID) {
+        try {
+            stm = conn.createStatement();
+            ResultSet rst = stm.executeQuery("SELECT end_time FROM public.appactivity WHERE id = "+activityID+" ");
+            rst.next();
+            return rst.getTime("end_time").toLocalTime();
+        } catch(Exception e){
+        System.out.println("ERRORE weekActivity");}
+        return null;
+    }
+    
     
 }

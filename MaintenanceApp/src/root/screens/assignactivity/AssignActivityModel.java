@@ -22,8 +22,8 @@ import java.lang.String;
  */
 public class AssignActivityModel {
     
-    private Connection conn;
-    private static Statement stm;
+    protected Connection conn;
+    protected static Statement stm;
     
     public AssignActivityModel() throws SQLException {
         conn = Database.getConnection();

@@ -24,7 +24,7 @@ public class AssignActivityControllerMokeUp2 extends AssignActivityController{
         this.cf = cf;
         setTable();
         setArea();
-        view.getLabelNumberOfWeek().setText(week);
+        view.getLabelNumberOfWeek().setText(week + " Day: "+stringDay(day));
           
     }
     
@@ -69,7 +69,6 @@ public class AssignActivityControllerMokeUp2 extends AssignActivityController{
     
     protected void writeRowAvaibilityDayMaintainer(String code, int index) throws SQLException {
         int[] avaibility = model.getDayAvaibility(code, week, day);
-        System.out.println(avaibility);
         String nameMaintainer = model.getNameMaintainer(code);
         tableModel.setValueAt(nameMaintainer, 0, 0);
         for(int i=0; i<nCols-2; i++)
@@ -119,5 +118,31 @@ public class AssignActivityControllerMokeUp2 extends AssignActivityController{
             System.out.println("ERRORE: ASSEGNAMENTO NON RIUSCITO");
         }
         return -3;
+    }
+    
+    protected String stringDay(int day) {
+        switch (day) {
+            case 1:
+                return "Monday";
+               
+            case 2:
+                return "Tuesday";
+                
+            case 3:
+                return "Wednesday";
+               
+            case 4:
+                return "Thursday";
+                
+            case 5:
+                return "Friday";
+                
+            case 6:
+                return "Saturday";
+ 
+            case 7:
+                return "Sunday";
+            }
+        return null;
     }
 }

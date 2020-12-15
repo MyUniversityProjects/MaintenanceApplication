@@ -38,5 +38,10 @@ public class AssignEwoActivityController extends AssignActivityControllerMokeUp2
         
     }
     
+    @Override
+    protected void setButtonAssign() {
+        // Implemetns this function on the next user stories
+    } 
+    
     
 }
