@@ -20,6 +20,8 @@ public class ModifySelectedActivityController {
     public ModifySelectedActivityController(ModifySelectedActivityModel model, ModifySelectedActivityView view) {
         this.model = model;
         this.view = view;
+        view.addMaterialAddBtnListener(new AddMaterialBtnListener());
+        view.addMaterialRemoveBtnListener(new RemoveMaterialBtnListener());
         
         view.addBackButtonListener(new BackBtnListener());
         view.addHomeButtonListener(new HomeBtnListener());
@@ -57,9 +59,12 @@ public class ModifySelectedActivityController {
             Map<String, String> inputMap = getInputs();
             if (modifyCheckout(inputMap)) {
                 model.modify(inputMap);
-                view.showMsg("Success", "Activity modified successfully");
-                view.getNav().goHome();
-                
+                if(model.updateMaterialsToActivity(model.getId())){
+                    view.showMsg("Success", "Activity modified successfully");
+                    view.getNav().goHome();
+                }else{
+                    view.showErrorMsg("Materials Error", "Error in the materials assignment");
+                }
             } else {
                 view.showErrorMsg("Input error", checkoutError);
             }
@@ -135,4 +140,26 @@ public class ModifySelectedActivityController {
         inputMap.put("id", Integer.toString(model.getId()));
         return inputMap;
     }
+    
+    
+    private class RemoveMaterialBtnListener implements ActionListener {
+        /**
+         * Remove the selected skill from the skill UI list
+         */
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            model.removeSelectedMaterial();            
+        }
+    }
+    
+    private class AddMaterialBtnListener implements ActionListener {
+        /**
+         * Add the selected material to the material UI list
+         */
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            model.addSelectedMaterial();
+        }
+    }
+
 }

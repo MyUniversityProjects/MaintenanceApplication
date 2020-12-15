@@ -17,7 +17,7 @@ public class ModifySelectedActivityView extends Screen {
      */
     public ModifySelectedActivityView(Navigable nav, ModifySelectedActivityModel model) {
         super(nav);
-        this.model = model == null ? new ModifySelectedActivityModel(new Activity(0, "", "", "", "", 0, false, 0, "", null),null) : model;
+        this.model = model == null ? new ModifySelectedActivityModel(new Activity(0, "", "", "", "", 0, false, 0, "", null),null,null) : model;
         initComponents();
         if (model == null) {
             EventQueue.invokeLater(() -> {
@@ -41,7 +41,6 @@ public class ModifySelectedActivityView extends Screen {
             descriptionInput.setEditable(true);
             notesInput.setText(model.getNotes());
             notesInput.setEditable(true);
-            materialsInput.setEditable(false);
             if(null != model.getType())switch (model.getType()) {
                 case PLANNED:
                     typeInput.setText("Scheduled");
@@ -88,9 +87,6 @@ public class ModifySelectedActivityView extends Screen {
         notesLabel = new javax.swing.JLabel();
         notesScrollInput = new javax.swing.JScrollPane();
         notesInput = new javax.swing.JTextArea();
-        materialsLabel = new javax.swing.JLabel();
-        notesScrollInput1 = new javax.swing.JScrollPane();
-        materialsInput = new javax.swing.JTextArea();
         typeLabel = new javax.swing.JLabel();
         typeInput = new javax.swing.JTextField();
         interruptibleLabel = new javax.swing.JLabel();
@@ -98,6 +94,11 @@ public class ModifySelectedActivityView extends Screen {
         interruptibleNoInput = new javax.swing.JRadioButton();
         mandatoryLabel = new javax.swing.JLabel();
         modifyBtn = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        materialList = new javax.swing.JList<>();
+        materialComboBox = new javax.swing.JComboBox<>();
+        addMaterialBtn = new javax.swing.JButton();
+        remMaterialBtn = new javax.swing.JButton();
 
         jTextArea3.setColumns(20);
         jTextArea3.setRows(1);
@@ -145,13 +146,6 @@ public class ModifySelectedActivityView extends Screen {
         notesInput.setRows(4);
         notesScrollInput.setViewportView(notesInput);
 
-        materialsLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        materialsLabel.setText("Materials");
-
-        materialsInput.setColumns(20);
-        materialsInput.setRows(4);
-        notesScrollInput1.setViewportView(materialsInput);
-
         typeLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         typeLabel.setText("Type*");
 
@@ -174,6 +168,20 @@ public class ModifySelectedActivityView extends Screen {
                 modifyBtnActionPerformed(evt);
             }
         });
+
+        jScrollPane4.setViewportBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true), "Materials needed", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(102, 102, 102))); // NOI18N
+
+        materialList.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.background"));
+        materialList.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        materialList.setModel(model.getMaterialFillModel().getListModel());
+        materialList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane4.setViewportView(materialList);
+
+        materialComboBox.setModel(model.getMaterialFillModel().getComboModel());
+
+        addMaterialBtn.setText("add");
+
+        remMaterialBtn.setText("remove");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -210,12 +218,16 @@ public class ModifySelectedActivityView extends Screen {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(descriptionLabel)
-                    .addComponent(notesScrollInput1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(notesScrollInput, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(descriptionScrollInput, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(materialsLabel, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(notesLabel, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addComponent(notesLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane4)
+                        .addComponent(materialComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(addMaterialBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(remMaterialBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(64, 64, 64))
             .addGroup(layout.createSequentialGroup()
                 .addGap(325, 325, 325)
@@ -260,7 +272,19 @@ public class ModifySelectedActivityView extends Screen {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(weekLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(weekInput, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(weekInput, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(typeLabel)
+                        .addGap(8, 8, 8)
+                        .addComponent(typeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(interruptibleLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(interruptibleYesInput)
+                            .addComponent(interruptibleNoInput))
+                        .addGap(18, 18, 18)
+                        .addComponent(mandatoryLabel))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(descriptionLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -270,21 +294,13 @@ public class ModifySelectedActivityView extends Screen {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(notesScrollInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(materialsLabel)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(notesScrollInput1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(typeLabel)
-                .addGap(8, 8, 8)
-                .addComponent(typeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(interruptibleLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(interruptibleYesInput)
-                    .addComponent(interruptibleNoInput))
-                .addGap(18, 18, 18)
-                .addComponent(mandatoryLabel)
+                        .addComponent(materialComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(addMaterialBtn)
+                            .addComponent(remMaterialBtn))))
                 .addGap(57, 57, 57)
                 .addComponent(modifyBtn)
                 .addContainerGap(66, Short.MAX_VALUE))
@@ -298,6 +314,7 @@ public class ModifySelectedActivityView extends Screen {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BranchOfficeLabel;
+    private javax.swing.JButton addMaterialBtn;
     private javax.swing.JTextField areaInput;
     private javax.swing.JLabel areaLabel;
     private javax.swing.JButton backBtn;
@@ -316,15 +333,16 @@ public class ModifySelectedActivityView extends Screen {
     private javax.swing.JRadioButton interruptibleNoInput;
     private javax.swing.JRadioButton interruptibleYesInput;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JLabel mandatoryLabel;
-    private javax.swing.JTextArea materialsInput;
-    private javax.swing.JLabel materialsLabel;
+    private javax.swing.JComboBox<String> materialComboBox;
+    private javax.swing.JList<String> materialList;
     private javax.swing.JButton modifyBtn;
     private javax.swing.JTextArea notesInput;
     private javax.swing.JLabel notesLabel;
     private javax.swing.JScrollPane notesScrollInput;
-    private javax.swing.JScrollPane notesScrollInput1;
+    private javax.swing.JButton remMaterialBtn;
     private javax.swing.ButtonGroup typeGroupInput;
     private javax.swing.JTextField typeInput;
     private javax.swing.JLabel typeLabel;
@@ -384,5 +402,13 @@ public class ModifySelectedActivityView extends Screen {
     
     public void addHomeButtonListener(ActionListener al){
         homeBtn.addActionListener(al);
+    }
+    
+    public void addMaterialAddBtnListener(ActionListener al) {
+        addMaterialBtn.addActionListener(al);
+    }
+    
+    public void addMaterialRemoveBtnListener(ActionListener al){
+        remMaterialBtn.addActionListener(al);
     }
 }

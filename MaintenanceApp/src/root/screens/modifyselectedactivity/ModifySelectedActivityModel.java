@@ -2,13 +2,16 @@ package root.screens.modifyselectedactivity;
 
 import java.util.Map;
 import queries.ActivityQueries;
+import queries.MaterialQueries;
 import root.entities.Activity;
 import root.exceptions.NotFoundException;
+import ui.ListFillModel;
 
 
 public class ModifySelectedActivityModel extends Activity {
     ActivityQueries modifyActivityQueries;
-    public ModifySelectedActivityModel(Activity activity,ActivityQueries modifyActivityQueries){
+    ListFillModel materialFillModel;
+    public ModifySelectedActivityModel(Activity activity,ActivityQueries modifyActivityQueries, String[] allMaterials){
         super(
                 activity.getId(),
                 activity.getArea(),
@@ -22,6 +25,8 @@ public class ModifySelectedActivityModel extends Activity {
                 activity.getType()
         );
         this.modifyActivityQueries = modifyActivityQueries;
+        this.materialFillModel = new ListFillModel(activity.getMaterials(), allMaterials);
+        
     }
     
     /**
@@ -29,13 +34,17 @@ public class ModifySelectedActivityModel extends Activity {
      * data of the activity, from the database
      * @param id activity identifier
      * @param query
+     * @param materialQuery
      * @return and instance of ModifySelectedActivityModel
      * @throws root.exceptions.NotFoundException 
      */
-    public static ModifySelectedActivityModel fromDatabase(int id, ActivityQueries query) throws NotFoundException {
-        Activity activity = query.fetch(id);
-        return new ModifySelectedActivityModel(activity, query);
+    public static ModifySelectedActivityModel fromDatabase(int id, ActivityQueries query,MaterialQueries materialQuery) throws NotFoundException {
+        String[] materials = materialQuery.fetchAll();    
+        Activity activity = query.fetchComplete(id);
+        return new ModifySelectedActivityModel(activity,query,materials);
     }
+    
+
     /**
      * Modify the activity. 
      * @param inputMap
@@ -45,6 +54,30 @@ public class ModifySelectedActivityModel extends Activity {
         return modifyActivityQueries.modify(inputMap);
     }
 
+    
+    public ListFillModel getMaterialFillModel() {
+        return materialFillModel;
+    }
+    
+    /**
+     * Add selcted material to the material list model; Nothing happens if there
+     * are no material selected or the material is already on the list.
+     */
+    public void addSelectedMaterial() {
+        materialFillModel.addSelected();
+    }
+    
+    /**
+     * Remove selcted material from the material list model; Nothing happens if 
+     * there are no material selected or the material is not on the list.
+     */
+    public void removeSelectedMaterial() {
+        materialFillModel.removeSelected();
+    }
+    
+    public boolean updateMaterialsToActivity(int id){
+        return modifyActivityQueries.updateMaterialsToActivity(materialFillModel.getElements(),id);
+    } 
 }
     
 

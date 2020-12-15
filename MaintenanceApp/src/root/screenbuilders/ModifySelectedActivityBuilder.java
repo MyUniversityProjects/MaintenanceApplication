@@ -5,7 +5,7 @@
  */
 package root.screenbuilders;
 
-import queries.ActivityQueries;
+import queries.*;
 import root.Navigable;
 import root.Screen;
 import root.exceptions.NotFoundException;
@@ -33,8 +33,9 @@ public class ModifySelectedActivityBuilder extends ScreenBuilder{
     @Override
     public void buildModel() {
         ActivityQueries query = new ActivityQueries();
+        MaterialQueries materialQuery = new MaterialQueries();
         try {
-            model = ModifySelectedActivityModel.fromDatabase(id, query);
+            model = ModifySelectedActivityModel.fromDatabase(id, query, materialQuery);
         } catch (QueryFailedException | NotFoundException ex) {
             model = null;
         }

@@ -376,7 +376,13 @@ public class ActivityQueries {
             return null;
         }
     }
-
+    /**
+     * Assign the materials to the the activity  
+     * 
+     * @param materials
+     * @param id
+     * @return  if the operation was successful
+     */
     public boolean assignMaterialsToActivity(String[] materials, int id){
         String query = "INSERT INTO activitymaterials "+
             "(activity,material) VALUES "+
@@ -395,6 +401,18 @@ public class ActivityQueries {
             return false;
         }
         return true;
+    }
+    
+    public boolean updateMaterialsToActivity(String[] materials, int id){
+        String deleteQuery = "DELETE FROM ActivityMaterials WHERE  activity=?";
+        try(Connection conn = Database.getConnection()){
+            PreparedStatement stmt = conn.prepareStatement(deleteQuery);
+            stmt.setInt(1,id);
+            stmt.executeUpdate(); 
+            return assignMaterialsToActivity(materials, id);
+        } catch(SQLException ex){
+            return false;
+        }
     }
     
 }
