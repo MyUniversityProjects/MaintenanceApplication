@@ -2,6 +2,7 @@ package stubs;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import queries.ActivityQueries;
 import root.entities.Activity;
 import root.entities.Activity.ActivityType;
@@ -18,6 +19,9 @@ public class ActivityQueriesStub extends ActivityQueries {
     private int fetchAllCounter = 0;
     private int deleteCounter = 0;
     private int typologiesCounter = 0;
+    private int updateMaterialsToActivityCounter = 0;
+    private int assignMaterialsToActivityCounter = 0;
+    private int modifyCounter = 0;
 
     public int getForwardEwoCounter() {
         return forwardEwoCounter;
@@ -80,4 +84,25 @@ public class ActivityQueriesStub extends ActivityQueries {
         typologiesCounter++;
         return new LinkedList<>();
     }
+
+    @Override
+    public boolean updateMaterialsToActivity(String[] materials, int id) {
+        updateMaterialsToActivityCounter++;
+        return true;
+    }
+
+    @Override
+    public boolean assignMaterialsToActivity(String[] materials, int id) {
+        assignMaterialsToActivityCounter++;
+        return true;
+    }
+
+    @Override
+    public boolean modify(Map<String, String> inputMap) {
+        modifyCounter++;
+        return true;
+    }
+    
+    
+    
 }

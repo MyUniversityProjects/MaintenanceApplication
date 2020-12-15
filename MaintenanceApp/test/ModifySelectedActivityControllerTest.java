@@ -1,16 +1,19 @@
 import java.awt.event.ActionListener;
 import java.util.Map;
+import javax.swing.ComboBoxModel;
 import javax.swing.JButton;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import queries.ActivityQueries;
+import queries.MaterialQueries;
 import root.Navigable;
 import root.entities.Activity;
 import root.screens.modifyselectedactivity.ModifySelectedActivityController;
 import root.screens.modifyselectedactivity.ModifySelectedActivityModel;
 import root.screens.modifyselectedactivity.ModifySelectedActivityView;
-import stubs.NavigatorStub;
+import stubs.*;
+import ui.ListFillModel;
 
 
 public class ModifySelectedActivityControllerTest {
@@ -19,12 +22,13 @@ public class ModifySelectedActivityControllerTest {
         JButton back = new JButton();
         JButton home = new JButton();
         JButton modify = new JButton();
+        JButton addMaterial = new JButton();
+        JButton remMaterial = new JButton();
         String id = "1";
         String branchOffice = "Fisciano";
         String area = "Molding";
         String estimatedTime = "120";
         String interruptible = "true";
-        String typology = "idraulica";
         String week = "1";
         String notes = "Note";
         String description = "Descrizione attività";
@@ -33,8 +37,8 @@ public class ModifySelectedActivityControllerTest {
         int backListenerCount = 0;
         int homeListenerCount = 0;
         int modifyListenerCount = 0;
-        // counters of some action on the view
-        int getInputsCount = 0;
+        int remMaterialListenerCount = 0;
+        int addMaterialListenerCount = 0;
         
         
         // Used to see the success of the modify operation
@@ -42,6 +46,18 @@ public class ModifySelectedActivityControllerTest {
         
         public ViewStub(Navigable nav, ModelStub model) {
             super(nav, model);
+        }
+
+        @Override
+        public void addMaterialRemoveBtnListener(ActionListener al) {
+            remMaterial.addActionListener(al);
+            remMaterialListenerCount++;
+        }
+
+        @Override
+        public void addMaterialAddBtnListener(ActionListener al) {
+            addMaterial.addActionListener(al);
+            addMaterialListenerCount++; 
         }
 
  
@@ -90,11 +106,6 @@ public class ModifySelectedActivityControllerTest {
         }
 
         @Override
-        public String getTypology(){
-            return typology;
-        }
-
-        @Override
         public String getWeek(){
             return week;
         }
@@ -123,24 +134,45 @@ public class ModifySelectedActivityControllerTest {
     /*Defining a Stub of a Model for testing purpose*/
     private class ModelStub extends ModifySelectedActivityModel {
         int modifyCallCount = 0;
+        int addMaterialCallCount = 0;
+        int removeMaterialCallCount = 0;
+        int updateMaterialsToActivityCallCount = 0;
+        
+        String typology = "idraulica";
         
         public ModelStub(ActivityQueries query) {
-            super(new Activity(1, null, null, null, null, 1, true, 1, null, null),query);
+            super(new ActivityQueriesStub().fetchComplete(1), new ActivityQueriesStub(),new MaterialQueriesStub().fetchAll());
         }
 
+        @Override
+        public void removeSelectedMaterial() {
+            removeMaterialCallCount++;
+        }
+
+        @Override
+        public void addSelectedMaterial() {
+            addMaterialCallCount++;
+        }
+        
         @Override
         public boolean modify(Map<String, String> inputMap){
             modifyCallCount++;
             return true;
         }
-    }
-    
-    private class ActivityQueriesStub extends ActivityQueries{
-        public ActivityQueriesStub() {
-            super();
+
+        @Override
+        public String getTypology() {
+            return typology;
         }
+
+        
+        @Override
+        public boolean updateMaterialsToActivity(int id) {
+            updateMaterialsToActivityCallCount++;
+            return true;
+        }    
     }
-    
+   
     ActivityQueriesStub query;
     ModifySelectedActivityController controller;
     ViewStub view;
@@ -161,6 +193,8 @@ public class ModifySelectedActivityControllerTest {
         assertEquals(1, view.backListenerCount);
         assertEquals(1, view.homeListenerCount);
         assertEquals(1, view.modifyListenerCount);
+        assertEquals(1, view.remMaterialListenerCount);
+        assertEquals(1, view.addMaterialListenerCount);
     }
     
 
@@ -185,8 +219,43 @@ public class ModifySelectedActivityControllerTest {
     }
     
     @Test
-    public void testModifyCheckoutKeyListNotContainsAll() {
+    public void testModifyCheckoutBranchOfficeInputVoid() {
         view.branchOffice = "";
+        view.modify.doClick();
+        assertFalse(view.result);
+    }
+    
+    @Test
+    public void testModifyCheckoutAreaInputVoid() {
+        view.area = "";
+        view.modify.doClick();
+        assertFalse(view.result);
+    }
+    
+    @Test
+    public void testModifyCheckoutEstimatedTimeInputVoid() {
+        view.estimatedTime = "";
+        view.modify.doClick();
+        assertFalse(view.result);
+    }
+    
+    @Test
+    public void testModifyCheckoutInterruptibleError() {
+        view.interruptible = "";
+        view.modify.doClick();
+        assertFalse(view.result);
+    }
+    
+    @Test
+    public void testModifyCheckoutDescriptionInputVoid() {
+        view.description = "";
+        view.modify.doClick();
+        assertFalse(view.result);
+    }
+    
+    @Test
+    public void testModifyCheckoutTypologyError() {
+        model.typology = "";
         view.modify.doClick();
         assertFalse(view.result);
     }
@@ -197,6 +266,7 @@ public class ModifySelectedActivityControllerTest {
         view.modify.doClick();
         assertFalse(view.result);
     }
+    
     @Test
     public void testModifyCheckoutNoteEmpty() {
         view.notes = ""; 

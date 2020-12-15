@@ -31,10 +31,8 @@ public class ModifySelectedActivityView extends Screen {
             branchOfficeInput.setEditable(true);
             areaInput.setText(model.getArea());
             areaInput.setEditable(true);
-            //typologyInput.setText(model.getTypology());
             typologyInput.setModel(model.getTypologyInputModel());
             typologyInput.setSelectedItem(model.getTypology());
-            //typologyInput.setEditable(true);
             estimatedTimeInput.setText(Integer.toString(model.getTime()));
             estimatedTimeInput.setEditable(true);
             weekInput.setText(Integer.toString(model.getWeek()));
@@ -377,12 +375,6 @@ public class ModifySelectedActivityView extends Screen {
         interruptibleYesInput.setActionCommand("true");
         return interruptibleGroupInput.getSelection().getActionCommand();
     }
-    
-    /*public String getTypology(){
-        return typologyInput.getText();
-    }*/
-    
-    
     
     public String getWeek(){
         return weekInput.getText();

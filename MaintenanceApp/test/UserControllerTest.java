@@ -1,10 +1,6 @@
-
-/**
- *
- * @author giand
- */
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JButton;
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -15,6 +11,7 @@ import root.screens.createuser.UserController;
 import root.screens.createuser.UserModel;
 import root.screens.createuser.UserView;
 import stubs.NavigatorStub;
+import stubs.UserQueriesStub;
 
 public class UserControllerTest {
     /*
@@ -154,41 +151,18 @@ public class UserControllerTest {
 
     }
     /**
-     * Used to simulute the interaction between the model and the database
-     * 
-     */
-    private class UserQueriesStub extends UserQueries{
-        private ArrayList<String> userCfList = new ArrayList<String>();
-        private ArrayList<String> userUsernameList = new ArrayList<String>();
-        
-        /**
-         * the following override simulate the 
-         * query of an insert of a user in the database
-         * 
-         * @param user
-         * @return 
-         */ 
-        @Override
-        public boolean insertIntoAppUser(User user){
-            if(userCfList.contains(user.getCf()) && userUsernameList.contains(user.getUsername())){
-                return false;
-            }else{
-                userCfList.add(user.getCf());
-                userUsernameList.add(user.getUsername());
-                return true;
-            }
-        }
-    }
-    
-
-    /**
      * Stub used to the model
      */
      private class UserModelStub extends UserModel {
         public UserModelStub(UserQueries query) {
             super(query);   
         }
-
+        
+        @Override
+        public boolean create(User user) {
+            return super.create(user); 
+        }
+        
         @Override
         public String getDatabaseError() {
             return "Error from database";
@@ -198,7 +172,6 @@ public class UserControllerTest {
     private UserViewStub viewStub;
     private UserModelStub modelStub;
     private UserController controller;
-    private UserQueriesStub queryStub;
     private UserQueriesStub createUserQueriesStub;
     private NavigatorStub navStub;
     
@@ -377,5 +350,42 @@ public class UserControllerTest {
         viewStub.setAddress("");
         viewStub.create.doClick();
         assertFalse(viewStub.result);
+    }
+    
+    /**
+     *  Testing the case of a creating an istance of user
+     */
+    @Test
+    public void testCreateUser() {
+        Map<String, String> inputMap = new HashMap<>();
+        viewStub.setCf("GRRTPO04E11L320M");
+        viewStub.setUsername("OLMO5");
+        viewStub.setPassword("sadasdhjqwdoklkòsd");
+        viewStub.setRole("P");
+        viewStub.setName("OLMO");
+        viewStub.setSurname("GUERRA");
+        viewStub.setEmail("olm@gmail.com");
+        viewStub.setAddress("Avellino Via roma");
+
+        inputMap.put("cf", viewStub.getCf());
+        inputMap.put("username", viewStub.getUsername());
+        inputMap.put("pass", viewStub.getPassword());
+        inputMap.put("user_role", viewStub.getRole());
+        inputMap.put("name", viewStub.getName());
+        inputMap.put("surname", viewStub.getSurname());
+        inputMap.put("email", viewStub.getEmail());
+        inputMap.put("address", viewStub.getAddress());
+        
+        User testUser = controller.createUser(inputMap);
+        User user = new User("GRRTPO04E11L320M","OLMO5","sadasdhjqwdoklkòsd","OLMO","GUERRA",
+                "olm@gmail.com","Avellino Via roma",User.RoleType.P);    
+        assertEquals(user.getCf(), testUser.getCf());
+        assertEquals(user.getUsername(), testUser.getUsername());
+        assertEquals(user.getPassword(), testUser.getPassword());
+        assertEquals(user.getName(), testUser.getName());
+        assertEquals(user.getSurname(), testUser.getSurname());
+        assertEquals(user.getEmail(), testUser.getEmail());
+        assertEquals(user.getAddress(), testUser.getAddress());
+        assertEquals(user.getRole(), testUser.getRole());      
     }
 }

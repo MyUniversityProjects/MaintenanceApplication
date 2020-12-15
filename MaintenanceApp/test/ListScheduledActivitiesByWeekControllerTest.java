@@ -10,6 +10,7 @@ import root.Navigable;
 import root.screens.listscheduledactivitiesbyweek.ListScheduledActivitiesByWeekController;
 import root.screens.listscheduledactivitiesbyweek.ListScheduledActivitiesByWeekModel;
 import root.screens.listscheduledactivitiesbyweek.ListScheduledActivitiesByWeekView;
+import stubs.ActivityQueriesStub;
 import stubs.NavigatorStub;
 import ui.ButtonColumnActionListener;
 
@@ -20,7 +21,7 @@ public class ListScheduledActivitiesByWeekControllerTest {
     */
     private class ViewStub extends ListScheduledActivitiesByWeekView {
         int scheduledActivityIndex = 3;
-        Integer selectedItem = 89;
+        Integer selectedItem = 1;
         JButton back = new JButton();
         ButtonColumnActionListener selectActionListener;
         JComboBox<Integer> numWeekBox = new JComboBox<>();
@@ -82,6 +83,7 @@ public class ListScheduledActivitiesByWeekControllerTest {
         public ModelStub(ActivityQueries query) throws SQLException {
             super(query);
         }
+        
         @Override
         public int getSelectedActivity(int index){
             getSelectedActivityCount++;
@@ -89,12 +91,7 @@ public class ListScheduledActivitiesByWeekControllerTest {
         }
         
     }
-    
-    private class ActivityQueriesStub extends ActivityQueries{
-        public ActivityQueriesStub() {
-            super();
-        }
-    }
+
     ListScheduledActivitiesByWeekController controller;
     ViewStub view;
     ModelStub model;

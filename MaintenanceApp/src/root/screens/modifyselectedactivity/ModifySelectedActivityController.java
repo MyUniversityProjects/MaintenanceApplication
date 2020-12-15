@@ -86,7 +86,7 @@ public class ModifySelectedActivityController {
             "estimated_time", "interruptible", "typology", 
             "description");       
         
-        if ( !inputMap.keySet().containsAll(keyList)) {
+        if (!inputMap.keySet().containsAll(keyList)) {
             checkoutError = "Error: The required fields have not been entered";
             return false;
         }

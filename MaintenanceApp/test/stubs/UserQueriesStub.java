@@ -6,6 +6,8 @@ import root.entities.User;
 public class UserQueriesStub extends UserQueries {
     private int deleteCallCount = 0;
     private int fetchAllCallCount = 0;
+    private int insertIntoAppUserCallCount = 0;
+    
 
     public int getDeleteCallCount() {
         return deleteCallCount;
@@ -33,4 +35,14 @@ public class UserQueriesStub extends UserQueries {
         return users;
     }
 
+    @Override
+    public String getCreateDatabaseError() {
+        return "Error from database";
+    }
+
+    @Override
+    public boolean insertIntoAppUser(root.screens.createuser.User user) {
+        insertIntoAppUserCallCount++;
+        return true;
+    }    
 }
