@@ -31,8 +31,10 @@ public class ModifySelectedActivityView extends Screen {
             branchOfficeInput.setEditable(true);
             areaInput.setText(model.getArea());
             areaInput.setEditable(true);
-            typologyInput.setText(model.getTypology());
-            typologyInput.setEditable(true);
+            //typologyInput.setText(model.getTypology());
+            typologyInput.setModel(model.getTypologyInputModel());
+            typologyInput.setSelectedItem(model.getTypology());
+            //typologyInput.setEditable(true);
             estimatedTimeInput.setText(Integer.toString(model.getTime()));
             estimatedTimeInput.setEditable(true);
             weekInput.setText(Integer.toString(model.getWeek()));
@@ -73,7 +75,6 @@ public class ModifySelectedActivityView extends Screen {
         areaLabel = new javax.swing.JLabel();
         areaInput = new javax.swing.JTextField();
         typologyLabel = new javax.swing.JLabel();
-        typologyInput = new javax.swing.JTextField();
         estimatedTimeLabel = new javax.swing.JLabel();
         estimatedTimeInput = new javax.swing.JTextField();
         weekLabel = new javax.swing.JLabel();
@@ -99,6 +100,7 @@ public class ModifySelectedActivityView extends Screen {
         materialComboBox = new javax.swing.JComboBox<>();
         addMaterialBtn = new javax.swing.JButton();
         remMaterialBtn = new javax.swing.JButton();
+        typologyInput = new javax.swing.JComboBox<>();
 
         jTextArea3.setColumns(20);
         jTextArea3.setRows(1);
@@ -204,7 +206,6 @@ public class ModifySelectedActivityView extends Screen {
                             .addComponent(estimatedTimeLabel)
                             .addComponent(weekLabel)
                             .addComponent(areaInput, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(typologyInput, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(estimatedTimeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(weekInput, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(mandatoryLabel)
@@ -214,7 +215,8 @@ public class ModifySelectedActivityView extends Screen {
                                 .addComponent(interruptibleNoInput))
                             .addComponent(interruptibleLabel)
                             .addComponent(typeLabel)
-                            .addComponent(typeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(typeInput, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(typologyInput, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(descriptionLabel)
@@ -346,7 +348,7 @@ public class ModifySelectedActivityView extends Screen {
     private javax.swing.ButtonGroup typeGroupInput;
     private javax.swing.JTextField typeInput;
     private javax.swing.JLabel typeLabel;
-    private javax.swing.JTextField typologyInput;
+    private javax.swing.JComboBox<String> typologyInput;
     private javax.swing.JLabel typologyLabel;
     private javax.swing.JTextField weekInput;
     private javax.swing.JLabel weekLabel;
@@ -376,9 +378,11 @@ public class ModifySelectedActivityView extends Screen {
         return interruptibleGroupInput.getSelection().getActionCommand();
     }
     
-    public String getTypology(){
+    /*public String getTypology(){
         return typologyInput.getText();
-    }
+    }*/
+    
+    
     
     public String getWeek(){
         return weekInput.getText();

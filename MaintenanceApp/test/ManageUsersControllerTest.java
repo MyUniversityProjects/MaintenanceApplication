@@ -104,13 +104,13 @@ public class ManageUsersControllerTest {
     
     @Test
     public void testDeleteListenerAction() {
-        view.deleteActionListener.actionPerformed(1);
+        view.deleteActionListener.actionPerformed(0);
         assertEquals(1, model.deleteCallCount);
     }
     
     @Test
     public void testEditListenerAction() {
-        view.editActionListener.actionPerformed(1);
+        view.editActionListener.actionPerformed(0);
         assertEquals(1, nav.getPushCallCount());
     }
 }

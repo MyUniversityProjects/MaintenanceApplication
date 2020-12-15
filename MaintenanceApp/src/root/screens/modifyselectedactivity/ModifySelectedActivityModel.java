@@ -1,6 +1,8 @@
 package root.screens.modifyselectedactivity;
 
 import java.util.Map;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import queries.ActivityQueries;
 import queries.MaterialQueries;
 import root.entities.Activity;
@@ -11,6 +13,7 @@ import ui.ListFillModel;
 public class ModifySelectedActivityModel extends Activity {
     ActivityQueries modifyActivityQueries;
     ListFillModel materialFillModel;
+    private final ComboBoxModel<String> typologyInputModel;
     public ModifySelectedActivityModel(Activity activity,ActivityQueries modifyActivityQueries, String[] allMaterials){
         super(
                 activity.getId(),
@@ -26,7 +29,8 @@ public class ModifySelectedActivityModel extends Activity {
         );
         this.modifyActivityQueries = modifyActivityQueries;
         this.materialFillModel = new ListFillModel(activity.getMaterials(), allMaterials);
-        
+        this.typologyInputModel = new DefaultComboBoxModel(
+            modifyActivityQueries.getTypologies().toArray());
     }
     
     /**
@@ -78,6 +82,14 @@ public class ModifySelectedActivityModel extends Activity {
     public boolean updateMaterialsToActivity(int id){
         return modifyActivityQueries.updateMaterialsToActivity(materialFillModel.getElements(),id);
     } 
+    
+    public String getTypology(){
+        return (String) typologyInputModel.getSelectedItem();
+    }
+    
+    public ComboBoxModel<String> getTypologyInputModel(){
+        return typologyInputModel;
+    }
 }
     
 

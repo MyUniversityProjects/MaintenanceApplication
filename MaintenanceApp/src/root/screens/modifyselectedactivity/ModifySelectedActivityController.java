@@ -134,7 +134,7 @@ public class ModifySelectedActivityController {
         inputMap.put("area", view.getArea());
         inputMap.put("estimated_time", view.getEstimatedTime());
         inputMap.put("interruptible", view.getInterruptible());
-        inputMap.put("typology", view.getTypology());
+        inputMap.put("typology", model.getTypology());
         inputMap.put("notes", view.getNotes());
         inputMap.put("description", view.getDescription());
         inputMap.put("id", Integer.toString(model.getId()));

@@ -20,6 +20,8 @@ public class ManageActivityView extends Screen {
 
     /**
      * Creates new form MantainanceActivityView
+     * @param nav
+     * @param model
      */
     public ManageActivityView(Navigable nav, ManageActivityModel model) {
         super(nav);

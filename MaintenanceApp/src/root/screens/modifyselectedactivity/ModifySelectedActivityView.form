@@ -61,7 +61,6 @@
                           <Component id="estimatedTimeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="weekLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="areaInput" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
-                          <Component id="typologyInput" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
                           <Component id="estimatedTimeInput" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
                           <Component id="weekInput" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
                           <Component id="mandatoryLabel" min="-2" max="-2" attributes="0"/>
@@ -73,6 +72,7 @@
                           <Component id="interruptibleLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="typeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="typeInput" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
+                          <Component id="typologyInput" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -220,8 +220,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Typology "/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="typologyInput">
     </Component>
     <Component class="javax.swing.JLabel" name="estimatedTimeLabel">
       <Properties>
@@ -421,6 +419,16 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="remove"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="typologyInput">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

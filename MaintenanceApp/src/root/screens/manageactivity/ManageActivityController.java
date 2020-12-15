@@ -2,7 +2,6 @@ package root.screens.manageactivity;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import root.screenbuilders.CreateActivityBuilder;
 import root.screenbuilders.ModifySelectedActivityBuilder;
 import ui.ButtonColumnActionListener;
