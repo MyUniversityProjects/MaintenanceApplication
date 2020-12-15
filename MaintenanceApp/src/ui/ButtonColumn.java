@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.Component;
+import java.awt.EventQueue;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -132,7 +133,9 @@ public class ButtonColumn {
         @Override
         public Object getCellEditorValue() {
             if (isPushed && al != null) {
-                al.actionPerformed(editingRow);
+                EventQueue.invokeLater(() -> {
+                    al.actionPerformed(editingRow);
+                });
             }
             isPushed = false;
             return label;

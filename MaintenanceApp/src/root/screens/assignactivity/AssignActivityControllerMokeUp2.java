@@ -120,7 +120,7 @@ public class AssignActivityControllerMokeUp2 extends AssignActivityController{
         return -3;
     }
     
-    protected String stringDay(int day) {
+    public static String stringDay(int day) {
         switch (day) {
             case 1:
                 return "Monday";

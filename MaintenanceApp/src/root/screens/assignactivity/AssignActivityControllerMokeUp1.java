@@ -64,7 +64,7 @@ public class AssignActivityControllerMokeUp1 extends AssignActivityController{
         
     }
     
-    private int sumIntVector(int[] vector) {
+    public static int sumIntVector(int[] vector) {
         if((vector == null) || (vector.length < 1))
             return 0;
         int sum = vector[0];
