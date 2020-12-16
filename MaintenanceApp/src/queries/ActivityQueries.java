@@ -256,8 +256,8 @@ public class ActivityQueries {
             if(rs != null){
                 while(rs.next()){                   
                     Activity activity = new Activity(rs.getInt("id"),
-                        rs.getString("branch_office"),
-                        rs.getString("area"), rs.getString("typology"),
+                        rs.getString("area"),
+                        rs.getString("branch_office"), rs.getString("typology"),
                         rs.getString("description"),
                         rs.getInt("estimated_time"), rs.getBoolean("interruptible"),
                         rs.getInt("week"),

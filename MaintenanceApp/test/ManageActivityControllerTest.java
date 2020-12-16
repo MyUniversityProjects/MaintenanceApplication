@@ -97,15 +97,4 @@ public class ManageActivityControllerTest {
         assertEquals(1, nav.getPushCallCount());
     }
     
-    @Test
-    public void testDeleteListenerAction() {
-        view.deleteActionListener.actionPerformed(1);
-        assertEquals(1, model.deleteCallCount);
-    }
-    
-    @Test
-    public void testEditListenerAction() {
-        view.editActionListener.actionPerformed(1);
-        assertEquals(1, nav.getPushCallCount());
-    }
 }

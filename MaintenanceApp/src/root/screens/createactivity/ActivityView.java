@@ -358,10 +358,6 @@ public class ActivityView extends Screen {
         return interruptibleGroupInput.getSelection().getActionCommand();
     }
     
-    public String getTypology(){
-        return null;
-    }
-    
     public String getWeek(){
         return weekInput.getText();
     }

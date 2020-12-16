@@ -7,7 +7,6 @@ import root.entities.Activity;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -39,7 +38,9 @@ public class ActivityController {
                         || model.getType().equals(ActivityModel.ActivityType.EXTRA)){
                         view.getNav().replace(
                             new VerifyActivityBuilder(model.getId()));
-                    }   
+                    } else {
+                        view.getNav().goHome();
+                    }
                 }
             } else {
                 view.showErrorMsg("Input error", checkoutError);
@@ -72,7 +73,6 @@ public class ActivityController {
         model.setInterruptible(Boolean.parseBoolean(view.getInterruptible()));
         model.setNotes(view.getNotes());
         model.setType(Activity.ActivityType.valueOf(type));
-        model.setTypology(view.getTypology());
         if(type.equals("UNPLANNED") || type.equals("EXTRA")){
             Calendar calendar = Calendar.getInstance(Locale.ITALY);
             week = calendar.get(Calendar.WEEK_OF_YEAR);
