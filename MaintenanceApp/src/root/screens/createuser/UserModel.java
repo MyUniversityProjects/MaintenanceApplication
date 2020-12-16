@@ -1,15 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package root.screens.createuser;
 
+
 import queries.UserQueries;
+import root.entities.User;
 
 public class UserModel {
     private String error;
-    private int errorCode;  
     private final UserQueries createUserQueries;
 
     /**

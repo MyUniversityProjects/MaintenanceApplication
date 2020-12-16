@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
+import root.entities.*;
 
 /**
  *
@@ -125,9 +126,9 @@ public class UserController {
      * @return user
      */
     public User createUser(Map<String, String> inputMap){
-        return new User(inputMap.get("cf"),inputMap.get("username"),inputMap.get("pass"),
-            inputMap.get("name"),inputMap.get("surname"),inputMap.get("email"),
-            inputMap.get("address"),User.RoleType.valueOf(inputMap.get("user_role")));
+        return new User(inputMap.get("name"),inputMap.get("surname"),inputMap.get("cf"),
+            inputMap.get("email"),inputMap.get("address"),inputMap.get("username"),
+            inputMap.get("pass"),User.convertRawRole(inputMap.get("user_role")));
     }
     
     private class BackBtnListener implements ActionListener {

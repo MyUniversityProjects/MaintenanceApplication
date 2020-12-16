@@ -15,7 +15,7 @@ import queries.ActivityQueries;
 public class ListScheduledActivitiesByWeekModel implements Serializable {
     // Used when notifying listeners so they know what has changed
     public static final String NUMWEEK_CHANGE = "numweek";
-    ActivityQueries query;
+    private ActivityQueries query;
     private Integer currentNumWeek;
     private final ComboBoxModel<Integer> numWeekComboBoxModel;
     private DefaultTableModel ScheduledActivitiesTableModel;

@@ -11,8 +11,8 @@ import ui.ListFillModel;
 
 
 public class ModifySelectedActivityModel extends Activity {
-    ActivityQueries modifyActivityQueries;
-    ListFillModel materialFillModel;
+    private final ActivityQueries modifyActivityQueries;
+    private final ListFillModel materialFillModel;
     private final ComboBoxModel<String> typologyInputModel;
     public ModifySelectedActivityModel(Activity activity,ActivityQueries modifyActivityQueries, String[] allMaterials){
         super(

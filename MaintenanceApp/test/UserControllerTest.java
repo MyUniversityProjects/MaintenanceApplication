@@ -6,7 +6,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import queries.UserQueries;
 import root.Navigable;
-import root.screens.createuser.User;
+import root.entities.User;
 import root.screens.createuser.UserController;
 import root.screens.createuser.UserModel;
 import root.screens.createuser.UserView;
@@ -377,8 +377,8 @@ public class UserControllerTest {
         inputMap.put("address", viewStub.getAddress());
         
         User testUser = controller.createUser(inputMap);
-        User user = new User("GRRTPO04E11L320M","OLMO5","sadasdhjqwdoklkòsd","OLMO","GUERRA",
-                "olm@gmail.com","Avellino Via roma",User.RoleType.P);    
+        User user = new User("OLMO","GUERRA","GRRTPO04E11L320M","olm@gmail.com","Avellino Via roma",
+                "OLMO5","sadasdhjqwdoklkòsd",User.UserRole.PLANNER);     
         assertEquals(user.getCf(), testUser.getCf());
         assertEquals(user.getUsername(), testUser.getUsername());
         assertEquals(user.getPassword(), testUser.getPassword());

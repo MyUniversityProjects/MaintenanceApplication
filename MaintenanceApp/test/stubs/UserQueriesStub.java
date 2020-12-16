@@ -41,7 +41,7 @@ public class UserQueriesStub extends UserQueries {
     }
 
     @Override
-    public boolean insertIntoAppUser(root.screens.createuser.User user) {
+    public boolean insertIntoAppUser(User user) {
         insertIntoAppUserCallCount++;
         return true;
     }    

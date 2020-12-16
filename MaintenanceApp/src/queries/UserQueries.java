@@ -132,7 +132,7 @@ public class UserQueries {
      * @param user
      * @return  true if the insert was successful
      */
-    public boolean insertIntoAppUser(root.screens.createuser.User user){
+    public boolean insertIntoAppUser(User user){
         String query = "INSERT INTO appuser "+
             "(cf, username, pass, user_role, name,"+
             "surname, email, address) VALUES "+
@@ -142,7 +142,7 @@ public class UserQueries {
                 stmt.setString(1, user.getCf());
                 stmt.setString(2,user.getUsername());
                 stmt.setString(3, user.getPassword());
-                stmt.setString(4, user.getRole().toString());
+                stmt.setString(4, user.convertRoleInChar(user.getRole()));
                 stmt.setString(5, user.getName());
                 stmt.setString(6, user.getSurname());
                 stmt.setString(7, user.getEmail());
